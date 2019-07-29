@@ -87,7 +87,6 @@ class VirtualMachineHandler:
             raise "No Keypair  {0}".format(keypair_id)
         return keypair.to_dict()
 
-
     def import_keypair(self, keyname, public_key):
         """
         Import Keypair to OpenStack.
@@ -115,7 +114,6 @@ class VirtualMachineHandler:
             return keypair
         except Exception as e:
             return {"message": "Import Keypair {0} error:{1}".format(keyname, e), "result": {}}, 400
-
 
     def create_security_group(self, name):
         # self.logger.info("Create new security group {}".format(name))
@@ -145,7 +143,6 @@ class VirtualMachineHandler:
             raise Exception("Network {0} not found!".format(network)
             )
         return network
-
 
     def get_security_group(self, security_group_id):
         security_group = self.conn.network.find_security_group(security_group_id)
@@ -208,46 +205,6 @@ class VirtualMachineHandler:
         """
         volume_id = ''
         #self.logger.info("Start Server {0}".format(servername))
-        try:
-            self.set_network()
-            # metadata = {"elixir_id": elixir_id}
-            image = self.get_image(image=image)
-            flavor = self.get_flavor(flavor=flavor)
-            network = self.get_network()
-            key_pair = self.import_keypair(key_name, public_key)
-
-            if diskspace > 0:
-                volume_id = self.create_volume_by_start(volume_storage=diskspace,
-                                                        volume_name=volume_name,
-                                                        server_name=servername)
-                init_script = self.create_mount_init_script(volume_id=volume_id)
-
-                server = self.conn.compute.create_server(
-                    name=servername,
-                    image_id=image.id,
-                    flavor_id=flavor.id,
-                    networks=[{"uuid": network.id}],
-                    key_name=key_pair.name,
-                    user_data=init_script,
-                    availability_zone=self.AVAIALABILITY_ZONE,
-                )
-            else:
-                server = self.conn.compute.create_server(
-                    name=servername,
-                    image_id=image.id,
-                    flavor_id=flavor.id,
-                    networks=[{"uuid": network.id}],
-                    key_name=key_pair.name,
-                )
-
-            openstack_id = server.to_dict()
-
-            return {"openstackid": openstack_id, "volumeId": volume_id}
-        except Exception as e:
-            print(e)
-            # self.logger.exception("Start Server {1} error:{0}".format(e, servername))
-            return {}
-
 
     def add_security_group_rule(self, type, security_group_id):
         if type == "ssh":
@@ -267,7 +224,6 @@ class VirtualMachineHandler:
                 security_group_id=security_group_id,
                 ether_type="IPv4",
                 remote_ip_prefix= "0.0.0.0/0")
-
 
     def add_gateway_to_router(self, router_id, network_id):
         router = self.conn.network.get_router(router_id)

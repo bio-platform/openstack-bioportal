@@ -4,22 +4,25 @@ from marshmallow import ValidationError
 from flask import request
 from VirtualMachineHandler import VirtualMachineHandler
 from security.APISecurity.SecuritySchema import SecurityGroupRuleSchema
-from Security import SecurityGroupRule
+from security.APISecurity.Security import SecurityGroupRule
 
 
 class SecurityGroupRuleManager(Resource):
     def post(self):
         try:
             input = SecurityGroupRuleSchema().load(request.json)
-            SecurityGroupRule.create(**input)
+            return SecurityGroupRule().create(**input)
         except ValidationError as VE:
             return {'message': 'missing required arguments: ' + ', '.join(VE.field_names), 'result': {}}, 400
 
     def get(self, security_group_id=None):
-        pass
+        if security_group_id is None:
+            return SecurityGroupRule().list()
+        else:
+            return SecurityGroupRule().get(security_group_id)
 
-    def put(self):
-        pass
+    def put(self, security_group_id):
+        return SecurityGroupRule().update(security_group_id)
 
-    def delete(self):
-        pass
+    def delete(self, security_group_id):
+        return SecurityGroupRule().delete(security_group_id)

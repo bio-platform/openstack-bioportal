@@ -9,19 +9,19 @@ class InstanceManager(Resource):
     def post(self):
         try:
             input = StartServerSchema.load(request.json)
-            return Instance.start_instance(input)
+            return Instance().create(**input)
 
         except ValidationError as VE:
             return {'message': 'missing required arguments: ' + ', '.join(VE.field_names), 'result': {}}, 400
 
     def get(self, instance_id=None):
         if instance_id is None:
-            return Instance().list_instances()
+            return Instance().list()
         else:
-            return Instance().get_instance(instance_id)
+            return Instance().get(instance_id)
 
     def put(self):
-        pass
+        return Instance().update()
 
     def delete(self):
-        pass
+        return Instance().delete()

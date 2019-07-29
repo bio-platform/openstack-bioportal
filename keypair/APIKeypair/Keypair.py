@@ -4,17 +4,39 @@ from VirtualMachineHandler import VirtualMachineHandler
 
 class Keypair(Resource):
 
-    def create_keypair(self, input):
-        vh = VirtualMachineHandler("token", "clouds.yaml",)
-        return vh.import_keypair(**input)
-
-    def update_keypair(self):
-        pass
-
-    def get_keypair(self, keypair_id):
+    def create(self, keyname, public_key):
         vh = VirtualMachineHandler("token", "clouds.yaml")
-        return vh.get_keypair(keypair_id)
+        try:
+            keypair = vh.conn.compute.find_keypair(keyname)
+            if not keypair:
+                keypair = vh.conn.compute.create_keypair(
+                    name=keyname, public_key=public_key
+                )
+                return keypair, 201
+            elif keypair.public_key != public_key:
+                vh.conn.compute.delete_keypair(keypair)
+                keypair = vh.conn.compute.create_keypair(
+                    name=keyname, public_key=public_key
+                )
+                return keypair, 200
+            return keypair, 200
+        except Exception as e:
+            return {"message": "Import Keypair {0} error:{1}".format(keyname, e), "result": {}}, 400
 
-    def list_keypairs(self):
+    def update(self):
+        return {}, 501
+
+    def delete(self):
+        return {}, 501
+
+    def get(self, keypair_id):
         vh = VirtualMachineHandler("token", "clouds.yaml")
-        return vh.list_keypairs()
+        keypair = vh.conn.compute.find_keypair(keypair_id)
+        if keypair is None:
+            return {}, 404
+        return keypair, 200
+
+    def list(self):
+        vh = VirtualMachineHandler("token", "clouds.yaml")
+        tmp = vh.conn.compute.keypairs()
+        return [r for r in tmp], 200

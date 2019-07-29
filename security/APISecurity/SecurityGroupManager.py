@@ -4,7 +4,7 @@ from security.APISecurity.SecuritySchema import SecurityGroupSchema
 from marshmallow import ValidationError
 from flask import request
 from VirtualMachineHandler import VirtualMachineHandler
-from Security import SecurityGroup
+from security.APISecurity.Security import SecurityGroup
 
 
 
@@ -23,7 +23,8 @@ class SecurityGroupManager(Resource):
             return SecurityGroup().get(security_group_id)
 
     def put(self):
-        pass
+        return SecurityGroup().update()
 
     def delete(self):
-        pass
+        return SecurityGroup().delete()
+

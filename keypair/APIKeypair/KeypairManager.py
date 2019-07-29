@@ -9,23 +9,19 @@ class KeypairManager(Resource):
     def post(self):
         try:
             input = CreateSchema().load(request.json)
-            res = Keypair().create_keypair(input)
-            print(res)
+            return Keypair().create(**input)
         except ValidationError as VE:
             return {'message': 'missing required arguments: ' + ', '.join(VE.field_names), 'result': {}}, 400
 
     def get(self, keypair_id=None):
         if keypair_id is None:
-            return {"message": "ok", "result": Keypair().list_keypairs()}
+            return Keypair().list()
         else:
-            res = Keypair().get_keypair(keypair_id)
-            if type(res) == dict:
-                return {"message": "ok", "result": res}
-            else:
-                return {"message": res, "result": {}}, 404
+            return Keypair().get(keypair_id)
 
     def put(self):
-        pass
+        return Keypair().update()
 
     def delete(self):
-        pass
+        return Keypair().delete()
+

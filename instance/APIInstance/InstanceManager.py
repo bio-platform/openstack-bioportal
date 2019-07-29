@@ -16,9 +16,9 @@ class InstanceManager(Resource):
 
     def get(self, instance_id=None):
         if instance_id is None:
-            return Instance().list()
+            return Instance().list("token")
         else:
-            return Instance().get(instance_id)
+            return Instance().get(instance_id,"token")
 
     def put(self):
         return Instance().update()

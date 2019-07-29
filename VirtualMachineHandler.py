@@ -87,6 +87,7 @@ class VirtualMachineHandler:
             raise "No Keypair  {0}".format(keypair_id)
         return keypair.to_dict()
 
+
     def import_keypair(self, keyname, public_key):
         """
         Import Keypair to OpenStack.
@@ -114,6 +115,7 @@ class VirtualMachineHandler:
             return keypair
         except Exception as e:
             return {"message": "Import Keypair {0} error:{1}".format(keyname, e), "result": {}}, 400
+
 
     def create_security_group(self, name):
         # self.logger.info("Create new security group {}".format(name))
@@ -143,6 +145,7 @@ class VirtualMachineHandler:
             raise Exception("Network {0} not found!".format(network)
             )
         return network
+
 
     def get_security_group(self, security_group_id):
         security_group = self.conn.network.find_security_group(security_group_id)
@@ -224,6 +227,7 @@ class VirtualMachineHandler:
                 security_group_id=security_group_id,
                 ether_type="IPv4",
                 remote_ip_prefix= "0.0.0.0/0")
+
 
     def add_gateway_to_router(self, router_id, network_id):
         router = self.conn.network.get_router(router_id)

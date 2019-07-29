@@ -1,4 +1,3 @@
-from flask_restful import Resource
 from VirtualMachineHandler import VirtualMachineHandler
 
 
@@ -32,7 +31,7 @@ class SecurityGroup:
     def delete(self):
         return {}, 501
 
-class SecurityGroupRule(Resource):
+class SecurityGroupRule:
 
     def create(self, security_group_id, type):
         vh = VirtualMachineHandler("token", "clouds.yaml")

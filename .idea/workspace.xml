@@ -2,26 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/network/APINetwork/NetworkSchema.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/network/APINetwork/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/network/network.wsgi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/security/APISecurity/Security.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VirtualMachineHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualMachineHandler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/APIInstance/Instance.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/APIInstance/Instance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/APIInstance/InstanceManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/APIInstance/InstanceManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/APIInstance/InstanceSchema.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/APIInstance/InstanceSchema.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keypair/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/keypair/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keypair/0_Other/run_sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/keypair/0_Other/run_sample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keypair/APIKeypair/Keypair.py" beforeDir="false" afterPath="$PROJECT_DIR$/keypair/APIKeypair/Keypair.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keypair/APIKeypair/KeypairManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/keypair/APIKeypair/KeypairManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openstack_resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/openstack_resources.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/0_Other/run_sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/security/0_Other/run_sample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/APISecurity/SecurityGroupManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/security/APISecurity/SecurityGroupManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/APISecurity/SecurityGroupRuleManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/security/APISecurity/SecurityGroupRuleManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/APISecurity/SecuritySchema.py" beforeDir="false" afterPath="$PROJECT_DIR$/security/APISecurity/SecuritySchema.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/APISecurity/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/security/APISecurity/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/.idea/keypair.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/0_Other/run_sample.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/APISecurity/Security.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/APISecurity/SecurityGroupManager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/APISecurity/SecurityGroupRuleManager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/APISecurity/SecuritySchema.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/APISecurity/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/APISecurity/clouds.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/security.wsgi" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,28 +60,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.run_sample (2)">
-    <configuration name="__init__ (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="OpenStack" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keypair/APIKeypair" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keypair/APIKeypair/__init__.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.run_sample (1)">
     <configuration name="__init__ (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -130,6 +103,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OpenStack" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/security_group/APISecurityGroup" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/security_group/APISecurityGroup/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="api" type="PythonConfigurationType" factoryName="Python">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -143,6 +137,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/api.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_sample (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OpenStack" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/security_group/0_Other" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/security_group/0_Other/run_sample.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -172,42 +187,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_sample" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="OpenStack" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keypair/0_Other" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keypair/0_Other/run_sample.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.api" />
-      <item itemvalue="Python.__init__ (1)" />
-      <item itemvalue="Python.run_sample" />
       <item itemvalue="Python.__init__ (2)" />
       <item itemvalue="Python.__init__ (3)" />
       <item itemvalue="Python.run_sample (2)" />
+      <item itemvalue="Python.__init__" />
+      <item itemvalue="Python.run_sample (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_sample (1)" />
+        <item itemvalue="Python.__init__" />
         <item itemvalue="Python.run_sample (2)" />
         <item itemvalue="Python.__init__ (3)" />
         <item itemvalue="Python.__init__ (2)" />
-        <item itemvalue="Python.run_sample" />
-        <item itemvalue="Python.__init__ (1)" />
       </list>
     </recent_temporary>
   </component>

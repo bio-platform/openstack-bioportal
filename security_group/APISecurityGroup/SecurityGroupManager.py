@@ -1,10 +1,10 @@
 from flask_restful import Resource
 from keypair.APIKeypair.Keypair import Keypair
-from security.APISecurity.SecuritySchema import SecurityGroupSchema
+from security_group.APISecurityGroup.SecurityGroupSchema import SecurityGroupSchema
 from marshmallow import ValidationError
 from flask import request
 from VirtualMachineHandler import VirtualMachineHandler
-from security.APISecurity.Security import SecurityGroup
+from security_group.APISecurityGroup.SecurityGroup import SecurityGroup
 
 
 

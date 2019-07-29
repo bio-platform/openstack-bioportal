@@ -8,5 +8,4 @@ class SecurityGroupSchema(Schema):
 
 class SecurityGroupRuleSchema(Schema):
     type = fields.String(required=True, validate=validate.OneOf(connection_types))
-    security_group_id = fields.String(required=True)
 

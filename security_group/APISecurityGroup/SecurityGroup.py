@@ -34,7 +34,7 @@ class SecurityGroup:
 
 class SecurityGroupRule(Resource):
 
-    def create(self, type, security_group_id):
+    def create(self, security_group_id, type):
         vh = VirtualMachineHandler("token", "clouds.yaml")
         try:
             if type == "ssh":
@@ -59,10 +59,10 @@ class SecurityGroupRule(Resource):
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self, security_group_id):
+    def get(self, security_group_id, security_group_rule_id):
         return {}, 501
 
-    def list(self):
+    def list(self, security_group_id):
         return {}, 501
 
     def update(self, security_group_id):

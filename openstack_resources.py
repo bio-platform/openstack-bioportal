@@ -4,3 +4,6 @@ flavors = [
         "standard.medium",
         "standard.large",
         "standard.memory"]
+
+connection_types = ["ssh",
+                    "all_icmp"]

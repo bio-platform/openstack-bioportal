@@ -82,10 +82,8 @@ class VirtualMachineHandler:
         try:
             keypair = self.conn.compute.get_keypair(keypair_id)
         except Exception as e:
-            # self.logger.exception("No Server found {0} | Error {1}".format(openstack_id, e))
             return "No Keypair found {0} | Error {1}".format(keypair_id, e)
         if keypair is None:
-            # self.logger.exception("No Server  {0}".format(openstack_id))
             raise "No Keypair  {0}".format(keypair_id)
         return keypair.to_dict()
 
@@ -148,13 +146,12 @@ class VirtualMachineHandler:
             )
         return network
 
-    def get_security_group(self, name):
-        security_groups = self.list_security_groups()
-        security_groups = list(filter(lambda x: x.name == name, security_groups))
-        if not security_groups:
-            raise Exception("Security group with name: {} not found".format(name))
 
-        return security_groups[0]
+    def get_security_group(self, security_group_id):
+        security_group = self.conn.network.find_security_group(security_group_id)
+        if security_group is None:
+            raise Exception("Security group {0} not found!".format(security_group))
+        return security_group
 
     def create_volume_by_start(self, volume_storage, volume_name, server_name):
         # self.logger.info("Creating volume with {0} GB diskspace".format(volume_storage))

@@ -1,9 +1,12 @@
 from marshmallow import Schema, fields, validate
-from openstack_resources import flavors
+from openstack_resources import connection_types
 
 
 class SecurityGroupSchema(Schema):
-    pass
+    name = fields.String(required=False, default="default_security_group")
+
 
 class SecurityGroupRuleSchema(Schema):
-    pass
+    type = fields.String(required=True, validate=validate.OneOf(connection_types))
+    security_group_id = fields.String(required=True)
+

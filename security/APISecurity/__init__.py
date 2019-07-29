@@ -6,7 +6,7 @@ from security.APISecurity.SecurityGroupRuleManager import SecurityGroupRuleManag
 app = Flask(__name__)
 api = Api(app)
 
-api.add_resource(SecurityGroupManager, '/security_group/', '/<string:security_group_id>/')
+api.add_resource(SecurityGroupManager, '/security_group/', '/security_group/<string:security_group_id>/')
 api.add_resource(SecurityGroupRuleManager, '/security_group_rule/')
 
 if __name__ == '__main__':

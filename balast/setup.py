@@ -32,6 +32,8 @@ router_id = get("https://network.cloud.muni.cz/v2.0/routers",
 #put("https://.cloud.muni.cz/v2.0/routers/%s" % router_id,
 #                headers={"X-Auth-Token": token}, json = router_gateway_request).json()
 
+
+
 """
 # Create Key Pair using local public key
 print("CREATING Key Pair")

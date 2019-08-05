@@ -22,7 +22,7 @@ class SecurityGroup:
 
     def list(self):
         vh = VirtualMachineHandler("token", "clouds.yaml")
-        tmp = vh.conn.network.networks()
+        tmp = vh.conn.network.security_groups()
         return [r for r in tmp], 200
 
     def update(self):

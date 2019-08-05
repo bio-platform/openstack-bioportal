@@ -8,10 +8,11 @@ from flask import request
 class InstanceManager(Resource):
     def post(self):
         try:
-            input = StartServerSchema.load(request.json)
+            input = StartServerSchema().load(request.json)
             return Instance().create(**input)
 
         except ValidationError as VE:
+
             return {'message': 'missing required arguments: ' + ', '.join(VE.field_names), 'result': {}}, 400
 
     def get(self, instance_id=None):

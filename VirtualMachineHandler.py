@@ -1,6 +1,5 @@
 from keystoneauth1 import session
 from keystoneauth1.identity.v3 import ApplicationCredential
-from keystoneauth1.identity.v3.oidc import OidcAccessToken
 import datetime, time
 import yaml
 from openstack import connection

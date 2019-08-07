@@ -4,8 +4,8 @@ from requests import put
 
 class Gateway:
 
-    def add(self, router_id, external_network):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def add(self, token, router_id, external_network):
+        vh = VirtualMachineHandler(token)
         router = vh.conn.network.get_router(router_id)
         if not router:
             return {"message": "Wrong router ID, router not found!"}, 400
@@ -22,8 +22,8 @@ class Gateway:
 
 class FloatingIp:
 
-    def create(self, instance_id, network_id):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def create(self, token, instance_id, network_id):
+        vh = VirtualMachineHandler(token)
         try:
             server = vh.conn.compute.get_server(instance_id)
             if server is None:
@@ -57,13 +57,13 @@ class FloatingIp:
             return {"message": "Adding Floating IP to {0} with network {1} error:{2}".format(instance_id, network_id, e)}
 
 class Network:
-    def get(self, network_id):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def get(self, token, network_id):
+        vh = VirtualMachineHandler(token)
         network = vh.conn.network.find_network(network_id)
         if network is None:
             return {}, 404
         return network.to_dict(), 200
-    def list(self):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def list(self, token):
+        vh = VirtualMachineHandler(token)
         network = vh.conn.network.networks()
         return [r for r in network], 200

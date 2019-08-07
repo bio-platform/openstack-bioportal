@@ -1,10 +1,10 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields
+from DefaultSchema import DefaultSchema
 
-
-class NetworkSchema(Schema):
+class NetworkSchema(DefaultSchema):
     external_network = fields.String(required=True)
 
 
-class FloatingIpSchema(Schema):
+class FloatingIpSchema(DefaultSchema):
     network_id = fields.String(required=True)
     instance_id = fields.String(required=True)

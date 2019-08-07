@@ -1,5 +1,9 @@
 from requests import get, post, put
 from pprint import pprint
-pprint(put("http://localhost:5000/security_group/", json={"name": "new1"}).json())
-pprint(post("http://localhost:5000/security_group_rule/", json={"type": "ssh",
-                                                                "security_group_id": "381ffa85-4169-47ac-9092-21bf18120a22"}).json())
+from Token import token
+
+#print(put("http://localhost:5000/security_group/", json={"name": "new1"}).json())
+pprint(post("http://localhost:5000/security_groups/cecb51c0-adc4-42b7-ba65-de374d813d7a/security_group_rules/", json={"type": "ssh",
+"token": token}).json())
+pprint(get("http://localhost:5000/security_groups/cecb51c0-adc4-42b7-ba65-de374d813d7a",
+           json={"token": token}).json())

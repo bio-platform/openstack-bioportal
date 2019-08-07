@@ -3,16 +3,16 @@ from VirtualMachineHandler import VirtualMachineHandler
 
 class SecurityGroup:
 
-    def create(self, name):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def create(self, token, name):
+        vh = VirtualMachineHandler(token)
         try:
             new_security_group = vh.conn.network.create_security_group(name=name)
             return new_security_group
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self, security_group_id):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def get(self, token, security_group_id):
+        vh = VirtualMachineHandler(token)
 
         security_group = vh.conn.network.find_security_group(security_group_id)
         if security_group is None:
@@ -20,8 +20,8 @@ class SecurityGroup:
         print(security_group.to_dict())
         return security_group.to_dict(), 200
 
-    def list(self):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def list(self, token):
+        vh = VirtualMachineHandler(token)
         tmp = vh.conn.network.security_groups()
         return [r for r in tmp], 200
 
@@ -33,8 +33,8 @@ class SecurityGroup:
 
 class SecurityGroupRule:
 
-    def create(self, security_group_id, type):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def create(self, token, security_group_id, type):
+        vh = VirtualMachineHandler(token)
         try:
             if type == "ssh":
                 new_rule = vh.conn.network.create_security_group_rule(
@@ -58,14 +58,14 @@ class SecurityGroupRule:
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self, security_group_id, security_group_rule_id):
+    def get(self, token, security_group_id, security_group_rule_id):
         return {}, 501
 
-    def list(self, security_group_id):
+    def list(self, token, security_group_id):
         return {}, 501
 
-    def update(self, security_group_id):
+    def update(self, token, security_group_id):
         return {}, 501
 
-    def delete(self, security_group_id):
+    def delete(self, token, security_group_id):
         return {}, 501

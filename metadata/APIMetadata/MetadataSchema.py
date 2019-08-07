@@ -1,5 +1,10 @@
-from marshmallow import Schema, fields, validate
-from openstack_resources import flavors
+from marshmallow import fields
+from DefaultSchema import DefaultSchema
 
-class DeleteSchema(Schema):
-    keys = fields.Nested(fields.String, many=True, required=True)
+
+class CreateSchema(DefaultSchema):
+    metadata = fields.Dict(required=True)
+
+
+class DeleteSchema(DefaultSchema):
+    keys = fields.List(fields.String(), required=True)

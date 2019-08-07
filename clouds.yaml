@@ -13,8 +13,6 @@ clouds:
       
       auth_url: https://identity.cloud.muni.cz/v3
       
-      application_credential_id: "e2fdf90a78cd4275a9bf16abc9e14556"
-      application_credential_secret: "uQfwUhxMAi0Y2meY3oUyfS8RYcJJLkZwc7sCzSq6L3w-JBefAt6OD6J1RW7ro-eubNzIONaULXUY21bd4VXJpg"
       identity_provider: login.cesnet.cz
       protocol: openid
       

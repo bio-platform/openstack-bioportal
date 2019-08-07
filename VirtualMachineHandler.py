@@ -1,55 +1,60 @@
 from keystoneauth1 import session
-from keystoneauth1.identity.v3 import ApplicationCredential
+from keystoneauth1.identity.v3 import OidcAccessToken, Token
 import datetime, time
 import yaml
 from openstack import connection
 from oslo_utils import encodeutils
 import os
 import base64
-from requests import put
+from requests import put, get
 from openstack.compute.v2 import server, flavor, image
 
 class VirtualMachineHandler:
 
     def create_connection(self):
         try:
-
-            admin = ApplicationCredential(application_credential_id= self.APPLICATION_CREDENTIAL_ID,
-                                      application_credential_secret=self.APPLICATION_CREDENTIAL_SECRET,
-                                      auth_url=self.AUTH_URL)
-            """
             admin = OidcAccessToken(auth_url=self.AUTH_URL,
                                     identity_provider=self.IDENTITY_PROVIDER,
                                     protocol=self.PROTOCOL,
                                     access_token=self.ACCESS_TOKEN)
-            """
+
             sess = session.Session(auth=admin)
             conn = connection.Connection(session=sess)
-            conn.authorize()
+
+            unscoped_token = conn.authorize()
+            user_id = admin.get_user_id(sess)
+
+            projects = get("https://identity.cloud.muni.cz/v3/users/%s/projects" % user_id,
+                      headers={"Accept": "application/json",
+                               "User-Agent": "Mozilla/5.0 (X11;",
+                               "X-Auth-Token": unscoped_token}).json()['projects']
+            if projects:
+                self.PROJECT_ID = projects[0]["id"]
+                self.PROJECT_DOMAIN_ID = projects[0]["domain_id"]
+
+            t = Token(auth_url=self.AUTH_URL,
+                      token=unscoped_token,
+                      project_domain_id=self.PROJECT_DOMAIN_ID,
+                      project_id=self.PROJECT_ID)
+
+            sess = session.Session(auth=t)
+            conn = connection.Connection(session=sess)
+
         except Exception as e:
             raise Exception('Client failed authentication at Openstack Reason: {}'.format(e))
         self.SESSION = sess
         return conn
 
-    def __init__(self, access_token, config):
-        with open(config, "r") as ymlfile:
-            cfg = yaml.load(ymlfile, Loader=yaml.SafeLoader)
-            self.AUTH_URL = cfg["clouds"]["openstack"]["auth"]["auth_url"]
-            self.ACCESS_TOKEN = access_token
-            self.IDENTITY_PROVIDER = cfg["clouds"]["openstack"]["auth"]["identity_provider"]
-            self.PROTOCOL =cfg["clouds"]["openstack"]["auth"]["protocol"]
-            self.APPLICATION_CREDENTIAL_ID = cfg["clouds"]["openstack"]["auth"]["application_credential_id"]
-            self.APPLICATION_CREDENTIAL_SECRET = cfg["clouds"]["openstack"]["auth"]["application_credential_secret"]
-            self.REGION_NAME = cfg["clouds"]["openstack"]["region_name"]
-            self.INTERFACE = cfg["clouds"]["openstack"]["interface"]
-            self.IDENTITY_API_VERSION = cfg["clouds"]["openstack"]["identity_api_version"]
-            self.AUTH_TYPE = cfg["clouds"]["openstack"]["auth_type"]
-            self.PROJECT_ID = cfg["clouds"]["openstack"]["project_id"]
-            self.NETWORK = None
-            self.SESSION = None
+    def __init__(self, access_token):
+        self.AUTH_URL = "https://identity.cloud.muni.cz/v3"
+        self.ACCESS_TOKEN = access_token
+        self.IDENTITY_PROVIDER = "login.cesnet.cz"
+        self.PROTOCOL = "openid"
+        self.NETWORK = None
+        self.SESSION = None
+        self.PROJECT_DOMAIN_ID = None
+        self.PROJECT_ID = None
         self.conn = self.create_connection()
-
-        pass
 
     def list_default(self, function):
         try:

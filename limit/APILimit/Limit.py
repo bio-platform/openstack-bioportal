@@ -1,8 +1,8 @@
 from VirtualMachineHandler import VirtualMachineHandler
 
 class Limit:
-    def list(self):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def list(self, token):
+        vh = VirtualMachineHandler(token)
         limits = vh.conn.compute.get_limits()
         absolute = limits["absolute"]
         res = {"floating_ips": {"limit":absolute["floating_ips"],

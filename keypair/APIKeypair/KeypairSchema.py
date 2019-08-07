@@ -1,7 +1,7 @@
-from marshmallow import Schema, fields, validate
-from openstack_resources import flavors
+from marshmallow import fields
+from DefaultSchema import DefaultSchema
 
 
-class CreateSchema(Schema):
+class CreateSchema(DefaultSchema):
     public_key = fields.String(required=True)
     keyname = fields.String(required=False, default="default_key")

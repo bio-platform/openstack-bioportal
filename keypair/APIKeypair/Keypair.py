@@ -4,8 +4,8 @@ from VirtualMachineHandler import VirtualMachineHandler
 
 class Keypair(Resource):
 
-    def create(self, keyname, public_key):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def create(self, token, keyname, public_key):
+        vh = VirtualMachineHandler(token)
         try:
             keypair = vh.conn.compute.find_keypair(keyname)
             if not keypair:
@@ -23,20 +23,20 @@ class Keypair(Resource):
         except Exception as e:
             return {"message": "Import Keypair {0} error:{1}".format(keyname, e), "result": {}}, 400
 
-    def update(self):
+    def update(self, token):
         return {}, 501
 
-    def delete(self):
+    def delete(self, token):
         return {}, 501
 
-    def get(self, keypair_id):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def get(self, token, keypair_id):
+        vh = VirtualMachineHandler(token)
         keypair = vh.conn.compute.find_keypair(keypair_id)
         if keypair is None:
             return {}, 404
         return keypair, 200
 
-    def list(self):
-        vh = VirtualMachineHandler("token", "clouds.yaml")
+    def list(self, token):
+        vh = VirtualMachineHandler(token)
         tmp = vh.conn.compute.keypairs()
         return [r for r in tmp], 200

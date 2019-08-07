@@ -1,28 +1,22 @@
 from flask_restful import Resource
 from instance.APIInstance.Instance import Instance
 from instance.APIInstance.InstanceSchema import StartServerSchema
-from marshmallow import ValidationError
 from flask import request
+import DefaultManager
 
 
 class InstanceManager(Resource):
     def post(self):
-        try:
-            input = StartServerSchema().load(request.json)
-            return Instance().create(**input)
-
-        except ValidationError as VE:
-
-            return {'message': 'missing required arguments: ' + ', '.join(VE.field_names), 'result': {}}, 400
+        return DefaultManager.manage(Instance().create, request.json, StartServerSchema)
 
     def get(self, instance_id=None):
         if instance_id is None:
-            return Instance().list("token")
+            return DefaultManager.manage(Instance().list, request.json)
         else:
-            return Instance().get(instance_id,"token")
+            return DefaultManager.manage(Instance().list, request.json, instance_id=instance_id)
 
     def put(self):
-        return Instance().update()
+        return DefaultManager.manage(Instance().update, request.json)
 
     def delete(self):
-        return Instance().delete()
+        return DefaultManager.manage(Instance().update, request.json)

@@ -5,7 +5,7 @@ from openstack.exceptions import ResourceNotFound
 class Instance(Resource):
 
     def get(self, openstack_id, token):
-        vh = VirtualMachineHandler("token", "clouds.yaml",)
+        vh = VirtualMachineHandler(token)
         server = vh.conn.compute.find_server(openstack_id)
         if server is None:
             return {}, 404
@@ -21,7 +21,7 @@ class Instance(Resource):
         return {}, 501
 
     def list(self, token):
-        vh = VirtualMachineHandler(token, "clouds.yaml")
+        vh = VirtualMachineHandler(token)
         tmp = vh.conn.compute.servers()
         return [r for r in tmp], 200
 
@@ -35,7 +35,7 @@ class Instance(Resource):
                diskspace=None,
                volume_name=None
                ):
-        vh = VirtualMachineHandler(token, "clouds.yaml")
+        vh = VirtualMachineHandler(token)
         try:
             # metadata = {"elixir_id": elixir_id}
             image = vh.conn.compute.get_image(image=image)

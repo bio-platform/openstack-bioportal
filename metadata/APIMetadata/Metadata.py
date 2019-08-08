@@ -3,6 +3,8 @@ from VirtualMachineHandler import VirtualMachineHandler
 class Metadata:
     def get(self, token, instance_id):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         instance = vh.conn.compute.find_server(instance_id)
         if instance is None:
             return {"message": "instance not found"}, 400
@@ -10,6 +12,8 @@ class Metadata:
 
     def set(self, token, instance_id, metadata):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         instance = vh.conn.compute.find_server(instance_id)
 
         if instance is None:
@@ -18,6 +22,8 @@ class Metadata:
 
     def delete(self, token, instance_id, keys):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         instance = vh.conn.compute.find_server(instance_id)
         if instance is None:
             return {"message": "instance not found"}, 400

@@ -6,6 +6,8 @@ class Keypair(Resource):
 
     def create(self, token, keyname, public_key):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         try:
             keypair = vh.conn.compute.find_keypair(keyname)
             if not keypair:
@@ -31,6 +33,8 @@ class Keypair(Resource):
 
     def get(self, token, keypair_id):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         keypair = vh.conn.compute.find_keypair(keypair_id)
         if keypair is None:
             return {}, 404
@@ -38,5 +42,7 @@ class Keypair(Resource):
 
     def list(self, token):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         tmp = vh.conn.compute.keypairs()
         return [r for r in tmp], 200

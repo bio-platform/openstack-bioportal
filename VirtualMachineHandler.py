@@ -41,7 +41,9 @@ class VirtualMachineHandler:
             conn = connection.Connection(session=sess)
 
         except Exception as e:
-            raise Exception('Client failed authentication at Openstack Reason: {}'.format(e))
+            # raise Exception('Client failed authentication at Openstack Reason: {}'.format(e))
+            self.STATUS = 'Client failed authentication at Openstack Reason: {}'.format(e)
+            return None
         self.SESSION = sess
         return conn
 
@@ -54,6 +56,7 @@ class VirtualMachineHandler:
         self.SESSION = None
         self.PROJECT_DOMAIN_ID = None
         self.PROJECT_ID = None
+        self.STATUS = None
         self.conn = self.create_connection()
 
     def list_default(self, function):

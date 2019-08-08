@@ -3,6 +3,8 @@ from VirtualMachineHandler import VirtualMachineHandler
 class Limit:
     def list(self, token):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         limits = vh.conn.compute.get_limits()
         absolute = limits["absolute"]
         res = {"floating_ips": {"limit":absolute["floating_ips"],

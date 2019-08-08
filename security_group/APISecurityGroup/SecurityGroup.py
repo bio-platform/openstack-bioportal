@@ -5,6 +5,8 @@ class SecurityGroup:
 
     def create(self, token, name):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         try:
             new_security_group = vh.conn.network.create_security_group(name=name)
             return new_security_group
@@ -13,7 +15,8 @@ class SecurityGroup:
 
     def get(self, token, security_group_id):
         vh = VirtualMachineHandler(token)
-
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         security_group = vh.conn.network.find_security_group(security_group_id)
         if security_group is None:
             return {}, 404
@@ -22,6 +25,8 @@ class SecurityGroup:
 
     def list(self, token):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         tmp = vh.conn.network.security_groups()
         return [r for r in tmp], 200
 
@@ -35,6 +40,8 @@ class SecurityGroupRule:
 
     def create(self, token, security_group_id, type):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         try:
             if type == "ssh":
                 new_rule = vh.conn.network.create_security_group_rule(

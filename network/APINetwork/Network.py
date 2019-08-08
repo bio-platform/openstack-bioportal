@@ -6,6 +6,8 @@ class Gateway:
 
     def add(self, token, router_id, external_network):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         router = vh.conn.network.get_router(router_id)
         if not router:
             return {"message": "Wrong router ID, router not found!"}, 400
@@ -24,6 +26,8 @@ class FloatingIp:
 
     def create(self, token, instance_id, network_id):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         try:
             server = vh.conn.compute.get_server(instance_id)
             if server is None:
@@ -59,11 +63,15 @@ class FloatingIp:
 class Network:
     def get(self, token, network_id):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         network = vh.conn.network.find_network(network_id)
         if network is None:
             return {}, 404
         return network.to_dict(), 200
     def list(self, token):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         network = vh.conn.network.networks()
         return [r for r in network], 200

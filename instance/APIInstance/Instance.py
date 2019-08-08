@@ -6,6 +6,8 @@ class Instance(Resource):
 
     def get(self, openstack_id, token):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         server = vh.conn.compute.find_server(openstack_id)
         if server is None:
             return {}, 404
@@ -22,6 +24,8 @@ class Instance(Resource):
 
     def list(self, token):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         tmp = vh.conn.compute.servers()
         return [r for r in tmp], 200
 
@@ -36,6 +40,8 @@ class Instance(Resource):
                volume_name=None
                ):
         vh = VirtualMachineHandler(token)
+        if vh.conn is None:
+            return {"message": vh.STATUS}, 403
         try:
             # metadata = {"elixir_id": elixir_id}
             image = vh.conn.compute.get_image(image=image)

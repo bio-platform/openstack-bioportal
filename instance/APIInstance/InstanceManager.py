@@ -6,6 +6,7 @@ import DefaultManager
 
 
 class InstanceManager(Resource):
+
     def post(self):
         return DefaultManager.manage(Instance().create, request.json, StartServerSchema)
 
@@ -13,7 +14,7 @@ class InstanceManager(Resource):
         if instance_id is None:
             return DefaultManager.manage(Instance().list, request.json)
         else:
-            return DefaultManager.manage(Instance().list, request.json, instance_id=instance_id)
+            return DefaultManager.manage(Instance().get, request.json, instance_id=instance_id)
 
     def put(self):
         return DefaultManager.manage(Instance().update, request.json)

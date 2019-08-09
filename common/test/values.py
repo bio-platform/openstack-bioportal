@@ -1,0 +1,8 @@
+instance_id = "71c053da-e598-4fa8-8577-55b863f888b5"
+network_id = "1fd8ee12-75fa-40d1-b218-8278e22fd3b6"
+security_group_id = "f2cffb8f-b5c5-4e99-a8e9-806225c37710"
+router_id = "8594d608-dd3f-4567-b0e0-d6dd44468801"
+image_id = ""
+floating_ip_id = ""
+keypair_id = "key1"
+external_network_id = "d896044f-90eb-45ee-8cb1-86bf8cb3f9fe"

@@ -14,7 +14,7 @@ class KeypairManager(Resource):
         if keypair_id is None:
             return DefaultManager.manage(Keypair().list, request.json)
         else:
-            return DefaultManager.manage(Keypair().list, request.json, keypair_id=keypair_id)
+            return DefaultManager.manage(Keypair().get, request.json, keypair_id=keypair_id)
 
     def put(self):
         return Keypair().update()

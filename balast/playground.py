@@ -2,9 +2,13 @@ from balast.ssh import pubkey
 from VirtualMachineHandler import VirtualMachineHandler
 from pprint import pprint
 from requests import get
+from Token import token
 # access_token = "eyJqa3UiOiJodHRwczpcL1wvbG9naW4uY2VzbmV0LmN6XC9vaWRjXC9qd2siLCJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJkYmMyM2Q2ZGJkNTU0YmU2NTkxMTQxMTdlZmQ0ZmFmMGY1NzQ2NmY0QGVpbmZyYS5jZXNuZXQuY3oiLCJhenAiOiJmYTA0MGY5ZS1hZTViLTRmYzItOWNlYS03ZmFiNjcxMmM3NzMiLCJzY29wZSI6ImVkdVBlcnNvbkVudGl0bGVtZW50IGZvcndhcmRlZEVudGl0bGVtZW50IG9wZW5pZCBlbWFpbCBvZmZsaW5lX2FjY2VzcyBwcm9maWxlIiwiaXNzIjoiaHR0cHM6XC9cL2xvZ2luLmNlc25ldC5jelwvb2lkY1wvIiwiZXhwIjoxNTY0MDUwMDkyLCJpYXQiOjE1NjQwNDY0OTIsImp0aSI6ImQ0MjNlNTBkLTExYTctNDk0Yi1iY2NmLTY0MmM2YmJlNTNmNiJ9.LGg711xDVAPy5Wk4sLj8IbQRgn55koGrMzot4CQfzxx1D5OsbUwDbV8GLEGHkEyrrCq5t84INIJ2buwEWO918byFHGJhsH0i-LGCMjQ7KYhY6fsSPhkF2ZGKwDOtpiN_-2i2kM7zjgSsGLB12xV7fW8v1Agv99t24u4WaKEPxSTtpxHufKYyU5NrNXlY8JaVNtA81J0RGFUg-ZKOqsa_EFDRmPg9CkIW3AyTgHgQ4kPddVD4lCN-GPHWSHqP3N84ylzRnK0Yg_aJ5CxSVP8AMR-D3rt4aG9qaEO-mxPjFzLcGydrFY-GnraMoc75hjUV1vQkiv8YC2cq7UFPATErww"
 # vm_handler = VirtualMachineHandler(access_token=access_token, config="clouds.yaml")
-vm_handler = VirtualMachineHandler("aa", "clouds.yaml")
+vm_handler = VirtualMachineHandler(token)
+images = vm_handler.list_images()
+for f in images:
+    print(f.name)
 #pprint(vm_handler.conn.compute.get_server_metadata("71c053da-e598-4fa8-8577-55b863f888b5"))
 #pprint(vm_handler.conn.get_server("71c053da-e598-4fa8-8577-55b863f888b5"))
 token = vm_handler.conn.authorize()

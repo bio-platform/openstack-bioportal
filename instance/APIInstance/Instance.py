@@ -4,11 +4,11 @@ from openstack.exceptions import ResourceNotFound
 
 class Instance(Resource):
 
-    def get(self, openstack_id, token):
+    def get(self,token, instance_id):
         vh = VirtualMachineHandler(token)
         if vh.conn is None:
             return {"message": vh.STATUS}, 403
-        server = vh.conn.compute.find_server(openstack_id)
+        server = vh.conn.compute.find_server(instance_id)
         if server is None:
             return {}, 404
         return server, 201
@@ -35,28 +35,26 @@ class Instance(Resource):
                image,
                key_name,
                servername,
-               network,
+               network_id,
                diskspace=None,
                volume_name=None
                ):
         vh = VirtualMachineHandler(token)
         if vh.conn is None:
             return {"message": vh.STATUS}, 403
-        try:
-            # metadata = {"elixir_id": elixir_id}
-            image = vh.conn.compute.get_image(image=image)
-            flavor = vh.conn.compute.get_flavor(flavor=flavor)
-            network = vh.conn.network.get_network(network=network)
-            key_pair = vh.conn.compute.get_keypair(keypair=key_name)
 
-            server = self.conn.compute.create_server(
+            # metadata = {"elixir_id": elixir_id}
+        image = vh.conn.compute.find_image(image)
+        flavor = vh.conn.compute.find_flavor(flavor)
+        network = vh.conn.network.find_network(network_id)
+        key_pair = vh.conn.compute.find_keypair(key_name)
+        if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
+            return {"message": "resource not found"}, 400
+        server = vh.conn.compute.create_server(
                 name=servername,
                 image_id=image.id,
                 flavor_id=flavor.id,
                 networks=[{"uuid": network.id}],
                 key_name=key_pair.name,
             )
-            return server, 201
-        except ResourceNotFound as e:
-            print(e)
-            return {"message": str(e)}, 400
+        return server, 201

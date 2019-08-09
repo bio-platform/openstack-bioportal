@@ -8,7 +8,7 @@ class Gateway:
         vh = VirtualMachineHandler(token)
         if vh.conn is None:
             return {"message": vh.STATUS}, 403
-        router = vh.conn.network.get_router(router_id)
+        router = vh.conn.network.find_router(router_id)
         if not router:
             return {"message": "Wrong router ID, router not found!"}, 400
 
@@ -29,7 +29,7 @@ class FloatingIp:
         if vh.conn is None:
             return {"message": vh.STATUS}, 403
         try:
-            server = vh.conn.compute.get_server(instance_id)
+            server = vh.conn.compute.find_server(instance_id)
             if server is None:
                 return {"message": "Server not found"}, 400
 

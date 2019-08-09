@@ -9,7 +9,7 @@ class SecurityGroup:
             return {"message": vh.STATUS}, 403
         try:
             new_security_group = vh.conn.network.create_security_group(name=name)
-            return new_security_group
+            return new_security_group, 201
         except Exception as e:
             return {"message": str(e)}, 409
 
@@ -20,7 +20,6 @@ class SecurityGroup:
         security_group = vh.conn.network.find_security_group(security_group_id)
         if security_group is None:
             return {}, 404
-        print(security_group.to_dict())
         return security_group.to_dict(), 200
 
     def list(self, token):

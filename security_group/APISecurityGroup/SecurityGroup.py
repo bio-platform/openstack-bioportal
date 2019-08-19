@@ -1,32 +1,53 @@
-from VirtualMachineHandler import VirtualMachineHandler
-
+from Connection import connect
+from flask import session
 
 class SecurityGroup:
 
-    def create(self, token, name):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
+    def create(self, name):
         try:
-            new_security_group = vh.conn.network.create_security_group(name=name)
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
+        try:
+            new_security_group = conn.network.create_security_group(name=name)
             return new_security_group, 201
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self, token, security_group_id):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
-        security_group = vh.conn.network.find_security_group(security_group_id)
+    def get(self, security_group_id):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
+        security_group = conn.network.find_security_group(security_group_id)
         if security_group is None:
             return {}, 404
         return security_group.to_dict(), 200
 
-    def list(self, token):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
-        tmp = vh.conn.network.security_groups()
+    def list(self):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
+        tmp = conn.network.security_groups()
         return [r for r in tmp], 200
 
     def update(self):
@@ -37,13 +58,20 @@ class SecurityGroup:
 
 class SecurityGroupRule:
 
-    def create(self, token, security_group_id, type):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
+    def create(self, security_group_id, type):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
         try:
             if type == "ssh":
-                new_rule = vh.conn.network.create_security_group_rule(
+                new_rule = conn.network.create_security_group_rule(
                             direction="ingress",
                             protocol="tcp",
                             port_range_max=22,
@@ -53,7 +81,7 @@ class SecurityGroupRule:
 
                         )
             if type == "all_icmp":
-                new_rule = vh.conn.network.create_security_group_rule(
+                new_rule = conn.network.create_security_group_rule(
                     direction="ingress",
                     protocol="ICMP",
                     security_group_id=security_group_id,
@@ -64,14 +92,14 @@ class SecurityGroupRule:
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self, token, security_group_id, security_group_rule_id):
+    def get(self, security_group_id, security_group_rule_id):
         return {}, 501
 
-    def list(self, token, security_group_id):
+    def list(self, security_group_id):
         return {}, 501
 
-    def update(self, token, security_group_id):
+    def update(self, security_group_id):
         return {}, 501
 
-    def delete(self, token, security_group_id):
+    def delete(self, security_group_id):
         return {}, 501

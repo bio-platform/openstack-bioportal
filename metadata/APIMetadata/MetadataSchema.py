@@ -1,10 +1,8 @@
-from marshmallow import fields
-from DefaultSchema import DefaultSchema
+from marshmallow import fields, Schema
 
-
-class CreateSchema(DefaultSchema):
+class CreateSchema(Schema):
     metadata = fields.Dict(required=True)
 
 
-class DeleteSchema(DefaultSchema):
+class DeleteSchema(Schema):
     keys = fields.List(fields.String(), required=True)

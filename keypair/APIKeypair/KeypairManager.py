@@ -1,7 +1,6 @@
 from flask_restful import Resource
 from keypair.APIKeypair.Keypair import Keypair
 from keypair.APIKeypair.KeypairSchema import CreateSchema
-from marshmallow import ValidationError
 from flask import request
 import DefaultManager
 
@@ -16,9 +15,9 @@ class KeypairManager(Resource):
         else:
             return DefaultManager.manage(Keypair().get, request.json, keypair_id=keypair_id)
 
-    def put(self):
-        return Keypair().update()
+    def put(self, keypair_id):
+        return DefaultManager.manage(Keypair().update, request.json, keypair_id=keypair_id)
 
-    def delete(self):
-        return Keypair().delete()
+    def delete(self, keypair_id):
+        return DefaultManager.manage(Keypair().update, request.json, keypair_id=keypair_id)
 

@@ -1,11 +1,20 @@
-from VirtualMachineHandler import VirtualMachineHandler
+from Connection import connect
+from flask import session
+
 
 class Limit:
-    def list(self, token):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
-        limits = vh.conn.compute.get_limits()
+    def list(self):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
+        limits = conn.compute.get_limits()
         absolute = limits["absolute"]
         res = {"floating_ips": {"limit":absolute["floating_ips"],
                                "used":absolute["floating_ips_used"]},

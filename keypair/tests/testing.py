@@ -79,3 +79,5 @@ class TestDelete(unittest.TestCase):
                                 headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 501 and not response.json
 
+if __name__ == '__main__':
+    unittest.main()

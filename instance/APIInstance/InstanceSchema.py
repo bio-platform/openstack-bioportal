@@ -1,8 +1,7 @@
 from marshmallow import Schema, fields, validate
 from openstack_resources import flavors
-from DefaultSchema import DefaultSchema
 
-class StartServerSchema(DefaultSchema):
+class StartServerSchema(Schema):
     flavor = fields.String(required=True, validate=validate.OneOf(choices=flavors))
     image = fields.String(required=True)
     key_name = fields.String(required=True)

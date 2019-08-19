@@ -1,36 +1,49 @@
 from flask_restful import Resource
-from VirtualMachineHandler import VirtualMachineHandler
-from openstack.exceptions import ResourceNotFound
+from Connection import connect
+from flask import session
+
 
 class Instance(Resource):
 
-    def get(self,token, instance_id):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
-        server = vh.conn.compute.find_server(instance_id)
+    def get(self, instance_id):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
+        server = conn.compute.find_server(instance_id)
         if server is None:
             return {}, 404
         return server, 201
 
-    def stop(self, token):
+    def stop(self):
         return {}, 501
 
-    def delete(self, token):
+    def delete(self):
         return {}, 501
 
-    def update(self, token):
+    def update(self):
         return {}, 501
 
-    def list(self, token):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
-        tmp = vh.conn.compute.servers()
+    def list(self):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+        tmp = conn.compute.servers()
         return [r for r in tmp], 200
 
     def create(self,
-               token,
                flavor,
                image,
                key_name,
@@ -39,18 +52,23 @@ class Instance(Resource):
                diskspace=None,
                volume_name=None
                ):
-        vh = VirtualMachineHandler(token)
-        if vh.conn is None:
-            return {"message": vh.STATUS}, 403
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
 
-            # metadata = {"elixir_id": elixir_id}
-        image = vh.conn.compute.find_image(image)
-        flavor = vh.conn.compute.find_flavor(flavor)
-        network = vh.conn.network.find_network(network_id)
-        key_pair = vh.conn.compute.find_keypair(key_name)
+        image = conn.compute.find_image(image)
+        flavor = conn.compute.find_flavor(flavor)
+        network = conn.network.find_network(network_id)
+        key_pair = conn.compute.find_keypair(key_name)
         if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
             return {"message": "resource not found"}, 400
-        server = vh.conn.compute.create_server(
+        server = conn.compute.create_server(
                 name=servername,
                 image_id=image.id,
                 flavor_id=flavor.id,

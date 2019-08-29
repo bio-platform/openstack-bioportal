@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="ADDED token auth, FIXED manager">
+    <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <change afterPath="$PROJECT_DIR$/Connection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/0_Other/run_sample.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/APILogin/Login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/APILogin/LoginManager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/APILogin/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Token.py" beforeDir="false" afterPath="$PROJECT_DIR$/Token.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DefaultManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/DefaultManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DefaultSchema.py" beforeDir="false" afterPath="$PROJECT_DIR$/DefaultSchema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualMachineHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualMachineHandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/balast/auth_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/balast/auth_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/balast/playground.py" beforeDir="false" afterPath="$PROJECT_DIR$/balast/playground.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/test/values.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/test/values.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/0_Other/run_sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/0_Other/run_sample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/APIInstance/Instance.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/APIInstance/Instance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/APIInstance/InstanceManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/APIInstance/InstanceManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/tests/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tests/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keypair/APIKeypair/KeypairManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/keypair/APIKeypair/KeypairManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keypair/tests/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/keypair/tests/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/limit/tests/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/limit/tests/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metadata/tests/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/metadata/tests/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/APINetwork/Network.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/APINetwork/Network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/tests/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/tests/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security_group/APISecurityGroup/SecurityGroup.py" beforeDir="false" afterPath="$PROJECT_DIR$/security_group/APISecurityGroup/SecurityGroup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security_group/tests/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/security_group/tests/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/limit/APILimit/Limit.py" beforeDir="false" afterPath="$PROJECT_DIR$/limit/APILimit/Limit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/0_Other/run_sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/0_Other/run_sample.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openstack_resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/openstack_resources.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +63,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.run_sample">
+  <component name="RunManager" selected="Python.app">
     <configuration name="api" type="PythonConfigurationType" factoryName="Python">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -85,7 +85,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_sample" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -93,11 +93,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/limit/0_Other" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/limit/0_Other/run_sample.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -106,81 +106,87 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Nosetests for testing.TestFloatingIpPost.test_failure_instance_not_found" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+    <configuration name="run_sample" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OpenStack" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/network/0_Other" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/network/0_Other/run_sample.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Nosetests for testing.TestSecurityGroupRuleCreate.test_failure_missing_type" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/network/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/security_group/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_regexPattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;testing.TestFloatingIpPost.test_failure_instance_not_found&quot;" />
+      <option name="_new_target" value="&quot;testing.TestSecurityGroupRuleCreate.test_failure_missing_type&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Nosetests for testing.TestGatewayPut.test_failure_missing_token" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+    <configuration name="Nosetests for testing.TestSecurityGroupRuleCreate.test_failure_rules_exists" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/network/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/security_group/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_regexPattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;testing.TestGatewayPut.test_failure_missing_token&quot;" />
+      <option name="_new_target" value="&quot;testing.TestSecurityGroupRuleCreate.test_failure_rules_exists&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Nosetests for testing.TestGatewayPut.test_failure_router_not_found" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+    <configuration name="Nosetests for testing.TestSecurityGroupRuleCreate.test_success" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/network/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/security_group/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_regexPattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;testing.TestGatewayPut.test_failure_router_not_found&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Nosetests for testing.TestGatewayPut.test_success" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
-      <module name="OpenStack" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/network/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;testing.TestGatewayPut.test_success&quot;" />
+      <option name="_new_target" value="&quot;testing.TestSecurityGroupRuleCreate.test_success&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.api" />
-      <item itemvalue="Python tests.Nosetests for testing.TestGatewayPut.test_failure_missing_token" />
-      <item itemvalue="Python tests.Nosetests for testing.TestGatewayPut.test_success" />
-      <item itemvalue="Python tests.Nosetests for testing.TestGatewayPut.test_failure_router_not_found" />
-      <item itemvalue="Python tests.Nosetests for testing.TestFloatingIpPost.test_failure_instance_not_found" />
       <item itemvalue="Python.run_sample" />
+      <item itemvalue="Python.app" />
+      <item itemvalue="Python tests.Nosetests for testing.TestSecurityGroupRuleCreate.test_success" />
+      <item itemvalue="Python tests.Nosetests for testing.TestSecurityGroupRuleCreate.test_failure_missing_type" />
+      <item itemvalue="Python tests.Nosetests for testing.TestSecurityGroupRuleCreate.test_failure_rules_exists" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.app" />
         <item itemvalue="Python.run_sample" />
-        <item itemvalue="Python tests.Nosetests for testing.TestFloatingIpPost.test_failure_instance_not_found" />
-        <item itemvalue="Python tests.Nosetests for testing.TestGatewayPut.test_failure_router_not_found" />
-        <item itemvalue="Python tests.Nosetests for testing.TestGatewayPut.test_success" />
-        <item itemvalue="Python tests.Nosetests for testing.TestGatewayPut.test_failure_missing_token" />
+        <item itemvalue="Python tests.Nosetests for testing.TestSecurityGroupRuleCreate.test_failure_rules_exists" />
+        <item itemvalue="Python tests.Nosetests for testing.TestSecurityGroupRuleCreate.test_failure_missing_type" />
+        <item itemvalue="Python tests.Nosetests for testing.TestSecurityGroupRuleCreate.test_success" />
       </list>
     </recent_temporary>
   </component>
@@ -279,7 +285,56 @@
       <option name="project" value="LOCAL" />
       <updated>1565271144313</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566205237921</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1566205237921</updated>
+    </task>
+    <task id="LOCAL-00014" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566206715327</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1566206715327</updated>
+    </task>
+    <task id="LOCAL-00015" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566206900332</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1566206900332</updated>
+    </task>
+    <task id="LOCAL-00016" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566206938692</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1566206938692</updated>
+    </task>
+    <task id="LOCAL-00017" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566209677287</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1566209677287</updated>
+    </task>
+    <task id="LOCAL-00018" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566212229063</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1566212229063</updated>
+    </task>
+    <task id="LOCAL-00019" summary="CHANGED token passing to sessions, accordingly CHANGED tests">
+      <created>1566212624236</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1566212624236</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,7 +354,8 @@
     <MESSAGE value="ADDED token auth, FIXED manager" />
     <MESSAGE value="ADDED 'status' variable in case connection fail" />
     <MESSAGE value="ADDED connection error handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADDED connection error handler" />
+    <MESSAGE value="CHANGED token passing to sessions, accordingly CHANGED tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="CHANGED token passing to sessions, accordingly CHANGED tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

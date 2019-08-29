@@ -58,7 +58,7 @@ class VirtualMachineHandler:
         self.PROJECT_ID = None
         self.STATUS = None
         self.conn = self.create_connection()
-
+'''
     def list_default(self, function):
         try:
             tmp = function
@@ -436,6 +436,8 @@ class VirtualMachineHandler:
         key_pair = self.conn.compute.find_keypair(key_name)
         if key_pair:
             self.conn.compute.delete_keypair(key_pair)
+
+'''
 
 
 '''

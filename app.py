@@ -9,10 +9,14 @@ from network.APINetwork.NetworkManager import NetworkManager
 from metadata.APIMetadata.MetadataManager import MetadataManager
 from keypair.APIKeypair.KeypairManager import KeypairManager
 from instance.APIInstance.InstanceManager import InstanceManager
+from login.APILogin.LoginManager import LoginManager
+import os
 
 app = Flask(__name__)
-api = Api(app)
 
+app.secret_key = os.urandom(12).hex()
+api = Api(app)
+app.permanent_session_lifetime = 10000
 
 api.add_resource(LimitManager, '/limits/')
 
@@ -31,6 +35,7 @@ api.add_resource(KeypairManager, '/keypairs/', '/keypairs/<string:keypair_id>/')
 
 api.add_resource(InstanceManager, '/instances/', '/instances/<string:instance_id>/')
 
+api.add_resource(LoginManager, '/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run()

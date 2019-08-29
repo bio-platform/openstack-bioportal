@@ -7,7 +7,9 @@ class Limit:
         try:
             token = session['token']
             project_id = session['project_id']
-        except:
+        except Exception as e:
+            print(e.args, e)
+            print(session.token)
             return {'message': 'unlogged'}, 401
         try:
             conn = connect(token, project_id)

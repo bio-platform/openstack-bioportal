@@ -5,6 +5,52 @@ from requests import get
 from Token import token
 # access_token = "eyJqa3UiOiJodHRwczpcL1wvbG9naW4uY2VzbmV0LmN6XC9vaWRjXC9qd2siLCJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJkYmMyM2Q2ZGJkNTU0YmU2NTkxMTQxMTdlZmQ0ZmFmMGY1NzQ2NmY0QGVpbmZyYS5jZXNuZXQuY3oiLCJhenAiOiJmYTA0MGY5ZS1hZTViLTRmYzItOWNlYS03ZmFiNjcxMmM3NzMiLCJzY29wZSI6ImVkdVBlcnNvbkVudGl0bGVtZW50IGZvcndhcmRlZEVudGl0bGVtZW50IG9wZW5pZCBlbWFpbCBvZmZsaW5lX2FjY2VzcyBwcm9maWxlIiwiaXNzIjoiaHR0cHM6XC9cL2xvZ2luLmNlc25ldC5jelwvb2lkY1wvIiwiZXhwIjoxNTY0MDUwMDkyLCJpYXQiOjE1NjQwNDY0OTIsImp0aSI6ImQ0MjNlNTBkLTExYTctNDk0Yi1iY2NmLTY0MmM2YmJlNTNmNiJ9.LGg711xDVAPy5Wk4sLj8IbQRgn55koGrMzot4CQfzxx1D5OsbUwDbV8GLEGHkEyrrCq5t84INIJ2buwEWO918byFHGJhsH0i-LGCMjQ7KYhY6fsSPhkF2ZGKwDOtpiN_-2i2kM7zjgSsGLB12xV7fW8v1Agv99t24u4WaKEPxSTtpxHufKYyU5NrNXlY8JaVNtA81J0RGFUg-ZKOqsa_EFDRmPg9CkIW3AyTgHgQ4kPddVD4lCN-GPHWSHqP3N84ylzRnK0Yg_aJ5CxSVP8AMR-D3rt4aG9qaEO-mxPjFzLcGydrFY-GnraMoc75hjUV1vQkiv8YC2cq7UFPATErww"
 # vm_handler = VirtualMachineHandler(access_token=access_token, config="clouds.yaml")
+
+from keystoneauth1 import session
+from keystoneauth1.identity.v3.oidc import OidcAccessToken
+from keystoneauth1.identity.v3 import Token
+from openstack import connection
+from requests import get
+from openstack_resources import AUTH_URL, IDENTITY_PROVIDER, PROTOCOL, PROJECT_DOMAIN_ID
+from Token import token
+oidc_token = token
+admin = OidcAccessToken(auth_url=AUTH_URL,
+                       identity_provider=IDENTITY_PROVIDER,
+                       protocol=PROTOCOL,
+                       access_token=oidc_token)
+
+sess = session.Session(auth=admin)
+conn = connection.Connection(session=sess)
+unscoped_token = conn.authorize()
+
+user_id = admin.get_user_id(sess)
+
+
+projects = get("https://identity.cloud.muni.cz/v3/users/%s/projects" % user_id, headers={"Accept": "application/json",
+                                                                                 "User-Agent": "Mozilla/5.0 (X11;\
+                                                                                  Ubuntu; Linux x86_64; rv:68.0)\
+                                                                                   Gecko/20100101 Firefox/68.0",
+                                                                                 "X-Auth-Token": unscoped_token}).json()
+print(projects["projects"])
+print(unscoped_token)
+
+t = Token(auth_url=AUTH_URL,
+          token=unscoped_token,
+          project_domain_id=PROJECT_DOMAIN_ID,
+          project_id=projects['projects'][0]['id'])
+
+sess1 = session.Session(auth=t)
+scoped = t.get_token(sess1)
+
+conn = connection.Connection(session=sess1)
+image_id = "a942471e-75b1-4173-b530-0125b98eed49"
+
+# accept the image!!!
+print(conn.image.update_member(projects['projects'][0]['id'], image_id, status="accepted"))
+
+# openstack image add project
+print(conn.image.add_member(image_id, member=projects['projects'][0]['id']))
+"""
 vm_handler = VirtualMachineHandler(token)
 images = vm_handler.list_images()
 for f in images:
@@ -17,7 +63,7 @@ quotas = get("https://network.cloud.muni.cz/v2.0/quotas/%s/details.json" % "5c50
                 headers={"X-Auth-Token": token}).json()
 pprint(quotas)
 
-"""
+
 vm_handler = VirtualMachineHandler("clouds.yaml")
 vm_handler.import_keypair("new_keypair", pubkey)
 

@@ -3,41 +3,47 @@ from keystoneauth1.identity.v3.oidc import OidcAccessToken
 from keystoneauth1.identity.v3 import Token
 from openstack import connection
 from requests import get
-
+"""
+oidc_token = "eyJqa3UiOiJodHRwczpcL1wvbG9naW4uY2VzbmV0LmN6XC9vaWRjXC9qd2siLCJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJkYmMyM2Q2ZGJkNTU0YmU2NTkxMTQxMTdlZmQ0ZmFmMGY1NzQ2NmY0QGVpbmZyYS5jZXNuZXQuY3oiLCJhenAiOiJmYTA0MGY5ZS1hZTViLTRmYzItOWNlYS03ZmFiNjcxMmM3NzMiLCJzY29wZSI6ImVkdVBlcnNvbkVudGl0bGVtZW50IGZvcndhcmRlZEVudGl0bGVtZW50IG9wZW5pZCBvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVkdV9wZXJzb25fZW50aXRsZW1lbnRzIGVtYWlsIiwiaXNzIjoiaHR0cHM6XC9cL2xvZ2luLmNlc25ldC5jelwvb2lkY1wvIiwiZXhwIjoxNTY1ODU5Mjk2LCJpYXQiOjE1NjU4NTU2OTYsImp0aSI6IjRhNjA4MWU2LWZlZDQtNDhhNi05MjU5LTg0MTQ0MjVhODczOCJ9.TUiw-GnktBONynUareAvxM4j9Aq7AZGI9ODnBlzM_StoZ9v1A_ZyHEgpZU7ieVROYlL26Yx-1K2LE0mOtR60a1eJMHj8-6M4y1Au4YR4uyqy3OJDNPiGrA617oOR08_5g1xy-Kagsn2WY7LeICLUctrr2XW2gB_hsKZR2lrHdPWZf2nJBNb2Pne9TNOGnGe0NgVA41xO7wSoalNLunPuyjf6sH4fHVj87NzlFxvT13CvxHuNQOqdiLmwf3jFzE3Pc3rQ-KCdurzUyD4m_27RYzvLyIWDjjncvrwgdcUwC5hkgNNStYMGqEDJCJlWjhzDAU_q8n-agkVudDGTRo10Vw"
 admin = OidcAccessToken(auth_url="https://identity.cloud.muni.cz/v3",
                        identity_provider="login.cesnet.cz",
                        protocol="openid",
-                       access_token="eyJqa3UiOiJodHRwczpcL1wvbG9naW4uY2VzbmV0LmN6XC9vaWRjXC9qd2siLCJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJkYmMyM2Q2ZGJkNTU0YmU2NTkxMTQxMTdlZmQ0ZmFmMGY1NzQ2NmY0QGVpbmZyYS5jZXNuZXQuY3oiLCJhenAiOiJmYTA0MGY5ZS1hZTViLTRmYzItOWNlYS03ZmFiNjcxMmM3NzMiLCJzY29wZSI6ImVkdVBlcnNvbkVudGl0bGVtZW50IGZvcndhcmRlZEVudGl0bGVtZW50IG9wZW5pZCBlbWFpbCBvZmZsaW5lX2FjY2VzcyBwcm9maWxlIiwiaXNzIjoiaHR0cHM6XC9cL2xvZ2luLmNlc25ldC5jelwvb2lkY1wvIiwiZXhwIjoxNTY1MTc0ODQzLCJpYXQiOjE1NjUxNzEyNDMsImp0aSI6Ijc4MjUzMTY2LTRmZTktNDkxYS1hN2ZmLTZhMzM2Mjk4MDVlMyJ9.OEuBhi3Dl5SiSjq37PRzO7L3Dkf9ITiJVW_puslNAcjP7-siQQskX3nS2Ds4SQbUTCHFzMIEcy057B4IeO2uHi9HjQeoljQSkEvO9Vh_rvBaYXDPP3DqHpfzp4mAaIEbcVYr6jP1XRVRQjQ7kdyc-xgMDVKet78ApMOFmU7-e5EuY09TKRGtygDdpXhgv4fV0Yzw7S_MMvZg2jPfYLN0casZAiTbrrCOlQStK_UJbohlumk9JiA-iCwwcRGtn0T-DBwQ-5Bt088v5jMWxOk1i6G_GuEfokN06EPzjHDYhluRwYYQQpeEb1t6vd_DAkpNRXkJ2xx3Pg9k8fDfZtfqJQ")
+                       access_token=oidc_token)
 
 sess = session.Session(auth=admin)
 conn = connection.Connection(session=sess)
 unscoped_token = conn.authorize()
 
-print(unscoped_token)
-t = Token(auth_url="https://identity.cloud.muni.cz/v3",
-          token=unscoped_token,
-          project_domain_id="f9ec246d5e81496b921be023ee9ac672")
-# ,,
-#
-#           project_id="5c50ee4cfcae43d289aa832475556f8e"
-# print(t.get_auth_ref(sess1).system_scoped)
-sess1 = session.Session(auth=t)
+user_id = admin.get_user_id(sess)
 
-user_id = t.get_user_id(sess)
 
-print("4a8f9a18d56d4d9e84c42d20c8b0aad6" == user_id)
 projects = get("https://identity.cloud.muni.cz/v3/users/%s/projects" % user_id, headers={"Accept": "application/json",
                                                                                  "User-Agent": "Mozilla/5.0 (X11;\
                                                                                   Ubuntu; Linux x86_64; rv:68.0)\
                                                                                    Gecko/20100101 Firefox/68.0",
                                                                                  "X-Auth-Token": unscoped_token}).json()
-#print(projects["id"], projects["domain_id"], projects["name"])
 print(projects["projects"])
-# user = conn.identity.get_u.json()ser(user=user_id)
 
-conn = connection.Connection(session=sess1, interface='public')
-projects = conn.identity.user_projects(user=user_id)
-for p in projects:
-    print(p.id)
+print(unscoped_token)
+t = Token(auth_url="https://identity.cloud.muni.cz/v3",
+          token=unscoped_token,
+          project_domain_id="f9ec246d5e81496b921be023ee9ac672",
+          project_id=projects['projects'][0]['id'])
+
+sess1 = session.Session(auth=t)
+scoped = t.get_token(sess1)
+
+conn = connection.Connection(session=sess1)
+print(conn.compute.get_limits())
+
+print(scoped)
+
+"""
+from datetime import datetime
+t = datetime.now()
+
+print(datetime.now() - t)
+print(conn.compute.get_limits())
 """openstack token issue --os-project-name=dbc23d6dbd554be659114117efd4faf0f57466f4@einfra.cesnet.cz --os-project-domain-name=einfra_cz
+
 """

@@ -105,3 +105,21 @@ class Network:
 
         network = conn.network.networks()
         return [r for r in network], 200
+
+class Router:
+    def get(self, router_id):
+        pass
+
+    def list(self):
+        try:
+            token = session['token']
+            project_id = session['project_id']
+        except:
+            return {'message': 'unlogged'}, 401
+        try:
+            conn = connect(token, project_id)
+        except:
+            return {'message': 'connection error'}, 401
+
+        routers = conn.network.routers()
+        return [r for r in routers], 200

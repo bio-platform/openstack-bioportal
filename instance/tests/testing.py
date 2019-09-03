@@ -41,7 +41,8 @@ class TestPost(unittest.TestCase):
                                        "image": "cirros-0.4.0-x86_64",
                                        "key_name": "key1",
                                        "servername": "new_server_1",
-                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6"},
+                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6",
+                                       "metadata": {"medatadakey": "metadatavalue"}},
                                  )
         assert response.status_code == 201
 

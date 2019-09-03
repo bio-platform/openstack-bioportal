@@ -1,6 +1,9 @@
 from flask_restful import Resource
 from Connection import connect
 from flask import session
+import os
+from oslo_utils import encodeutils
+import base64
 
 
 class Instance(Resource):
@@ -49,6 +52,7 @@ class Instance(Resource):
                key_name,
                servername,
                network_id,
+               metadata,
                diskspace=None,
                volume_name=None
                ):
@@ -66,6 +70,12 @@ class Instance(Resource):
         flavor = conn.compute.find_flavor(flavor)
         network = conn.network.find_network(network_id)
         key_pair = conn.compute.find_keypair(key_name)
+
+        with open("cloud-init-bioconductor-image.sh", "r") as file:
+            text = file.read()
+            text = encodeutils.safe_encode(text.encode("utf-8"))
+        init_script = base64.b64encode(text).decode("utf-8")
+
         if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
             return {"message": "resource not found"}, 400
         server = conn.compute.create_server(
@@ -74,5 +84,7 @@ class Instance(Resource):
                 flavor_id=flavor.id,
                 networks=[{"uuid": network.id}],
                 key_name=key_pair.name,
+                metadata=metadata,
+                user_data=init_script
             )
         return server, 201

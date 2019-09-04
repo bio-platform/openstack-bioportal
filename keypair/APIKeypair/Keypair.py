@@ -8,24 +8,15 @@ class Keypair(Resource):
             return conn.compute.create_keypair(name=keyname)
         return conn.compute.create_keypair(name=keyname, public_key=public_key)
 
-    def create(self, keyname, public_key=None):
+    def create(self,connection, keyname, public_key=None):
         try:
-            token = session['token']
-            project_id = session['project_id']
-        except:
-            return {'message': 'unlogged'}, 401
-        try:
-            conn = connect(token, project_id)
-        except:
-            return {'message': 'connection error'}, 401
-        try:
-            keypair = conn.compute.find_keypair(keyname)
+            keypair = connection.compute.find_keypair(keyname)
             if not keypair:
-                return self.helper(keyname, public_key, conn), 201
+                return self.helper(keyname, public_key, connection), 201
 
             elif keypair.public_key != public_key:
-                conn.compute.delete_keypair(keypair)
-                return self.helper(keyname, public_key, conn), 200
+                connection.compute.delete_keypair(keypair)
+                return self.helper(keyname, public_key, connection), 200
 
             return keypair, 200
 
@@ -38,30 +29,12 @@ class Keypair(Resource):
     def delete(self, keypair_id):
         return {}, 501
 
-    def get(self, keypair_id):
-        try:
-            token = session['token']
-            project_id = session['project_id']
-        except:
-            return {'message': 'unlogged'}, 401
-        try:
-            conn = connect(token, project_id)
-        except:
-            return {'message': 'connection error'}, 401
-        keypair = conn.compute.find_keypair(keypair_id)
+    def get(self,connection, keypair_id):
+        keypair = connection.compute.find_keypair(keypair_id)
         if keypair is None:
             return {}, 404
         return keypair, 200
 
-    def list(self):
-        try:
-            token = session['token']
-            project_id = session['project_id']
-        except:
-            return {'message': 'unlogged'}, 401
-        try:
-            conn = connect(token, project_id)
-        except:
-            return {'message': 'connection error'}, 401
-        tmp = conn.compute.keypairs()
+    def list(self, connection):
+        tmp = connection.compute.keypairs()
         return [r for r in tmp], 200

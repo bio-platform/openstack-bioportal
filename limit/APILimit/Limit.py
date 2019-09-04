@@ -1,22 +1,7 @@
-from Connection import connect
-from flask import session
-
-
 class Limit:
-    def list(self):
-        try:
-            token = session['token']
-            project_id = session['project_id']
-        except Exception as e:
-            print(e.args, e)
-            print(session.token)
-            return {'message': 'unlogged'}, 401
-        try:
-            conn = connect(token, project_id)
-        except:
-            return {'message': 'connection error'}, 401
+    def list(self, connection):
 
-        limits = conn.compute.get_limits()
+        limits = connection.compute.get_limits()
         absolute = limits["absolute"]
         res = {"floating_ips": {"limit":absolute["floating_ips"],
                                "used":absolute["floating_ips_used"]},

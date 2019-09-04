@@ -3,8 +3,12 @@ from Connection import connect
 from flask import session
 
 class Keypair(Resource):
+    def helper(self, keyname, public_key, conn):
+        if public_key is None:
+            return conn.compute.create_keypair(name=keyname)
+        return conn.compute.create_keypair(name=keyname, public_key=public_key)
 
-    def create(self, keyname, public_key):
+    def create(self, keyname, public_key=None):
         try:
             token = session['token']
             project_id = session['project_id']
@@ -17,17 +21,14 @@ class Keypair(Resource):
         try:
             keypair = conn.compute.find_keypair(keyname)
             if not keypair:
-                keypair = conn.compute.create_keypair(
-                    name=keyname, public_key=public_key
-                )
-                return keypair, 201
+                return self.helper(keyname, public_key, conn), 201
+
             elif keypair.public_key != public_key:
                 conn.compute.delete_keypair(keypair)
-                keypair = conn.compute.create_keypair(
-                    name=keyname, public_key=public_key
-                )
-                return keypair, 200
+                return self.helper(keyname, public_key, conn), 200
+
             return keypair, 200
+
         except Exception as e:
             return {"message": "Import Keypair {0} error:{1}".format(keyname, e), "result": {}}, 400
 

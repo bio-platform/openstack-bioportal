@@ -46,7 +46,7 @@ class Instance(Resource):
         flavor = connection.compute.find_flavor(flavor)
         network = connection.network.find_network(network_id)
         key_pair = connection.compute.find_keypair(key_name)
-        with open("../../../bio-class/install/cloud-init-bioconductor-image.sh", "r") as file:
+        with open("cloud-init-bioconductor-image.sh", "r") as file:
             text = file.read()
             text = encodeutils.safe_encode(text.encode("utf-8"))
         init_script = base64.b64encode(text).decode("utf-8")

@@ -19,5 +19,5 @@ class InstanceManager(Resource):
     def put(self):
         return DefaultManager.manage(Instance().update, request.json)
 
-    def delete(self):
-        return DefaultManager.manage(Instance().update, request.json)
+    def delete(self, instance_id):
+        return DefaultManager.manage(Instance().delete, request.json, instance_id=instance_id)

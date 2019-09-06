@@ -65,6 +65,31 @@ class TestPost(unittest.TestCase):
                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6"})
         assert response.status_code == 400
 
+class TestDelete(unittest.TestCase):
+    def setUp(self):
+        app.testing = True
+        self.app = app.test_client()
+        self.login = self.app.post("/", json={"token": token})
+
+    def test_success(self):
+        response = self.app.post("/instances/",
+                                 headers={'Cookie': self.login.headers['Set-Cookie']},
+                                 json={"flavor": "standard.small",
+                                       "image": "cirros-0.4.0-x86_64",
+                                       "key_name": "key1",
+                                       "servername": "new_server_1",
+                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6",
+                                       "metadata": {"medatadakey": "metadatavalue"}},
+                                 )
+        if response.status_code == 201:
+            instance_id = response.json["id"]
+            from time import sleep
+            while self.app.get("/instances/%s/" %instance_id,
+                               headers={'Cookie': self.login.headers['Set-Cookie']}).json["status"] != "ACTIVE":
+                sleep(5)
+            response = self.app.delete("/instances/%s/" %instance_id,
+                               headers={'Cookie': self.login.headers['Set-Cookie']})
+            assert response.status_code == 204
 
 if __name__ == '__main__':
     unittest.main()

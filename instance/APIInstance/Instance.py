@@ -15,8 +15,12 @@ class Instance(Resource):
     def stop(self):
         return {}, 501
 
-    def delete(self):
-        return {}, 501
+    def delete(self, connection, instance_id):
+        server = connection.compute.find_server(instance_id)
+        if server is None:
+            return {}, 400
+        connection.compute.delete_server(instance_id)
+        return {}, 204
 
     def update(self):
         return {}, 501
@@ -42,7 +46,6 @@ class Instance(Resource):
         flavor = connection.compute.find_flavor(flavor)
         network = connection.network.find_network(network_id)
         key_pair = connection.compute.find_keypair(key_name)
-
         with open("cloud-init-bioconductor-image.sh", "r") as file:
             text = file.read()
             text = encodeutils.safe_encode(text.encode("utf-8"))

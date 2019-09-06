@@ -10,6 +10,7 @@ from metadata.APIMetadata.MetadataManager import MetadataManager
 from keypair.APIKeypair.KeypairManager import KeypairManager
 from instance.APIInstance.InstanceManager import InstanceManager
 from network.APINetwork.RouterManager import RouterManager
+from project.APIProject.ProjectManager import ProjectManager
 from login.APILogin.LoginManager import LoginManager
 import os
 
@@ -37,6 +38,8 @@ api.add_resource(KeypairManager, '/keypairs/', '/keypairs/<string:keypair_id>/')
 api.add_resource(InstanceManager, '/instances/', '/instances/<string:instance_id>/')
 
 api.add_resource(RouterManager, '/routers/', '/routers/<string:router_id>/')
+
+api.add_resource(ProjectManager, '/projects/')
 
 api.add_resource(LoginManager, '/')
 

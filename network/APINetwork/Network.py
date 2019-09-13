@@ -1,5 +1,4 @@
 from requests import put
-from Connection import connect
 
 
 class Gateway:
@@ -31,15 +30,14 @@ class FloatingIp:
             for values in server.addresses.values():
                 for address in values:
                     if address["OS-EXT-IPS:type"] == "floating":
-                        return address["addr"], 200
+                        return address, 200
 
             for floating_ip in connection.network.ips():
                 if not floating_ip.fixed_ip_address:
                     connection.compute.add_floating_ip_to_server(
                         server, floating_ip.floating_ip_address
                     )
-
-                    return str(floating_ip.floating_ip_address), 200
+                    return floating_ip.to_dict(), 200
 
             networkID = connection.network.find_network(network_id)
             if networkID is None:

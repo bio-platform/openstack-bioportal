@@ -1,37 +1,43 @@
+import base64
+
 from flask_restful import Resource
 from oslo_utils import encodeutils
-import base64
 
 
 class Instance(Resource):
 
-    def get(self,connection, instance_id):
+    @staticmethod
+    def get(connection, instance_id):
 
         server = connection.compute.find_server(instance_id)
         if server is None:
             return {}, 404
         return server, 201
 
-    def stop(self):
+    @staticmethod
+    def stop():
         return {}, 501
 
-    def delete(self, connection, instance_id):
+    @staticmethod
+    def delete(connection, instance_id):
         server = connection.compute.find_server(instance_id)
         if server is None:
             return {}, 400
         connection.compute.delete_server(instance_id)
         return {}, 204
 
-    def update(self):
+    @staticmethod
+    def update():
         return {}, 501
 
-    def list(self, connection):
+    @staticmethod
+    def list(connection):
 
         tmp = connection.compute.servers()
         return [r for r in tmp], 200
 
-    def create(self,
-               connection,
+    @staticmethod
+    def create(connection,
                flavor,
                image,
                key_name,
@@ -54,12 +60,12 @@ class Instance(Resource):
         if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
             return {"message": "resource not found"}, 400
         server = connection.compute.create_server(
-                name=servername,
-                image_id=image.id,
-                flavor_id=flavor.id,
-                networks=[{"uuid": network.id}],
-                key_name=key_pair.name,
-                metadata=metadata,
-                user_data=init_script
-            )
+            name=servername,
+            image_id=image.id,
+            flavor_id=flavor.id,
+            networks=[{"uuid": network.id}],
+            key_name=key_pair.name,
+            metadata=metadata,
+            user_data=init_script
+        )
         return server, 201

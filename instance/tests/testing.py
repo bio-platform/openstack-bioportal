@@ -1,6 +1,8 @@
 import unittest
-from app import app
+
 from Token import token
+
+from app import app
 from common.test.values import instance_id
 
 
@@ -27,6 +29,7 @@ class TestList(unittest.TestCase):
         assert response.json is not None and response.status_code == 200
         print(response.json)
 
+
 class TestPost(unittest.TestCase):
 
     def setUp(self):
@@ -41,7 +44,7 @@ class TestPost(unittest.TestCase):
                                        "image": "cirros-0.4.0-x86_64",
                                        "key_name": "key1",
                                        "servername": "new_server_1",
-                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6",
+                                       "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6",
                                        "metadata": {"medatadakey": "metadatavalue"}},
                                  )
         assert response.status_code == 201
@@ -65,6 +68,7 @@ class TestPost(unittest.TestCase):
                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6"})
         assert response.status_code == 400
 
+
 class TestDelete(unittest.TestCase):
     def setUp(self):
         app.testing = True
@@ -78,18 +82,19 @@ class TestDelete(unittest.TestCase):
                                        "image": "cirros-0.4.0-x86_64",
                                        "key_name": "key1",
                                        "servername": "new_server_1",
-                                        "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6",
+                                       "network_id": "1fd8ee12-75fa-40d1-b218-8278e22fd3b6",
                                        "metadata": {"medatadakey": "metadatavalue"}},
                                  )
         if response.status_code == 201:
             instance_id = response.json["id"]
             from time import sleep
-            while self.app.get("/instances/%s/" %instance_id,
+            while self.app.get("/instances/%s/" % instance_id,
                                headers={'Cookie': self.login.headers['Set-Cookie']}).json["status"] != "ACTIVE":
                 sleep(5)
-            response = self.app.delete("/instances/%s/" %instance_id,
-                               headers={'Cookie': self.login.headers['Set-Cookie']})
+            response = self.app.delete("/instances/%s/" % instance_id,
+                                       headers={'Cookie': self.login.headers['Set-Cookie']})
             assert response.status_code == 204
+
 
 if __name__ == '__main__':
     unittest.main()

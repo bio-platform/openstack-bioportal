@@ -2,21 +2,17 @@ from flask_restful import Resource
 
 
 class Keypair(Resource):
-    @staticmethod
-    def helper(key_name, public_key, conn):
-        if public_key is None:
-            return conn.compute.create_keypair(name=key_name)
-        return conn.compute.create_keypair(name=key_name, public_key=public_key)
 
-    def create(self, connection, key_name, public_key=None):
+    @staticmethod
+    def create(connection, key_name, public_key=None):
         try:
             key_pair = connection.compute.find_keypair(key_name)
             if not key_pair:
-                return self.helper(key_name, public_key, connection), 201
+                return connection.compute.create_keypair(key_name, public_key), 201
 
             elif key_pair.public_key != public_key:
                 connection.compute.delete_keypair(key_pair)
-                return self.helper(key_name, public_key, connection), 200
+                return connection.compute.create_keypair(key_name, public_key), 200
 
             return key_pair, 200
 

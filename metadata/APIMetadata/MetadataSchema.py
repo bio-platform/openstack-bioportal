@@ -1,5 +1,6 @@
 from marshmallow import fields, Schema
 
+
 class CreateSchema(Schema):
     metadata = fields.Dict(required=True)
 

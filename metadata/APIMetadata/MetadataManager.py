@@ -1,19 +1,24 @@
-from flask_restful import Resource
 from flask import request
+from flask_restful import Resource
+
+import DefaultManager
 from metadata.APIMetadata.Metadata import Metadata
 from metadata.APIMetadata.MetadataSchema import DeleteSchema, CreateSchema
-import DefaultManager
 
 
 class MetadataManager(Resource):
-    def post(self):
+    @staticmethod
+    def post():
         pass
 
-    def put(self, instance_id):
+    @staticmethod
+    def put(instance_id):
         return DefaultManager.manage(Metadata().set, request.json, CreateSchema, instance_id=instance_id)
 
-    def get(self, instance_id):
+    @staticmethod
+    def get(instance_id):
         return DefaultManager.manage(Metadata().get, request.json, instance_id=instance_id)
 
-    def delete(self, instance_id):
+    @staticmethod
+    def delete(instance_id):
         return DefaultManager.manage(Metadata().delete, request.json, DeleteSchema, instance_id=instance_id)

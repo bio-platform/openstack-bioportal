@@ -1,19 +1,22 @@
 class Metadata:
-    def get(self, connection, instance_id):
+    @staticmethod
+    def get(connection, instance_id):
 
         instance = connection.compute.find_server(instance_id)
         if instance is None:
             return {"message": "instance not found"}, 400
         return connection.compute.get_server_metadata(instance).to_dict(), 200
 
-    def set(self, connection, instance_id, metadata):
+    @staticmethod
+    def set(connection, instance_id, metadata):
         instance = connection.compute.find_server(instance_id)
 
         if instance is None:
             return {"message": "instance not found"}, 400
         return connection.compute.set_server_metadata(instance, **metadata)
 
-    def delete(self, connection, instance_id, keys):
+    @staticmethod
+    def delete(connection, instance_id, keys):
 
         instance = connection.compute.find_server(instance_id)
         if instance is None:

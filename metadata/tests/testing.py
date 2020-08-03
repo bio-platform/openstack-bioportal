@@ -1,6 +1,8 @@
 import unittest
-from app import app
+
 from Token import token
+
+from app import app
 from common.test.values import instance_id
 
 
@@ -11,11 +13,10 @@ class TestGet(unittest.TestCase):
         self.login = self.app.post("/", json={"token": token})
 
     def test_success(self):
-        response = self.app.get("/metadata/%s/" %instance_id,
+        response = self.app.get("/metadata/%s/" % instance_id,
                                 headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 200 and response.json is not None
         assert "metadata" in response.json.keys()
-
 
     def test_failure_instance_not_found(self):
         response = self.app.get("/metadata/%s/" % "invalid_instance_id",
@@ -34,10 +35,11 @@ class TestSet(unittest.TestCase):
     def test_success(self):
         response = self.app.put("/metadata/%s/" % instance_id,
                                 json={"metadata": {"test_metadata_key":
-                                                   "test_metadata_value"}},
+                                                       "test_metadata_value"}},
                                 headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 200 and response.json is not None
-        assert "metadata" in response.json.keys() and response.json["metadata"]["test_metadata_key"] == "test_metadata_value"
+        assert "metadata" in response.json.keys() and response.json["metadata"][
+            "test_metadata_key"] == "test_metadata_value"
 
     def test_failure_missing_metadata(self):
         response = self.app.put("/metadata/%s/" % instance_id,
@@ -58,7 +60,6 @@ class TestDelete(unittest.TestCase):
         self.login = self.app.post("/", json={"token": token})
 
     def test_success(self):
-
         response = self.app.put("/metadata/%s/" % instance_id,
                                 json={"metadata": {"test_metadata_key":
                                                        "test_metadata_value"}},
@@ -69,7 +70,6 @@ class TestDelete(unittest.TestCase):
                                    json={"keys": ["test_metadata_key"]},
                                    headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 204
-
 
     def test_failure_instance_not_found(self):
         response = self.app.delete("/metadata/%s/" % "invalid_instance_id",

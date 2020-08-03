@@ -1,6 +1,8 @@
 import unittest
-from app import app
+
 from Token import token
+
+from app import app
 
 
 class TestList(unittest.TestCase):

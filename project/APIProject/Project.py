@@ -1,8 +1,10 @@
-from requests import get
 from flask import session
-class Project:
-    def list(self):
+from requests import get
 
+
+class Project:
+    @staticmethod
+    def list():
         projects = get("https://identity.cloud.muni.cz/v3/users/%s/projects" % session['user_id'],
                        headers={"Accept": "application/json",
                                 "User-Agent": "Mozilla/5.0 (X11;\

@@ -6,18 +6,22 @@ import DefaultManager
 
 
 class SecurityGroupManager(Resource):
-    def post(self):
+    @staticmethod
+    def post():
         return DefaultManager.manage(SecurityGroup().create, request.json, SecurityGroupSchema)
 
-    def get(self, security_group_id=None):
+    @staticmethod
+    def get(security_group_id=None):
         if security_group_id is None:
             return DefaultManager.manage(SecurityGroup().list, request.json)
         else:
             return DefaultManager.manage(SecurityGroup().get, request.json, security_group_id=security_group_id)
 
-    def put(self):
+    @staticmethod
+    def put():
         return SecurityGroup().update()
 
-    def delete(self):
+    @staticmethod
+    def delete():
         return SecurityGroup().delete()
 

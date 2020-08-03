@@ -1,31 +1,37 @@
 class SecurityGroup:
-
-    def create(self, connection, name):
+    @staticmethod
+    def create(connection, name):
         try:
             new_security_group = connection.network.create_security_group(name=name)
             return new_security_group, 201
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self,connection, security_group_id):
+    @staticmethod
+    def get(connection, security_group_id):
         security_group = connection.network.find_security_group(security_group_id)
         if security_group is None:
             return {}, 404
         return security_group.to_dict(), 200
 
-    def list(self, connection):
+    @staticmethod
+    def list(connection):
         tmp = connection.network.security_groups()
         return [r for r in tmp], 200
 
-    def update(self):
+    @staticmethod
+    def update():
         return {}, 501
 
-    def delete(self):
+    @staticmethod
+    def delete():
         return {}, 501
+
 
 class SecurityGroupRule:
 
-    def create(self,connection, security_group_id, type):
+    @staticmethod
+    def create(connection, security_group_id, type):
 
         try:
             if type == "ssh":
@@ -50,14 +56,18 @@ class SecurityGroupRule:
         except Exception as e:
             return {"message": str(e)}, 409
 
-    def get(self, security_group_id, security_group_rule_id):
+    @staticmethod
+    def get(security_group_id, security_group_rule_id):
         return {}, 501
 
-    def list(self, security_group_id):
+    @staticmethod
+    def list(security_group_id):
         return {}, 501
 
-    def update(self, security_group_id):
+    @staticmethod
+    def update(security_group_id):
         return {}, 501
 
-    def delete(self, security_group_id):
+    @staticmethod
+    def delete(security_group_id):
         return {}, 501

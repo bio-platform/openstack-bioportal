@@ -1,21 +1,24 @@
-from network.APINetwork.NetworkSchema import NetworkSchema
-from marshmallow import ValidationError
 from flask import request
-from network.APINetwork.Network import Gateway
 from flask_restful import Resource
+
 import DefaultManager
+from network.APINetwork.Network import Gateway
+from network.APINetwork.NetworkSchema import NetworkSchema
+
 
 class GatewayManager(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         pass
 
-    def post(self):
+    @staticmethod
+    def post():
         pass
 
-    def put(self, router_id):
+    @staticmethod
+    def put(router_id):
         return DefaultManager.manage(Gateway().add, request.json, NetworkSchema, router_id=router_id)
 
-    def delete(self):
+    @staticmethod
+    def delete():
         pass
-
-

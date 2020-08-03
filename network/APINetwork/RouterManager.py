@@ -1,7 +1,8 @@
-from network.APINetwork.Network import Router
-from flask_restful import Resource
-import DefaultManager
 from flask import request
+from flask_restful import Resource
+
+import DefaultManager
+from network.APINetwork.Network import Router
 
 
 class RouterManager(Resource):

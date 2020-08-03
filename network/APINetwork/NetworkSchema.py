@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields
 
+
 class NetworkSchema(Schema):
     external_network = fields.String(required=True)
 

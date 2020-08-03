@@ -2,6 +2,7 @@ from flask import session as flask_session
 from keystoneauth1 import session
 from keystoneauth1.identity.v3.oidc import OidcAccessToken
 from openstack import connection
+
 from Connection import connect
 from openstack_resources import AUTH_URL, IDENTITY_PROVIDER, PROTOCOL
 
@@ -29,7 +30,7 @@ class Login:
 
     def list(self):
         if 'project_id' in flask_session and 'token' in flask_session:
-            return {'project_id': flask_session['project_id'], 'token': flask_session['token']},200
+            return {'project_id': flask_session['project_id'], 'token': flask_session['token']}, 200
         return {'message': 'unauthorized'}, 401
 
     def scope(self, project_id):

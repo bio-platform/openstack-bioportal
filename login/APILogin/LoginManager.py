@@ -1,8 +1,10 @@
+from flask import request
+from flask_restful import Resource
+from marshmallow import ValidationError
+
 from login.APILogin.Login import Login
 from login.APILogin.LoginSchema import ScopeSchema, LoginSchema
-from flask_restful import Resource
-from flask import request, session
-from marshmallow import ValidationError
+
 
 class LoginManager(Resource):
 

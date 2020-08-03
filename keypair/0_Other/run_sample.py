@@ -1,6 +1,7 @@
-from requests import get, post, put
 from pprint import pprint
+
 from Token import token
+from requests import get, post
 
 pprint(get("http://localhost:5000/keypairs/", json={"token": token}).json())
 pprint(post("http://localhost:5000/keypairs/", json={"token": token,

@@ -5,7 +5,7 @@ from openstack import connection
 
 from Connection import connect
 from openstack_resources import AUTH_URL, IDENTITY_PROVIDER, PROTOCOL
-
+import logging
 
 class Login:
 
@@ -21,7 +21,7 @@ class Login:
         unscoped_token = conn.authorize()
 
         user_id = admin.get_user_id(sess)
-
+        logging.debug("my debug output" + str(user_id))
         flask_session['token'] = unscoped_token
         flask_session['user_id'] = user_id
         flask_session.permanent = True

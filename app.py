@@ -1,47 +1,60 @@
 from flask import Flask
 from flask_restful import Api
-from limit.APILimit.LimitManager import LimitManager
-from security_group.APISecurityGroup.SecurityGroupManager import SecurityGroupManager
-from security_group.APISecurityGroup.SecurityGroupRuleManager import SecurityGroupRuleManager
-from network.APINetwork.GatewayManager import GatewayManager
-from network.APINetwork.FloatingIpManager import FloatingIpManager
-from network.APINetwork.NetworkManager import NetworkManager
-from metadata.APIMetadata.MetadataManager import MetadataManager
-from keypair.APIKeypair.KeypairManager import KeypairManager
-from instance.APIInstance.InstanceManager import InstanceManager
-from network.APINetwork.RouterManager import RouterManager
-from project.APIProject.ProjectManager import ProjectManager
-from login.APILogin.LoginManager import LoginManager
+from resources.limit import Limit
+from resources.security_group import SecurityGroup
+from resources.security_group_rule import SecurityGroupRule
+from resources.gateway import Gateway
+from resources.floating_ip import FloatingIp
+from resources.network import Network
+from resources.metadata import Metadata
+from resources.keypair import Keypair
+from resources.instance import Instance
+from resources.router import Router
+from resources.project import Project
+from resources.login import Login
 import os
-
+from openstack.exceptions import HttpException
+#from werkzeug.exceptions import HTTPException
 app = Flask(__name__)
+import json
 
 app.secret_key = os.urandom(12).hex()
+
 api = Api(app)
 app.permanent_session_lifetime = 10000
 
-api.add_resource(LimitManager, '/limits/')
 
-api.add_resource(SecurityGroupManager, '/security_groups/', '/security_groups/<string:security_group_id>/')
-api.add_resource(SecurityGroupRuleManager,
+@app.errorhandler(HttpException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    # start with the correct headers and status code from the error
+
+    print("Exception handled")
+    #response.content_type = "application/json"
+    return {}, 400
+
+api.add_resource(Limit, '/limits/')
+
+api.add_resource(SecurityGroup, '/security_groups/', '/security_groups/<string:security_group_id>/')
+api.add_resource(SecurityGroupRule,
                  '/security_groups/<string:security_group_id>/security_group_rules/',
                  '/security_groups/<string:security_group_id>/security_group_rules/<string:security_group_rule_id>/')
 
-api.add_resource(GatewayManager, '/gateways/', '/gateways/<string:router_id>/')
-api.add_resource(FloatingIpManager, '/floating_ips/', '/floating_ips/<string:floating_ip_id>/')
-api.add_resource(NetworkManager, '/networks/', '/networks/<string:network_id>/')
+api.add_resource(Gateway, '/gateways/', '/gateways/<string:router_id>/')
+api.add_resource(FloatingIp, '/floating_ips/', '/floating_ips/<string:floating_ip_id>/')
+api.add_resource(Network, '/networks/', '/networks/<string:network_id>/')
 
-api.add_resource(MetadataManager, '/metadata/<string:instance_id>/')
+api.add_resource(Metadata, '/metadata/<string:instance_id>/')
 
-api.add_resource(KeypairManager, '/keypairs/', '/keypairs/<string:keypair_id>/')
+api.add_resource(Keypair, '/keypairs/', '/keypairs/<string:keypair_id>/')
 
-api.add_resource(InstanceManager, '/instances/', '/instances/<string:instance_id>/')
+api.add_resource(Instance, '/instances/', '/instances/<string:instance_id>/')
 
-api.add_resource(RouterManager, '/routers/', '/routers/<string:router_id>/')
+api.add_resource(Router, '/routers/', '/routers/<string:router_id>/')
 
-api.add_resource(ProjectManager, '/projects/')
+api.add_resource(Project, '/projects/')
 
-api.add_resource(LoginManager, '/')
+api.add_resource(Login, '/')
 
 if __name__ == '__main__':
     app.run()

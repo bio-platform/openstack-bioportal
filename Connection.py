@@ -9,10 +9,9 @@ def connect(token, project_id):
                  token=token,
                  project_domain_id=PROJECT_DOMAIN_ID,
                  project_id=project_id)
-    try:
-        sess = session.Session(auth=user)
-        conn = connection.Connection(session=sess)
-        conn.authorize()
-    except:
-        return None
+
+    sess = session.Session(auth=user)
+    conn = connection.Connection(session=sess)
+    conn.authorize()
+
     return conn

@@ -8,6 +8,7 @@ from openstack import connection
 from Connection import connect
 from schemas.LoginSchema import ScopeSchema, LoginSchema
 from openstack_resources import AUTH_URL, IDENTITY_PROVIDER, PROTOCOL
+from flask import current_app as app
 
 
 class Login(Resource):
@@ -27,6 +28,7 @@ class Login(Resource):
 
         flask_session['token'] = unscoped_token
         flask_session['user_id'] = user_id
+        app.logger.info(user_id + " has token: " + unscoped_token)
         flask_session.permanent = True
         return {}, 200
 

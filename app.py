@@ -13,11 +13,16 @@ from resources.router import Router
 from resources.project import Project
 from resources.login import Login
 import os
+import logging
+
 from openstack.exceptions import HttpException
 #from werkzeug.exceptions import HTTPException
 app = Flask(__name__)
-import json
 
+gunicorn_error_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers.extend(gunicorn_error_logger.handlers)
+app.logger.setLevel(logging.DEBUG)
+app.logger.debug('Gunicorn logging start')
 app.secret_key = os.urandom(12).hex()
 
 api = Api(app)
@@ -29,7 +34,7 @@ def handle_exception(e):
     """Return JSON instead of HTML for HTTP errors."""
     # start with the correct headers and status code from the error
 
-    print("Exception handled")
+    app.logger.info("Exception handled")
     #response.content_type = "application/json"
     return {}, 400
 

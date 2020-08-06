@@ -16,9 +16,10 @@ import os
 import logging
 
 app = Flask(__name__)
-handler = logging.FileHandler('/app.log')  # errors logged to this file
-handler.setLevel(logging.ERROR)  # only log errors and above
-app.logger.addHandler(handler)
+gunicorn_error_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers.extend(gunicorn_error_logger.handlers)
+app.logger.setLevel(logging.DEBUG)
+app.logger.debug('Gunicorn logging start')
 
 app.secret_key = os.urandom(12).hex()
 api = Api(app)

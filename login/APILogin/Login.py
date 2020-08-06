@@ -3,6 +3,7 @@ from keystoneauth1 import session
 from keystoneauth1.identity.v3.oidc import OidcAccessToken
 from openstack import connection
 
+from flask import current_app as app
 from Connection import connect
 from openstack_resources import AUTH_URL, IDENTITY_PROVIDER, PROTOCOL
 import logging
@@ -24,6 +25,7 @@ class Login:
         logging.debug("my debug output" + str(user_id))
         flask_session['token'] = unscoped_token
         flask_session['user_id'] = user_id
+        app.logger.info(user_id + " has token: " + unscoped_token)
         flask_session.permanent = True
         return {}, 200
         # return {'message': 'no project for user'}, 400

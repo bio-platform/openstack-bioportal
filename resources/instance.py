@@ -21,10 +21,13 @@ class Instance(Resource):
     def post():
         """
             **Create new instance**
-            This function allows users to start new instance. Its json input is specified by schemas.StartServerSchema
+            This function allows users to start new instance.
+            Its json input is specified by schema.StartServerSchema
             :return: instance/s information in json and http status code
             - Example::
-                  curl -X GET bio-portal.metacentrum.cz/api/instances/instance_id/ -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+                  curl -X GET bio-portal.metacentrum.cz/api/instances/ -H 'Cookie: cookie from scope' -H
+                  'content-type: application/json'
+
             - Expected Success Response::
                 HTTP Status Code: 201
                 json-format: see openstack.compute.v2.server
@@ -34,8 +37,30 @@ class Instance(Resource):
                 {"message": "resoucre not found"}
 
         """
-        return Instance._create(connect(session['token'],session['project_id']),
-                                **StartServerSchema().load(request.json))
+        connection = connect(session['token'],session['project_id'])
+        json = StartServerSchema().load(request.json)
+        image = connection.compute.find_image(json["image"])
+        flavor = connection.compute.find_flavor(json["flavor"])
+        network = connection.network.find_network(json["network_id"])
+        key_pair = connection.compute.find_keypair(json["key_name"])
+        with open("cloud-init-bioconductor-image.sh", "r") as file:
+            text = file.read()
+            text = encodeutils.safe_encode(text.encode("utf-8"))
+        init_script = base64.b64encode(text).decode("utf-8")
+
+        if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
+            return {"message": "resource not found"}, 400
+        server = connection.compute.create_server(
+            name=json["servername"],
+            image_id=image.id,
+            flavor_id=flavor.id,
+            networks=[{"uuid": network.id}],
+            key_name=key_pair.name,
+            metadata=json["metadata"],
+            user_data=init_script
+        )
+        return server, 201
+
     @staticmethod
     def get(instance_id=None):
         """
@@ -98,36 +123,3 @@ class Instance(Resource):
         connection.compute.delete_server(instance_id)
         return {}, 204
 
-    @staticmethod
-    def _create(connection,
-               flavor,
-               image,
-               key_name,
-               servername,
-               network_id,
-               metadata,
-               diskspace=None,
-               volume_name=None
-               ):
-
-        image = connection.compute.find_image(image)
-        flavor = connection.compute.find_flavor(flavor)
-        network = connection.network.find_network(network_id)
-        key_pair = connection.compute.find_keypair(key_name)
-        with open("cloud-init-bioconductor-image.sh", "r") as file:
-            text = file.read()
-            text = encodeutils.safe_encode(text.encode("utf-8"))
-        init_script = base64.b64encode(text).decode("utf-8")
-
-        if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
-            return {"message": "resource not found"}, 400
-        server = connection.compute.create_server(
-            name=servername,
-            image_id=image.id,
-            flavor_id=flavor.id,
-            networks=[{"uuid": network.id}],
-            key_name=key_pair.name,
-            metadata=metadata,
-            user_data=init_script
-        )
-        return server, 201

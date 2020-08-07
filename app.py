@@ -14,9 +14,9 @@ from resources.project import Project
 from resources.login import Login
 import os
 import logging
+from marshmallow import ValidationError
+from openstack.exceptions import HttpException, SDKException
 
-from openstack.exceptions import HttpException
-#from werkzeug.exceptions import HTTPException
 app = Flask(__name__)
 
 gunicorn_error_logger = logging.getLogger('gunicorn.error')
@@ -31,12 +31,36 @@ app.permanent_session_lifetime = 10000
 
 @app.errorhandler(HttpException)
 def handle_exception(e):
-    """Return JSON instead of HTML for HTTP errors."""
-    # start with the correct headers and status code from the error
-
-    app.logger.info("Exception handled")
-    #response.content_type = "application/json"
+    app.logger.info("HTTPException handled: " + str(e))
     return {}, 400
+
+
+@app.errorhandler(SDKException)
+def handle_exception(e):
+    app.logger.info("SDKException handled, probably bad OIDC token on input")
+    return {"message": e.message.message}, e.message.http_status
+
+
+@app.errorhandler(ValidationError)
+def handle_exception(e):
+    app.logger.info("(Marshmallow) ValidationError handled, bad format, reason: "+str(e))
+    return {}, 400
+
+
+@app.errorhandler(KeyError)
+def handle_exception(e):
+    app.logger.info("KeyError handled, reason: " + str(e))
+    if str(e) == "'token'" or str(e) == "'project_id'":
+        return {"message": "unauthorized, please log in"}, 401
+    return {}, 400
+
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    app.logger.info("Unknown" + str(type(e) + "error: "+str(e)))
+    return {}, 500
+
+
 
 api.add_resource(Limit, '/limits/')
 

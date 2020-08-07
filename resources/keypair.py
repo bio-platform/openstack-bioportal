@@ -1,6 +1,6 @@
 from flask import request, session
 from flask_restful import Resource
-from schemas.KeypairSchema import CreateSchema
+from schema import CreateKeypairSchema
 from Connection import connect
 
 
@@ -9,7 +9,7 @@ class Keypair(Resource):
     @staticmethod
     def post():
         connection = connect(session["token"], session["project_id"])
-        load = CreateSchema().load(request.json)
+        load = CreateKeypairSchema().load(request.json)
         key_pair = connection.compute.find_keypair(load["key_name"])
         if not key_pair:
             return connection.compute.create_keypair(**load), 201

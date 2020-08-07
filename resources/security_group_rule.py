@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, session
 
-from schemas.SecurityGroupSchema import SecurityGroupRuleSchema
+from schema import SecurityGroupRuleSchema
 from Connection import connect
 
 

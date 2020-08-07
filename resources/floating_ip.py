@@ -2,7 +2,7 @@ from flask import request, session
 from flask_restful import Resource
 
 from Connection import connect
-from schemas.NetworkSchema import FloatingIpSchema
+from schema import FloatingIpSchema
 
 
 class FloatingIp(Resource):

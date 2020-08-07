@@ -1,3 +1,9 @@
+"""
+.. module:: login
+   :synopsis: All endpoints of the Teacher API are defined here
+.. moduleauthor:: Andrej Cermak <github.com/andrejcermak>
+"""
+
 from flask import request
 from flask_restful import Resource
 from flask import session as flask_session
@@ -6,7 +12,7 @@ from keystoneauth1.identity.v3.oidc import OidcAccessToken
 from openstack import connection
 
 from Connection import connect
-from schemas.LoginSchema import ScopeSchema, LoginSchema
+from schema import ScopeSchema, LoginSchema
 from openstack_resources import AUTH_URL, IDENTITY_PROVIDER, PROTOCOL
 from flask import current_app as app
 

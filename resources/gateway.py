@@ -2,7 +2,7 @@ from flask import request, session
 from flask_restful import Resource
 from requests import put
 
-from schemas.NetworkSchema import NetworkSchema
+from schema import NetworkSchema
 from Connection import connect
 
 

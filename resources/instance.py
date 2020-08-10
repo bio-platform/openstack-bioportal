@@ -21,20 +21,30 @@ class Instance(Resource):
     def post():
         """
             **Create new instance**
+
             This function allows users to start new instance.
+
             Its json input is specified by schema.StartServerSchema
-            :return: instance/s information in json and http status code
+
+            :return: instance information in json and http status code
+
             - Example::
-                  curl -X GET bio-portal.metacentrum.cz/api/instances/ -H 'Cookie: cookie from scope' -H
-                  'content-type: application/json'
+
+                  curl -X POST bio-portal.metacentrum.cz/api/instances/ -H 'Cookie: cookie from scope' -H
+                  'content-type: application/json' --data json specified in schema
 
             - Expected Success Response::
+
                 HTTP Status Code: 201
+
                 json-format: see openstack.compute.v2.server
 
             - Expected Fail Response::
+
                 HTTP Status Code: 400
+
                 {"message": "resoucre not found"}
+
 
         """
         connection = connect(session['token'],session['project_id'])
@@ -65,24 +75,37 @@ class Instance(Resource):
     def get(instance_id=None):
         """
             **Get specific instance**
+
             This function allows users to get their instance specified by its ID. If no parameter given, all users instances
             are returned
+
             :param instance_id: id of the cloud instance
-            :type instance_id: openstack instance id
+            :type instance_id: openstack instance id or None
             :return: instance/s information in json and http status code
+
             - Example::
-                  curl -X GET bio-portal.metacentrum.cz/api/instances/instance_id/ -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+
+                curl -X GET bio-portal.metacentrum.cz/api/instances/_your_instance_id/
+                 -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+
             - Expected Success Response::
-                HTTP Status Code: 201
+
+                HTTP Status Code: 200
+
                 json-format: see openstack.compute.v2.server
 
                 or
-                HTTP Status Code: 201
+
+                HTTP Status Code: 200
+
                 openstack.compute.v2.server array
 
             - Expected Fail Response::
+
                 HTTP Status Code: 404
+
                 {}
+
 
         """
 
@@ -92,7 +115,7 @@ class Instance(Resource):
             if server is None:
                 return {}, 404
 
-            return server, 201
+            return server, 200
         else:
             tmp = connection.compute.servers()
             return [r for r in tmp], 200
@@ -102,19 +125,30 @@ class Instance(Resource):
     def delete(instance_id):
         """
             **Delete specific instance**
+
             This function allows users to delete their instance specified by its ID.
+
             :param instance_id: id of the cloud instance
             :type instance_id: openstack instance id
             :return: empty json and http status code
+
             - Example::
-                  curl -X DELETE bio-portal.metacentrum.cz/api/instances/instance_id/ -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+
+                curl -X DELETE bio-portal.metacentrum.cz/api/instances/instance_id/ -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+
             - Expected Success Response::
+
                 HTTP Status Code: 204
+
                 {}
 
             - Expected Fail Response::
+
                 HTTP Status Code: 400
+
                 {}
+
+
         """
         connection = connect(session['token'], session['project_id'])
         server = connection.compute.find_server(instance_id)
@@ -122,4 +156,3 @@ class Instance(Resource):
             return {}, 400
         connection.compute.delete_server(instance_id)
         return {}, 204
-

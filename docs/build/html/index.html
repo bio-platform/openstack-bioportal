@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation for the Code &#8212; openstack-bioportal 1.0. documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation-for-the-code">
+<h1>Documentation for the Code<a class="headerlink" href="#documentation-for-the-code" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-app">
+<span id="bioportal-main"></span><h2>BioPortal main<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-resources.instance.Instance">
+<span id="bioportal-instance"></span><h2>BioPortal instance<a class="headerlink" href="#module-resources.instance.Instance" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.instance.Instance.delete">
+<code class="sig-prename descclassname">resources.instance.Instance.</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">instance_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.instance.Instance.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Delete specific instance</strong></p>
+<p>This function allows users to delete their instance specified by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance_id</strong> (<em>openstack instance id</em>) – id of the cloud instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>empty json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">instances</span><span class="o">/</span><span class="n">instance_id</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">204</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.instance.Instance.get">
+<code class="sig-prename descclassname">resources.instance.Instance.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">instance_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.instance.Instance.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get specific instance</strong></p>
+<p>This function allows users to get their instance specified by its ID. If no parameter given, all users instances
+are returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance_id</strong> (<em>openstack instance id</em><em> or </em><em>None</em>) – id of the cloud instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance/s information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">instances</span><span class="o">/</span><span class="n">_your_instance_id</span><span class="o">/</span>
+ <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">server</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">server</span> <span class="n">array</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.instance.Instance.post">
+<code class="sig-prename descclassname">resources.instance.Instance.</code><code class="sig-name descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.instance.Instance.post" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Create new instance</strong></p>
+<p>This function allows users to start new instance.</p>
+<p>Its json input is specified by schema.StartServerSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>instance information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">instances</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">201</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;resoucre not found&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.keypair.Keypair">
+<span id="bioportal-keypair"></span><h2>BioPortal keypair<a class="headerlink" href="#module-resources.keypair.Keypair" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.keypair.Keypair.post">
+<code class="sig-prename descclassname">resources.keypair.Keypair.</code><code class="sig-name descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.keypair.Keypair.post" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Add new public key</strong></p>
+<p>This function allows users to add new public key. If keypair with given name doesnt exist, its created.
+In case keypair with same name exits and their keys are different, old key is deleted and new one is created.
+Otherwise returns keypair that already existed is returned</p>
+<p>Its json input is specified by schema.CreateKeypairSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>keypair information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">keypairs</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">server</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">201</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.gateway.Gateway">
+<span id="bioportal-gateway"></span><h2>BioPortal gateway<a class="headerlink" href="#module-resources.gateway.Gateway" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.gateway.Gateway.put">
+<code class="sig-prename descclassname">resources.gateway.Gateway.</code><code class="sig-name descname">put</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">router_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.gateway.Gateway.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>#TODO prejst co je to za blbost
+<strong>Update gateway</strong></p>
+<p>This function allows users to add external gateway.
+Its json input is specified by schema.NetworkSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance_id</strong> (<em>openstack instance id</em><em> or </em><em>None</em>) – id of the cloud instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>router information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">gateways</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">router</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Wrong router ID, router not found!&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.limit.Limit">
+<span id="bioportal-limit"></span><h2>BioPortal limit<a class="headerlink" href="#module-resources.limit.Limit" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.limit.Limit.get">
+<code class="sig-prename descclassname">resources.limit.Limit.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.limit.Limit.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get resource limits</strong></p>
+<p>This function allows users to get their resource limits and their usage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>limit information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">limits</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span>
+<span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;floating_ips&quot;</span><span class="p">:</span>
+    <span class="p">{</span><span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+     <span class="s2">&quot;used&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+<span class="s2">&quot;instances&quot;</span><span class="p">:</span>
+    <span class="p">{</span><span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+     <span class="s2">&quot;used&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<span class="s2">&quot;cores&quot;</span><span class="p">:</span>
+    <span class="p">{</span><span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+     <span class="s2">&quot;used&quot;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">},</span>
+<span class="s2">&quot;ram&quot;</span><span class="p">:</span>
+    <span class="p">{</span><span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+     <span class="s2">&quot;used&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.login.Login">
+<span id="bioportal-login"></span><h2>BioPortal login<a class="headerlink" href="#module-resources.login.Login" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.login.Login.get">
+<code class="sig-prename descclassname">resources.login.Login.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.login.Login.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Verify your login</strong></p>
+<p>This function allows users to verify their login.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie returned by scope&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;project_id&quot;</span><span class="p">:</span> <span class="n">project_id</span><span class="p">,</span> <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">reason</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.login.Login.post">
+<code class="sig-prename descclassname">resources.login.Login.</code><code class="sig-name descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.login.Login.post" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Login to portal</strong></p>
+<p>This function allows users to login to portal using their token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>empty json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;cache-control: no-cache&#39;</span>
+ <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="s1">&#39;{&quot;token&quot;: your_token}&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.login.Login.put">
+<code class="sig-prename descclassname">resources.login.Login.</code><code class="sig-name descname">put</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.login.Login.put" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Scope to project</strong></p>
+<p>This function allows users to scope to their chosen project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie returned by login&#39;</span>
+ <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="s1">&#39;{&quot;project_id&quot;: project_id}&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">204</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;unauthorized&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.metadata.Metadata">
+<span id="bioportal-metadata"></span><h2>BioPortal metadata<a class="headerlink" href="#module-resources.metadata.Metadata" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.metadata.Metadata.delete">
+<code class="sig-prename descclassname">resources.metadata.Metadata.</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">instance_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.metadata.Metadata.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get instance metadata</strong></p>
+<p>This function allows users to remove instance metadata.
+Its json input is specified by schema.DeleteMetadataSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance_id</strong> (<em>openstack instance id</em><em> or </em><em>None</em>) – id of the cloud instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>empty json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">metadata</span><span class="o">/</span><span class="n">instance_id</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">204</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;instance not found&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;key not in metadata&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.metadata.Metadata.put">
+<code class="sig-prename descclassname">resources.metadata.Metadata.</code><code class="sig-name descname">put</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">instance_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.metadata.Metadata.put" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Update instance metadata</strong></p>
+<p>This function allows users to add/update instance metadata.
+Its json input is specified by schema.CreateMetadataSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance_id</strong> (<em>openstack instance id</em><em> or </em><em>None</em>) – id of the cloud instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">metadata</span><span class="o">/</span><span class="n">instance_id</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>HTTP Status Code: ??
+
+json-format: see openstack.compute.v2.server.Server
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;instance not found&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.network.Network">
+<span id="bioportal-network"></span><h2>BioPortal network<a class="headerlink" href="#module-resources.network.Network" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.network.Network.get">
+<code class="sig-prename descclassname">resources.network.Network.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">network_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.network.Network.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get/list network</strong></p>
+<p>This function allows users to get their network specified by its ID. If no parameter given, all users
+networks are returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>network_id</strong> (<em>openstack network id</em><em> or </em><em>None</em>) – id of the network</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>network/s in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">networks</span><span class="o">/</span><span class="n">_your_keypair_id</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span>
+<span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">Network</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">..</span><span class="n">network</span><span class="o">.</span><span class="n">Network</span> <span class="n">array</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.project.Project">
+<span id="bioportal-project"></span><h2>BioPortal project<a class="headerlink" href="#module-resources.project.Project" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.project.Project.get">
+<code class="sig-prename descclassname">resources.project.Project.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.project.Project.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get your projects</strong></p>
+<p>This function allows users to list all their projects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>all users projects in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie login&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s1">&#39;links&#39;</span><span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;next&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;previous&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;self&#39;</span><span class="p">:</span> <span class="s1">&#39;https://identity.cloud.muni.cz/v3/users/$user_id/projects&#39;</span><span class="p">},</span>
+            <span class="s1">&#39;projects&#39;</span><span class="p">:</span>  <span class="p">[{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;project description&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;domain_id&#39;</span><span class="p">:</span> <span class="s1">&#39;domain id&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;project id&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;is_domain&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                            <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;self&#39;</span><span class="p">:</span> <span class="s1">&#39;link to the project&#39;</span><span class="p">},</span>
+                            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;project name&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                            <span class="s1">&#39;parent_id&#39;</span><span class="p">:</span> <span class="s1">&#39;parent id&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.router.Router">
+<span id="bioportal-router"></span><h2>BioPortal router<a class="headerlink" href="#module-resources.router.Router" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.router.Router.get">
+<code class="sig-prename descclassname">resources.router.Router.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">router_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.router.Router.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get router</strong></p>
+<p>This function allows users to get their instance specified by its ID (not implemented).
+If no parameter given, all users routers are returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>router_id</strong> (<em>openstack router id</em><em> or </em><em>None</em>) – id of the cloud instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>router/s information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">routers</span><span class="o">/</span><span class="n">_your_router_id</span><span class="o">/</span>
+<span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">router</span> <span class="n">array</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">501</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.security_group.SecurityGroup">
+<span id="bioportal-security-group"></span><h2>BioPortal security_group<a class="headerlink" href="#module-resources.security_group.SecurityGroup" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.security_group.SecurityGroup.get">
+<code class="sig-prename descclassname">resources.security_group.SecurityGroup.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">security_group_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.security_group.SecurityGroup.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get/list security group/s</strong></p>
+<dl class="simple">
+<dt>This function allows users to get their securty group specified by its ID. If no parameter given, all users</dt><dd><p>security groups are returned</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>security_group_id</strong> (<em>openstack security group id</em><em> or </em><em>None</em>) – id of the security group</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>security group/s information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">security_group</span><span class="o">/</span><span class="n">_your_sgroup_id</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">security_group</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">security_group</span> <span class="n">array</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.security_group.SecurityGroup.post">
+<code class="sig-prename descclassname">resources.security_group.SecurityGroup.</code><code class="sig-name descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.security_group.SecurityGroup.post" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Create new security group</strong></p>
+<p>This function allows users to create new security group.</p>
+<p>Its json input is specified by schema.SecurityGroupSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>security group information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">security_groups</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">201</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="o">...</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.security_group_rule.SecurityGroupRule">
+<span id="bioportal-security-group-rule"></span><h2>BioPortal security_group_rule<a class="headerlink" href="#module-resources.security_group_rule.SecurityGroupRule" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.security_group_rule.SecurityGroupRule.post">
+<code class="sig-prename descclassname">resources.security_group_rule.SecurityGroupRule.</code><code class="sig-name descname">post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">security_group_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.security_group_rule.SecurityGroupRule.post" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Add security group rule</strong></p>
+<p>This function allows users to add new security group rule.</p>
+<p>Its json input is specified by schema.SecurityGroupRuleSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>security_group_id</strong> (<em>openstack security group id</em>) – id of the security group id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>information about created rule in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">security_groups</span><span class="o">/</span><span class="n">security_group_id</span><span class="o">/</span><span class="n">security_group_rule</span><span class="o">/</span>
+<span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span> <span class="n">json_specified_in_schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">201</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">security_group_rule</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">409</span>
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="o">...</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">openstack-bioportal</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Andrej Cermak.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

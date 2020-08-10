@@ -11,20 +11,31 @@ class Gateway(Resource):
     @staticmethod
     def put(router_id):
         """
+            #TODO prejst co je to za blbost
             **Update gateway**
+
             This function allows users to add external gateway.
             Its json input is specified by schema.NetworkSchema
+
+            :param instance_id: id of the cloud instance
+            :type instance_id: openstack instance id or None
             :return: router information in json and http status code
+
             - Example::
-                  curl -X GET bio-portal.metacentrum.cz/api/gateways/ -H 'Cookie: cookie from scope' -H
+
+                  curl -X PUT bio-portal.metacentrum.cz/api/gateways/ -H 'Cookie: cookie from scope' -H
                   'content-type: application/json' --data json specified in schema
 
             - Expected Success Response::
+
                 HTTP Status Code: 200
-                json-format: see openstack.compute.v2.server
+
+                json-format: see openstack.network.v2.router
 
             - Expected Fail Response::
+
                 HTTP Status Code: 400
+
                 {"message": "Wrong router ID, router not found!"}
 
         """

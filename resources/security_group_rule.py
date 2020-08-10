@@ -9,6 +9,36 @@ class SecurityGroupRule(Resource):
 
     @staticmethod
     def post(security_group_id):
+        """
+                **Add security group rule**
+
+                This function allows users to add new security group rule.
+
+                Its json input is specified by schema.SecurityGroupRuleSchema
+
+                :param security_group_id: id of the security group id
+                :type security_group_id: openstack security group id
+                :return: information about created rule in json and http status code
+
+                - Example::
+
+                    curl -X POST bio-portal.metacentrum.cz/api/security_groups/security_group_id/security_group_rule/
+                    -H 'Cookie: cookie from scope' -H 'content-type: application/json' --data json_specified_in_schema
+
+                - Expected Success Response::
+
+                    HTTP Status Code: 201
+
+                    json-format: see openstack.network.v2.security_group_rule
+
+                - Expected Fail Response::
+
+                    HTTP Status Code: 409
+                    {"message": ...}
+
+
+
+            """
         connection = connect(session["token"], session["project_id"])
         load = SecurityGroupRuleSchema().load(request.json)
         if load["type"] == "ssh":

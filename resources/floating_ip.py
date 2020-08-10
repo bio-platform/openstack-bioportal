@@ -11,31 +11,41 @@ class FloatingIp(Resource):
     def post():
         """
             **Create new Floating IP**
+
             This function allows users to add new Floating IP to specified instance.
             If FIP doesnt exist, its created. If already exists and is not attached, then it will be attached to instance
 
             Its correct json input is specified by schema.FloatingIpSchema
+
             :return: floating information in json and http status code
+
             - Example::
+
                   curl -X GET bio-portal.metacentrum.cz/api/floating_ips/ -H 'Cookie: cookie from scope' -H
                   'content-type: application/json' --data: json specified in schema
 
             - Expected Success Response::
+
                 HTTP Status Code: 200
+
                 json-format: see openstack.network.v2.floating_ip
 
                 or
 
                 HTTP Status Code: 201
+
                 json-format: see openstack.network.v2.floating_ip
 
             - Expected Fail Response::
+
                 HTTP Status Code: 400
+
                 {"message": "Server not found"}
 
                 or
 
                 HTTP Status Code: 400
+
                 {"message": "Network not found"}
 
         """
@@ -72,20 +82,29 @@ class FloatingIp(Resource):
     def get(floating_ip_id=None):
         """
             **Get specific Floating IP**
+
             This function allows users to get their Floating IP specified by its ID. If no parameter given, all users
             FIPs  are returned
+
             :param floating_ip_id: id of the floating ip
             :type floating_ip_id: openstack FIP id or None
             :return: FIP/s information in json and http status code
+
             - Example::
+
                   curl -X GET bio-portal.metacentrum.cz/api/floating_ips/_your_floating_ip/ -H
                   'Cookie: cookie from scope' -H 'content-type: application/json'
+
             - Expected Success Response::
+
                 HTTP Status Code: 200
+
                 json-format: see openstack.network.v2.floating_ip
 
             - Expected Fail Response::
+
                 HTTP Status Code: 404
+
                 {}
 
         """

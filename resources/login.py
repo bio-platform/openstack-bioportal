@@ -22,13 +22,20 @@ class Login(Resource):
     def post():
         """
             **Login to portal**
+
             This function allows users to login to portal using their token.
+
             :return: empty json and http status code
+
             - Example::
+
                   curl -X POST bio-portal.metacentrum.cz/api/ -H 'cache-control: no-cache'
                    -H 'content-type: application/json' --data '{"token": your_token}'
+
             - Expected Success Response::
+
                 HTTP Status Code: 200
+
                 {}
         """
         load = LoginSchema().load(request.json)
@@ -53,16 +60,27 @@ class Login(Resource):
     def get():
         """
             **Verify your login**
+
             This function allows users to verify their login.
+
             :return: json and http status code
+
             - Example::
+
                   curl -X GET bio-portal.metacentrum.cz/api/ -H 'Cookie: cookie returned by scope'
+
             - Expected Success Response::
+
                 HTTP Status Code: 200
+
                 {"project_id": project_id, "token": token}
+
             - Expected Fail Response::
+
                 HTTP Status Code: 401
+
                 {'message': reason}
+
         """
         if 'project_id' in flask_session and 'token' in flask_session:
             connect(flask_session["token"], flask_session["project_id"])
@@ -73,17 +91,28 @@ class Login(Resource):
     def put():
         """
             **Scope to project**
+
             This function allows users to scope to their chosen project.
+
             :return: None and http status code
+
             - Example::
+
                   curl -X PUT bio-portal.metacentrum.cz/api/ -H 'Cookie: cookie returned by login'
                    -H 'content-type: application/json' --data '{"project_id": project_id}'
+
             - Expected Success Response::
+
                 HTTP Status Code: 204
+
                 {}
+
             - Expected Fail Response::
+
                 HTTP Status Code: 401
+
                 {'message': 'unauthorized'}
+
         """
         load = ScopeSchema().load(request.json)
         connect(flask_session['token'], load["project_id"])

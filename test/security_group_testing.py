@@ -1,7 +1,7 @@
 import unittest
 from app import app
 from Token import token
-from common.test.values import security_group_id
+from common.test.values import security_group_id, project_id
 
 
 class TestSecurityGroupGet(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestSecurityGroupGet(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
-        self.login = self.app.put("/", json={"project_id": "746105e4689f4cdaa621eecf9a86818f"})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.get("/security_groups/%s/" %security_group_id,
@@ -29,7 +29,7 @@ class TestSecurityGroupList(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
-        self.login = self.app.put("/", json={"project_id": "746105e4689f4cdaa621eecf9a86818f"})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.get("/security_groups/",
@@ -42,14 +42,8 @@ class TestSecurityGroupCreate(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
-    """
-    doesnt really make sense
-    def test_success(self):
-        response = self.app.post("/security_groups/",
-                                json={"token": token,
-                                      "name": "test_new_group"})
-        assert response.status_code == 201 and response.json is not None
-    """
+        self.login = self.app.put("/", json={"project_id": project_id})
+
 
     def test_failure_missing_name(self):
         response = self.app.post("/security_groups/",
@@ -75,6 +69,7 @@ class TestSecurityGroupRuleCreate(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.post("/security_groups/%s/security_group_rules/" %security_group_id,
@@ -88,6 +83,7 @@ class TestSecurityGroupRuleCreate(unittest.TestCase):
         assert response.status_code == 400 and response.json is not None
 
     def test_failure_rules_exists(self):
+        # TODO
         response = self.app.post("/security_groups/%s/security_group_rules/" % security_group_id,
                                  json={"type": "ssh"},
                                  headers={'Cookie': self.login.headers['Set-Cookie']})
@@ -97,3 +93,9 @@ class TestSecurityGroupRuleCreate(unittest.TestCase):
                                  json={"type": "ssh"},
                                  headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 409 and "message" in response.json.keys()
+
+    def test_failure_no_such_group(self):
+        response = self.app.post("/security_groups/wrong_group/security_group_rules/",
+                                 json={"type": "ssh"},
+                                 headers={'Cookie': self.login.headers['Set-Cookie']})
+        assert response.status_code == 400

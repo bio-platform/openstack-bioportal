@@ -2,8 +2,7 @@ import unittest
 
 from app import app
 from Token import token
-from common.test.values import network_id, router_id, external_network_id
-
+from common.test.values import network_id, router_id, external_network_id, project_id
 
 
 class TestNetworkList(unittest.TestCase):
@@ -11,7 +10,7 @@ class TestNetworkList(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
-        self.login = self.app.put("/", json={"project_id": "746105e4689f4cdaa621eecf9a86818f"})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.get("/networks/",
@@ -25,6 +24,7 @@ class TestNetworkGet(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.get("/networks/%s/" % network_id,
@@ -43,6 +43,7 @@ class TestGatewayPut(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.put("/gateways/%s/" % router_id,
@@ -64,6 +65,7 @@ class TestFloatingIpPost(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_failure_instance_not_found(self):
         response = self.app.post("/floating_ips/",
@@ -79,6 +81,7 @@ class TestRoutersList(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.get("/routers/",

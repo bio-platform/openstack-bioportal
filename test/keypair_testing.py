@@ -3,7 +3,7 @@ import unittest
 from Token import token
 
 from app import app
-from common.test.values import keypair_id
+from common.test.values import keypair_id, project_id
 
 
 class TestGet(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestGet(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
-        self.login = self.app.put("/", json={"project_id": "746105e4689f4cdaa621eecf9a86818f"})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
 
     def test_get_success(self):
@@ -25,7 +25,7 @@ class TestList(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
-        self.login = self.app.put("/", json={"project_id": "746105e4689f4cdaa621eecf9a86818f"})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
         response = self.app.get("/keypairs/",
@@ -38,6 +38,7 @@ class TestPost(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success_created(self):
         response = self.app.post("/keypairs/",
@@ -68,6 +69,7 @@ class TestPut(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_put_not_implemented(self):
         response = self.app.put("/keypairs/%s/" % keypair_id,
@@ -80,6 +82,7 @@ class TestDelete(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_put_not_implemented(self):
         response = self.app.delete("/keypairs/%s/" % keypair_id,

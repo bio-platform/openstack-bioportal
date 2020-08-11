@@ -63,3 +63,8 @@ BioPortal security_group_rule
 ===============================================================
 .. automodule:: resources.security_group_rule.SecurityGroupRule
    :members: post
+
+.. toctree::
+   :maxdepth: 2
+
+   includeme

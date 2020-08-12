@@ -51,8 +51,20 @@ class TestSet(unittest.TestCase):
     def test_failure_instance_not_found(self):
         response = self.app.put("/metadata/%s/" % "invalid_instance_id",
                                 headers={'Cookie': self.login.headers['Set-Cookie']})
-        assert response.status_code == 400 and \
-               "message" in response.json.keys()
+        print(response.status_code, response.json)
+        assert response.status_code == 400
+
+    def test_failure_wrong_format1(self):
+        response = self.app.put("/metadata/%s/" % instance_id,
+                                headers={'Cookie': self.login.headers['Set-Cookie']}, json={"wrong_name": {}})
+        print(response.status_code, response.json)
+        assert response.status_code == 400 and response.json is not None
+
+    def test_failure_wrong_format1(self):
+        response = self.app.put("/metadata/%s/" % instance_id,
+                                headers={'Cookie': self.login.headers['Set-Cookie']}, json={"metadata": 5})
+        print(response.status_code, response.json)
+        assert response.status_code == 400 and response.json is not None
 
 
 class TestDelete(unittest.TestCase):
@@ -80,3 +92,15 @@ class TestDelete(unittest.TestCase):
                                    headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 400 and \
                "message" in response.json.keys()
+
+    def test_failure_wrong_format1(self):
+        response = self.app.delete("/metadata/%s/" % instance_id,
+                                headers={'Cookie': self.login.headers['Set-Cookie']}, json={"keys": 5})
+        print(response.status_code, response.json)
+        assert response.status_code == 400 and response.json is not None
+
+    def test_failure_wrong_format1(self):
+        response = self.app.delete("/metadata/%s/" % instance_id,
+                                   headers={'Cookie': self.login.headers['Set-Cookie']}, json={"metdata":{"this_new_metadata":"value"}})
+        print(response.status_code, response.json)
+        assert response.status_code == 400 and response.json is not None

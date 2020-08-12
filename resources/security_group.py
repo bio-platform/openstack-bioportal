@@ -46,8 +46,8 @@ class SecurityGroup(Resource):
         """
             **Get/list security group/s**
 
-            This function allows users to get their securty group specified by its ID. If no parameter given, all users
-             security groups are returned
+            This function allows users to get their security group specified by its ID. If no parameter given, all users
+            security groups are returned
 
             :param security_group_id: id of the security group
             :type security_group_id: openstack security group id or None
@@ -55,7 +55,8 @@ class SecurityGroup(Resource):
 
             - Example::
 
-                curl -X GET bio-portal.metacentrum.cz/api/security_group/_your_sgroup_id/ -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+                curl -X GET bio-portal.metacentrum.cz/api/security_group/_your_sgroup_id/ -H 'Cookie: cookie from scope'
+                 -H 'content-type: application/json'
 
             - Expected Success Response::
 

@@ -25,6 +25,7 @@ app.logger.handlers.extend(gunicorn_error_logger.handlers)
 app.logger.setLevel(logging.DEBUG)
 app.logger.debug('Gunicorn logging start')
 app.secret_key = os.urandom(12).hex()
+app.config["PROPAGATE_EXCEPTIONS"] = True
 
 api = Api(app)
 app.permanent_session_lifetime = 10000

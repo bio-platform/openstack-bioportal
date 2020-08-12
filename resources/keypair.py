@@ -15,7 +15,7 @@ class Keypair(Resource):
             In case keypair with same name exits and their keys are different, old key is deleted and new one is created.
             Otherwise returns keypair that already existed is returned
 
-            Its json input is specified by schema.CreateKeypairSchema
+            Its json input is specified by :class:`~schema.CreateKeypairSchema`
 
             :return: keypair information in json and http status code
 
@@ -28,13 +28,13 @@ class Keypair(Resource):
 
                 HTTP Status Code: 200
 
-                json-format: see openstack.compute.v2.server
+                json-format: see openstack.compute.v2.keypair.Keypair
 
                 or
 
                 HTTP Status Code: 201
 
-                json-format: see openstack.compute.v2.server
+                json-format: see openstack.compute.v2.keypair.Keypair
 
             - Expected Fail Response::
 

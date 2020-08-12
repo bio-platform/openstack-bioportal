@@ -19,28 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="CHANGED token passing to sessions, accordingly CHANGED tests">
-      <change beforePath="$PROJECT_DIR$/.idea/OpenStack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenStack.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DefaultManager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DefaultSchema.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/instance/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/.idea/keypair.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/keypair/APIKeypair/clouds.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/limit/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/limit/APILimit/clouds.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/login/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/metadata/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/metadata/APIMetadata/clouds.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/network/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/network/APINetwork/clouds.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/security_group/0_Other/run_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/depricated/security_group/APISecurityGroup/clouds.yaml" beforeDir="false" />
+    <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="DELETED redundant files">
+      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -454,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596474318626</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="DELETED redundant files">
+      <created>1597244420581</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1597244420581</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +469,8 @@
     <MESSAGE value="ADDED gunicorn to requirements" />
     <MESSAGE value="DELETED redundant method helper" />
     <MESSAGE value="ADDED docs" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADDED docs" />
+    <MESSAGE value="DELETED redundant files" />
+    <option name="LAST_COMMIT_MESSAGE" value="DELETED redundant files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="445" width="251" height="212" key="#Custom_Plugin_Repositories" timestamp="1596614453936">
@@ -541,10 +529,10 @@
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
     <state x="376" y="100" key="SettingsEditor/0.0.1920.1047@0.0.1920.1047" timestamp="1596614482741" />
-    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2" timestamp="1597244384583">
+    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2" timestamp="1597244429448">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
-    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2/0.0.1920.1047@0.0.1920.1047" timestamp="1597244384583" />
+    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2/0.0.1920.1047@0.0.1920.1047" timestamp="1597244429448" />
     <state x="97" y="100" width="1726" height="850" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596616412207">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>

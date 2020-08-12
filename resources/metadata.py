@@ -15,7 +15,7 @@ class Metadata(Resource):
             Its json input is specified by schema.CreateMetadataSchema
 
             :param instance_id: id of the cloud instance
-            :type instance_id: openstack instance id or None
+            :type instance_id: openstack instance id
             :return: instance information in json and http status code
 
             - Example::
@@ -37,9 +37,9 @@ class Metadata(Resource):
 
         """
 
-        metadata = CreateMetadataSchema().load(request.json)["metadata"]
         connection = connect(session["token"], session["project_id"])
         instance = connection.compute.find_server(instance_id)
+        metadata = CreateMetadataSchema().load(request.json)["metadata"]
 
         if instance is None:
             return {"message": "instance not found"}, 400
@@ -53,12 +53,12 @@ class Metadata(Resource):
             This function allows users to get instance metadata.
 
             :param instance_id: id of the cloud instance
-            :type instance_id: openstack instance id or None
+            :type instance_id: openstack instance id
             :return: instance information in json and http status code
 
             - Example::
 
-                  curl -X PUT bio-portal.metacentrum.cz/api/metadata/instance_id/ -H 'Cookie: cookie from scope'
+                  curl -X GET bio-portal.metacentrum.cz/api/metadata/instance_id/ -H 'Cookie: cookie from scope'
 
             - Expected Success Response::
 
@@ -88,12 +88,12 @@ class Metadata(Resource):
             Its json input is specified by schema.DeleteMetadataSchema
 
             :param instance_id: id of the cloud instance
-            :type instance_id: openstack instance id or None
+            :type instance_id: openstack instance
             :return: empty json and http status code
 
             - Example::
 
-                curl -X PUT bio-portal.metacentrum.cz/api/metadata/instance_id/ -H 'Cookie: cookie from scope'
+                curl -X DELETE bio-portal.metacentrum.cz/api/metadata/instance_id/ -H 'Cookie: cookie from scope'
                 'content-type: application/json' --data json specified in schema
 
             - Expected Success Response::
@@ -117,8 +117,8 @@ class Metadata(Resource):
 
         """
         connection = connect(session["token"], session["project_id"])
-        load = DeleteMetadataSchema().load(request.json)
         instance = connection.compute.find_server(instance_id)
+        load = DeleteMetadataSchema().load(request.json)
         if instance is None:
             return {"message": "instance not found"}, 400
         metadata = connection.compute.get_server_metadata(instance).to_dict()["metadata"]

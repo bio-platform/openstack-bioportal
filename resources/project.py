@@ -16,7 +16,7 @@ class Project(Resource):
 
                 - Example::
 
-                    curl -X GET bio-portal.metacentrum.cz/api/projects/ -H 'Cookie: cookie login'
+                    curl -X GET bio-portal.metacentrum.cz/api/projects/ -H 'Cookie: login cookie'
                 -
                  Expected Success Response::
 

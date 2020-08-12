@@ -46,16 +46,7 @@ class TestVerification(unittest.TestCase):
 
     def test_get_fail(self):
         pass
-        #TODO ako testovat takyto pripad hmmmm
-        # with self.app as client:
-        #     with client.session_transaction() as sess:
-        #         # Modify the session in this context block.
-        #         sess["project_id"] = "project_id"
-        #         sess["token"] = "8"
-        #     response = client.get("/")
-        #     print(response)
-        #     assert response.status_code == 401
-        #
+
 
 if __name__ == '__main__':
     unittest.main()

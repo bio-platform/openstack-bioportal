@@ -101,6 +101,12 @@ class FloatingIp(Resource):
 
                 json-format: see openstack.network.v2.floating_ip
 
+                or
+
+                HTTP Status Code: 200
+
+                openstack.network.v2.floating_ip array
+
             - Expected Fail Response::
 
                 HTTP Status Code: 404

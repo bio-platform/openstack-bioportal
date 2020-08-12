@@ -1,6 +1,6 @@
 # Bioportal backend
 Backend of Bioportal, web application created to offer frontend a connection to openstack cloud via REST API. This backend runs at [link](http://bio-portal.metacentrum.cz/).
-On the server side, it's running in Docker container. The Dockerfile is not provided here yet.
+On the server side, it's running in Docker container. The Dockerfile is not provided here yet. 
 
 ## Requirements
 * Python 3
@@ -11,6 +11,10 @@ On the server side, it's running in Docker container. The Dockerfile is not prov
 ```
 sudo sh start.sh
 ```
+
+## Documentation
+[here](https://andrejcermak.github.io/openstack-bioportal/)
+
 
 ## Contributing
 1.Fork [openstack](`https://github.com/andrejcermak/openstack/fork`)

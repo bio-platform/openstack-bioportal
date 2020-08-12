@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>&lt;no title&gt; &#8212; openstack-bioportal 1.0. documentation</title>
+    <title>Bioportal backend &#8212; openstack-bioportal 1.0. documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -32,7 +32,39 @@
 
           <div class="body" role="main">
             
-  <p>dunno</p>
+  <div class="section" id="bioportal-backend">
+<h1>Bioportal backend<a class="headerlink" href="#bioportal-backend" title="Permalink to this headline">¶</a></h1>
+<p>Backend of Bioportal, web application created to offer frontend a
+connection to openstack cloud via REST API. This backend runs at
+<a class="reference external" href="http://bio-portal.metacentrum.cz/">link</a>. On the server side, it’s running in Docker container. The
+Dockerfile is not provided here yet.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Python 3</p></li>
+<li><p>Nginx</p></li>
+<li><p><a class="reference external" href="https://github.com/andrejcermak/openstack/blob/master/requirements.txt">python requirements</a></p></li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">sh</span> <span class="n">start</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://andrejcermak.github.io/openstack-bioportal/">here</a></p>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>1.Fork <a class="reference external" href="%60https://github.com/andrejcermak/openstack/fork%60">openstack</a></p>
+<p>2.Create your feature branch (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">my-new-feature</span></code>)</p>
+<p>3.Commit your changes (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-am</span> <span class="pre">'Add</span> <span class="pre">some</span> <span class="pre">feature'</span></code>)</p>
+<p>4.Push to the branch (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">my-new-feature</span></code>)</p>
+<p>5.Create a new Pull Request</p>
+</div>
+</div>
 
 
           </div>
@@ -51,8 +83,14 @@
 
 
 <h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation for the Code</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bioportal backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">

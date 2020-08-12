@@ -11,17 +11,16 @@ class Router(Resource):
         """
                 **Get router**
 
-                This function allows users to get their instance specified by its ID (not implemented).
+                This function allows users to get their router specified by its ID (not implemented).
                 If no parameter given, all users routers are returned
 
-                :param router_id: id of the cloud instance
+                :param router_id: id of the cloud router
                 :type router_id: openstack router id or None
                 :return: router/s information in json and http status code
 
                 - Example::
 
-                    curl -X GET bio-portal.metacentrum.cz/api/routers/_your_router_id/
-                    -H 'Cookie: cookie from scope' -H 'content-type: application/json'
+                    curl -X GET http://bio-portal.metacentrum.cz/api/routers/ -H 'Cookie: cookie from scope'
                 -
                  Expected Success Response::
 

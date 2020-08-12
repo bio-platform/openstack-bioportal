@@ -15,6 +15,7 @@ from resources.login import Login
 import os
 import logging
 from marshmallow import ValidationError
+# from marshmallow.exceptions import  ValidationError
 from openstack.exceptions import HttpException, SDKException
 
 app = Flask(__name__)
@@ -57,7 +58,7 @@ def handle_exception(e):
 
 @app.errorhandler(Exception)
 def handle_exception(e):
-    app.logger.info("Unknown" + str(type(e) + "error: "+str(e)))
+    app.logger.info("Unknown" + str(type(e)) + "error: "+str(e))
     return {}, 500
 
 

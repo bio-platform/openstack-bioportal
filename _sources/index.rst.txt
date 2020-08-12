@@ -1,3 +1,11 @@
+.. toctree::
+   :hidden:
+
+   index
+
+.. contents:: Table of Contents
+    :depth: 3
+
 Documentation for the Code
 **************************
 .. toctree::
@@ -37,7 +45,7 @@ BioPortal login
 BioPortal metadata
 ===========================================
 .. automodule:: resources.metadata.Metadata
-   :members: put, delete
+   :members: put, delete, get
 
 BioPortal network
 =========================================
@@ -64,7 +72,19 @@ BioPortal security_group_rule
 .. automodule:: resources.security_group_rule.SecurityGroupRule
    :members: post
 
+TEST test
+================
+.. automodule:: test
+   :members: instance_test, keypair_testing
+
 .. toctree::
    :maxdepth: 2
 
    includeme
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

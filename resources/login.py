@@ -29,8 +29,8 @@ class Login(Resource):
 
             - Example::
 
-                  curl -X POST bio-portal.metacentrum.cz/api/ -H 'cache-control: no-cache'
-                   -H 'content-type: application/json' --data '{"token": your_token}'
+                  curl -v POST bio-portal.metacentrum.cz/api/
+                  -H 'content-type: application/json' --data '{"token": your_token}'
 
             - Expected Success Response::
 
@@ -93,8 +93,9 @@ class Login(Resource):
             **Scope to project**
 
             This function allows users to scope to their chosen project.
+            Its json input is specified by :class:`~schema.ScopeSchema`
 
-            :return: None and http status code
+            :return: {} and http status code
 
             - Example::
 
@@ -117,4 +118,4 @@ class Login(Resource):
         load = ScopeSchema().load(request.json)
         connect(flask_session['token'], load["project_id"])
         flask_session["project_id"] = load["project_id"]
-        return None, 204
+        return {}, 204

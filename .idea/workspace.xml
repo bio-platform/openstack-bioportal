@@ -19,8 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="DELETED redundant files">
+    <list default="true" id="f6843703-7a70-409c-bf21-dadc42266f44" name="Default Changelist" comment="DELETED md readme, moved to rst">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/cermak.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/cermak.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/Connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Token.py" beforeDir="false" afterPath="$PROJECT_DIR$/Token.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/test/values.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/test/values.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/includeme.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/includeme.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openstack_resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/openstack_resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/schema.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +82,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Nosetests for login_testing.TestLogin.test_login_success">
+  <component name="RunManager" selected="Python tests.Nosetests for project_testing.TestList">
     <configuration name="api" type="PythonConfigurationType" factoryName="Python">
       <module name="OpenStack" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -186,10 +195,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Nosetests for login_testing.TestLogin.test_login_success" />
-        <item itemvalue="Python tests.Nosetests for login_testing.TestLogin" />
         <item itemvalue="Python tests.Nosetests for project_testing.TestList" />
         <item itemvalue="Python tests.Nosetests for instance_test.TestGet" />
+        <item itemvalue="Python tests.Nosetests for login_testing.TestLogin.test_login_success" />
+        <item itemvalue="Python tests.Nosetests for login_testing.TestLogin" />
         <item itemvalue="Python tests.Nosetests for login_testing.TestGet" />
       </list>
     </recent_temporary>
@@ -209,6 +218,10 @@
       <workItem from="1596533392284" duration="24540000" />
       <workItem from="1596613776936" duration="193000" />
       <workItem from="1596613982788" duration="19364000" />
+      <workItem from="1597654041542" duration="2847000" />
+      <workItem from="1597661527375" duration="705000" />
+      <workItem from="1597663676332" duration="4205000" />
+      <workItem from="1598264868822" duration="2888000" />
     </task>
     <task id="LOCAL-00001" summary="ADDED token auth, FIXED manager">
       <created>1565175544107</created>
@@ -441,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597244420581</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="DELETED md readme, moved to rst">
+      <created>1597245273549</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1597245273549</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -470,7 +490,8 @@
     <MESSAGE value="DELETED redundant method helper" />
     <MESSAGE value="ADDED docs" />
     <MESSAGE value="DELETED redundant files" />
-    <option name="LAST_COMMIT_MESSAGE" value="DELETED redundant files" />
+    <MESSAGE value="DELETED md readme, moved to rst" />
+    <option name="LAST_COMMIT_MESSAGE" value="DELETED md readme, moved to rst" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="445" width="251" height="212" key="#Custom_Plugin_Repositories" timestamp="1596614453936">
@@ -493,22 +514,26 @@
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
     <state x="627" y="213" width="661" height="621" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1047@0.0.1920.1047" timestamp="1596551486562" />
-    <state width="1854" height="379" key="GridCell.Tab.0.bottom" timestamp="1597244242913">
+    <state x="97" y="100" width="1726" height="850" key="DiffContextDialog" timestamp="1598265120006">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
-    <state width="1854" height="379" key="GridCell.Tab.0.bottom/0.0.1920.1047@0.0.1920.1047" timestamp="1597244242913" />
-    <state width="1854" height="379" key="GridCell.Tab.0.center" timestamp="1597244242913">
+    <state x="97" y="100" width="1726" height="850" key="DiffContextDialog/0.0.1920.1047@0.0.1920.1047" timestamp="1598265120006" />
+    <state width="1854" height="142" key="GridCell.Tab.0.bottom" timestamp="1597660457210">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
-    <state width="1854" height="379" key="GridCell.Tab.0.center/0.0.1920.1047@0.0.1920.1047" timestamp="1597244242913" />
-    <state width="1854" height="379" key="GridCell.Tab.0.left" timestamp="1597244242913">
+    <state width="1854" height="142" key="GridCell.Tab.0.bottom/0.0.1920.1047@0.0.1920.1047" timestamp="1597660457210" />
+    <state width="1854" height="142" key="GridCell.Tab.0.center" timestamp="1597660457207">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
-    <state width="1854" height="379" key="GridCell.Tab.0.left/0.0.1920.1047@0.0.1920.1047" timestamp="1597244242913" />
-    <state width="1854" height="379" key="GridCell.Tab.0.right" timestamp="1597244242913">
+    <state width="1854" height="142" key="GridCell.Tab.0.center/0.0.1920.1047@0.0.1920.1047" timestamp="1597660457207" />
+    <state width="1854" height="142" key="GridCell.Tab.0.left" timestamp="1597660457206">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
-    <state width="1854" height="379" key="GridCell.Tab.0.right/0.0.1920.1047@0.0.1920.1047" timestamp="1597244242913" />
+    <state width="1854" height="142" key="GridCell.Tab.0.left/0.0.1920.1047@0.0.1920.1047" timestamp="1597660457206" />
+    <state width="1854" height="142" key="GridCell.Tab.0.right" timestamp="1597660457208">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1854" height="142" key="GridCell.Tab.0.right/0.0.1920.1047@0.0.1920.1047" timestamp="1597660457208" />
     <state width="1854" height="364" key="GridCell.Tab.1.bottom" timestamp="1596619491890">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
@@ -529,14 +554,18 @@
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
     <state x="376" y="100" key="SettingsEditor/0.0.1920.1047@0.0.1920.1047" timestamp="1596614482741" />
-    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2" timestamp="1597244429448">
+    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2" timestamp="1597245280910">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
-    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2/0.0.1920.1047@0.0.1920.1047" timestamp="1597244429448" />
+    <state x="455" y="198" width="1006" height="651" key="Vcs.Push.Dialog.v2/0.0.1920.1047@0.0.1920.1047" timestamp="1597245280910" />
     <state x="97" y="100" width="1726" height="850" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596616412207">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
     <state x="97" y="100" width="1726" height="850" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1047@0.0.1920.1047" timestamp="1596616412207" />
+    <state x="634" y="417" width="648" height="212" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597675756839">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="634" y="417" width="648" height="212" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1047@0.0.1920.1047" timestamp="1597675756839" />
     <state x="539" y="399" width="837" height="248" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1596474216795">
       <screen x="0" y="0" width="1920" height="1047" />
     </state>
@@ -730,7 +759,7 @@
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_network_testing_TestRoutersList.coverage" NAME="Nosetests for network_testing.TestRoutersList Coverage Results" MODIFIED="1596803347133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_metadata_testing_TestSet_test_failure_wrong_format1.coverage" NAME="Nosetests for metadata_testing.TestSet.test_failure_wrong_format1 Coverage Results" MODIFIED="1597226915790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_metadata_testing_TestGet.coverage" NAME="Nosetests for metadata_testing.TestGet Coverage Results" MODIFIED="1597239627532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/openstack$Nosetests_for_project_testing_TestList.coverage" NAME="Nosetests for project_testing.TestList Coverage Results" MODIFIED="1597059722401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/openstack$Nosetests_for_project_testing_TestList.coverage" NAME="Nosetests for project_testing.TestList Coverage Results" MODIFIED="1597654273792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_login_testing_TestScope_test_scope_success.coverage" NAME="Nosetests for login_testing.TestScope.test_scope_success Coverage Results" MODIFIED="1596795026474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_instance_test_TestPost_test_failure_missing_argument.coverage" NAME="Nosetests for instance_test.TestPost.test_failure_missing_argument Coverage Results" MODIFIED="1596801193645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_metadata_testing_TestSet_test_failure_instance_not_found.coverage" NAME="Nosetests for metadata_testing.TestSet.test_failure_instance_not_found Coverage Results" MODIFIED="1597239618758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
@@ -742,7 +771,7 @@
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_login_testing_TestLogin_test_login_fail.coverage" NAME="Nosetests for login_testing.TestLogin.test_login_fail Coverage Results" MODIFIED="1596789027027" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_metadata_testing_TestSet_test_failure_missing_metadata.coverage" NAME="Nosetests for metadata_testing.TestSet.test_failure_missing_metadata Coverage Results" MODIFIED="1597226549133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_metadata_testing_TestDelete_test_failure_wrong_format1.coverage" NAME="Nosetests for metadata_testing.TestDelete.test_failure_wrong_format1 Coverage Results" MODIFIED="1597237139397" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/openstack$Nosetests_for_instance_test_TestGet.coverage" NAME="Nosetests for instance_test.TestGet Coverage Results" MODIFIED="1596794267806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/openstack$Nosetests_for_instance_test_TestGet.coverage" NAME="Nosetests for instance_test.TestGet Coverage Results" MODIFIED="1597654239829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_network_testing_TestNetworkGet_test_success.coverage" NAME="Nosetests for network_testing.TestNetworkGet.test_success Coverage Results" MODIFIED="1596803430346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_for_metadata_testing_TestSet_test_failure_wrong_format.coverage" NAME="Nosetests for metadata_testing.TestSet.test_failure_wrong_format Coverage Results" MODIFIED="1597226784893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/openstack$Nosetests_in_login_testing_py.coverage" NAME="Nosetests in login_testing.py Coverage Results" MODIFIED="1596788884385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />

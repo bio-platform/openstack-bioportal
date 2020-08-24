@@ -2,6 +2,7 @@
   <dictionary name="cermak">
     <words>
       <w>gunicorn</w>
+      <w>openstack</w>
     </words>
   </dictionary>
 </component>

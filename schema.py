@@ -1,6 +1,8 @@
 from marshmallow import Schema, fields, validate
 from openstack_resources import connection_types
 
+"""Set of all marshmallow schemes used in this project"""
+
 
 class StartServerSchema(Schema):
     flavor = fields.String(required=True)

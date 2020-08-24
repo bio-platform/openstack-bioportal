@@ -1,3 +1,5 @@
+"""Set of all important values for every user"""
+
 flavors = [
         "standard.tiny",
         "standard.small",

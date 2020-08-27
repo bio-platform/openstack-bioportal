@@ -11,7 +11,6 @@ class Gateway(Resource):
     @staticmethod
     def put(router_id):
         """
-            #TODO prejst co je to za blbost
             **Update gateway**
 
             This function allows users to add external gateway.

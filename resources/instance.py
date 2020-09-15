@@ -13,7 +13,7 @@ from flask_restful import Resource
 
 from schema import StartServerSchema
 from Connection import connect
-
+import requests
 
 class Instance(Resource):
 
@@ -53,9 +53,9 @@ class Instance(Resource):
         flavor = connection.compute.find_flavor(json["flavor"])
         network = connection.network.find_network(json["network_id"])
         key_pair = connection.compute.find_keypair(json["key_name"])
-        with open("cloud-init-bioconductor-image.sh", "r") as file:
-            text = file.read()
-            text = encodeutils.safe_encode(text.encode("utf-8"))
+
+        req = requests.get( "https://raw.githubusercontent.com/bio-platform/bio-class/master/install/cloud-init-bioconductor-image.sh")
+        text = encodeutils.safe_encode(req.text.encode("utf-8"))
         init_script = base64.b64encode(text).decode("utf-8")
 
         if (image is None) or (flavor is None) or (network is None) or (key_pair is None):

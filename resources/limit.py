@@ -54,7 +54,7 @@ class Limit(Resource):
                                                             Ubuntu; Linux x86_64; rv:68.0)\
                                                             Gecko/20100101 Firefox/68.0",
                                 "X-Auth-Token": connection.authorize()}).json()
-        print(quotas)
+
         res = {"floating_ips": {"limit": quotas["quota"]["floatingip"],
                                 "used": sum(1 for _ in connection.network.ips())},  # get generator length
                "instances": {"limit": absolute["instances"],

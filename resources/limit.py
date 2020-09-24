@@ -1,5 +1,6 @@
 from flask import session
 from flask_restful import Resource
+from requests import get
 
 from Connection import connect
 
@@ -47,8 +48,15 @@ class Limit(Resource):
         connection = connect(session["token"], session["project_id"])
         limits = connection.compute.get_limits()
         absolute = limits["absolute"]
-        res = {"floating_ips": {"limit": absolute["floating_ips"],
-                                "used": absolute["floating_ips_used"]},
+        quotas = get("https://network.cloud.muni.cz/v2.0/quotas/%s/" % session['project_id'],
+                       headers={"Accept": "application/json",
+                                "User-Agent": "Mozilla/5.0 (X11;\
+                                                            Ubuntu; Linux x86_64; rv:68.0)\
+                                                            Gecko/20100101 Firefox/68.0",
+                                "X-Auth-Token": connection.authorize()}).json()
+        print(quotas)
+        res = {"floating_ips": {"limit": quotas["quota"]["floatingip"],
+                                "used": sum(1 for _ in connection.network.ips())},  # get generator length
                "instances": {"limit": absolute["instances"],
                              "used": absolute["instances_used"]},
                "cores": {"limit": absolute["total_cores"],

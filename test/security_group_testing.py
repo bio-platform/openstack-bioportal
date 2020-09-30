@@ -75,6 +75,28 @@ class TestSecurityGroupRuleCreate(unittest.TestCase):
         response = self.app.post("/security_groups/%s/security_group_rules/" %security_group_id,
                                  json={"type": "ssh"},
                                  headers={'Cookie': self.login.headers['Set-Cookie']})
+        print(response.status_code)
+        assert response.status_code == 201 and response.json is not None
+
+    def test_success_allicmp(self):
+        response = self.app.post("/security_groups/%s/security_group_rules/" %security_group_id,
+                                 json={"type": "all_icmp"},
+                                 headers={'Cookie': self.login.headers['Set-Cookie']})
+        print(response.status_code)
+        assert response.status_code == 201 and response.json is not None
+
+    def test_create_http(self):
+        response = self.app.post("/security_groups/%s/security_group_rules/" %security_group_id,
+                                 json={"type": "http"},
+                                 headers={'Cookie': self.login.headers['Set-Cookie']})
+        print(response.status_code)
+        assert response.status_code == 201 and response.json is not None
+
+    def test_create_https(self):
+        response = self.app.post("/security_groups/%s/security_group_rules/" % security_group_id,
+                                 json={"type": "https"},
+                                 headers={'Cookie': self.login.headers['Set-Cookie']})
+        print(response.status_code)
         assert response.status_code == 201 and response.json is not None
 
     def test_failure_missing_type(self):

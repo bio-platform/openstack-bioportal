@@ -40,5 +40,5 @@ Contributing
 
 .. _link: http://bio-portal.metacentrum.cz/
 .. _python requirements: https://github.com/andrejcermak/openstack/blob/master/requirements.txt
-.. _here: https://andrejcermak.github.io/openstack-bioportal/
+.. _here: https://bio-platform.github.io/openstack-bioportal/
 .. _openstack: %60https://github.com/andrejcermak/openstack/fork%60

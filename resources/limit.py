@@ -55,8 +55,12 @@ class Limit(Resource):
                                                             Gecko/20100101 Firefox/68.0",
                                 "X-Auth-Token": connection.authorize()}).json()
 
+        ips = 0
+        for fip in connection.network.ips():
+            if fip.get("status") == "ACTIVE":
+                ips += 1
         res = {"floating_ips": {"limit": quotas["quota"]["floatingip"],
-                                "used": sum(1 for _ in connection.network.ips())},  # get generator length
+                                "used": ips},  # get generator length
                "instances": {"limit": absolute["instances"],
                              "used": absolute["instances_used"]},
                "cores": {"limit": absolute["total_cores"],

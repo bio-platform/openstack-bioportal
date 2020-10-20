@@ -63,6 +63,12 @@ BioPortal security_group_rule
 ===============================================================
 .. automodule:: resources.security_group_rule.SecurityGroupRule
    :members: post
+   
+BioPortal floating_ip
+===============================================================
+.. automodule:: resources.floating_ip.FloatingIp
+   :members: post, get
+
 
 .. toctree::
    :maxdepth: 2

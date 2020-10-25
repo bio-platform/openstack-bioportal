@@ -122,3 +122,18 @@ class FloatingIp(Resource):
         if floating_ip is None:
             return {}, 404
         return floating_ip.to_dict(), 200
+
+    @staticmethod
+    def delete(floating_ip_id):
+        floating_ip = floating_ip_id
+        connection = connect(session["token"], session["project_id"])
+        for server in connection.compute.servers():
+            for values in server.addresses.values():
+                for address in values:
+                    if address["addr"] == floating_ip and address["OS-EXT-IPS:type"] == "floating":
+                        connection.compute.remove_floating_ip_from_server(
+                            server.id, floating_ip
+                        )
+                        return {}, 200
+        return {"message": "Address or server not found"}, 400
+

@@ -69,6 +69,11 @@ BioPortal floating_ip
 .. automodule:: resources.floating_ip.FloatingIp
    :members: post, get
 
+BioPortal image
+===============================================================
+.. automodule:: resources.image.Image
+   :members: get
+
 
 .. toctree::
    :maxdepth: 2

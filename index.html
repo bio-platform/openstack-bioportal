@@ -808,6 +808,162 @@ from the url rule used when adding the resource to an Api instance. See
 </ul>
 </dd></dl>
 
+</div>
+<div class="section" id="module-resources.floating_ip.FloatingIp">
+<span id="bioportal-floating-ip"></span><h2>BioPortal floating_ip<a class="headerlink" href="#module-resources.floating_ip.FloatingIp" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.floating_ip.FloatingIp.get">
+<code class="sig-prename descclassname">resources.floating_ip.FloatingIp.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">floating_ip_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.floating_ip.FloatingIp.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get specific Floating IP</strong></p>
+<p>This function allows users to get their Floating IP specified by its ID. If no parameter given, all users
+FIPs  are returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>floating_ip_id</strong> (<em>openstack FIP id</em><em> or </em><em>None</em>) – id of the floating ip</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>FIP/s information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">floating_ips</span><span class="o">/</span><span class="n">_your_floating_ip</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">floating_ip</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">floating_ip</span> <span class="n">array</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="resources.floating_ip.FloatingIp.post">
+<code class="sig-prename descclassname">resources.floating_ip.FloatingIp.</code><code class="sig-name descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resources.floating_ip.FloatingIp.post" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Create new Floating IP</strong></p>
+<p>This function allows users to add new Floating IP to specified instance.
+If FIP doesnt exist, its created. If already exists and is not attached, then it will be attached to instance</p>
+<p>Its correct json input is specified by schema.FloatingIpSchema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>floating information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">floating_ips</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;content-type: application/json&#39;</span> <span class="o">--</span><span class="n">data</span><span class="p">:</span> <span class="n">json</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">schema</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">floating_ip</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">201</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">floating_ip</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Server not found&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Network not found&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-resources.image.Image">
+<span id="bioportal-image"></span><h2>BioPortal image<a class="headerlink" href="#module-resources.image.Image" title="Permalink to this headline">¶</a></h2>
+<p>Represents an abstract RESTful resource. Concrete resources should
+extend from this class and expose methods for each supported HTTP
+method. If a resource is invoked with an unsupported HTTP method,
+the API will return a response with status 405 Method Not Allowed.
+Otherwise the appropriate method is called and passed all arguments
+from the url rule used when adding the resource to an Api instance. See
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_resource()</span></code> for details.</p>
+<dl class="py function">
+<dt id="resources.image.Image.get">
+<code class="sig-prename descclassname">resources.image.Image.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#resources.image.Image.get" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Get specific image</strong></p>
+<p>This function allows users to get their image specified by its ID. If no parameter given, all available
+images are returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image_id</strong> (<em>openstack image id</em><em> or </em><em>None</em>) – id of the image</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>image information in json and http status code</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">bio</span><span class="o">-</span><span class="n">portal</span><span class="o">.</span><span class="n">metacentrum</span><span class="o">.</span><span class="n">cz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">_your_image_id</span><span class="o">/</span> <span class="o">-</span><span class="n">H</span>
+<span class="s1">&#39;Cookie: cookie from scope&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;content-type: application/json&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">json</span><span class="o">-</span><span class="nb">format</span><span class="p">:</span> <span class="n">see</span> <span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">image</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="n">openstack</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">image</span> <span class="n">array</span>
+</pre></div>
+</div>
+</li>
+<li><p>Expected Fail Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="includeme.html">Bioportal backend</a><ul>

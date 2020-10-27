@@ -79,6 +79,16 @@ class SecurityGroupRule(Resource):
                 ether_type="IPv4",
                 remote_ip_prefix="0.0.0.0/0")
 
+        if load["type"] == "rdp":
+            new_rule = connection.network.create_security_group_rule(
+                direction="ingress",
+                protocol="tcp",
+                port_range_min="3389",
+                port_range_max="3389",
+                security_group_id=security_group_id,
+                ether_type="IPv4",
+                remote_ip_prefix="0.0.0.0/0")
+
         return new_rule.to_dict(), 201
 
 

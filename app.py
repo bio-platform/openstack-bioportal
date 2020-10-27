@@ -12,6 +12,7 @@ from resources.instance import Instance
 from resources.router import Router
 from resources.project import Project
 from resources.login import Login
+from resources.image import Image
 import os
 import logging
 from marshmallow import ValidationError
@@ -84,6 +85,8 @@ api.add_resource(Instance, '/instances/', '/instances/<string:instance_id>/')
 api.add_resource(Router, '/routers/', '/routers/<string:router_id>/')
 
 api.add_resource(Project, '/projects/')
+
+api.add_resource(Image, '/images/', '/images/<string:image_id>/')
 
 api.add_resource(Login, '/')
 

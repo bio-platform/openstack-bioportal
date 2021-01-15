@@ -9,6 +9,7 @@ from resources.network import Network
 from resources.metadata import Metadata
 from resources.keypair import Keypair
 from resources.instance import Instance
+from resources.instance2 import Instance2, Instance2Task
 from resources.router import Router
 from resources.project import Project
 from resources.login import Login
@@ -59,8 +60,9 @@ def handle_exception(e):
 
 
 @app.errorhandler(Exception)
-def handle_exception(e):
-    app.logger.info("Unknown" + str(type(e)) + "error: "+str(e))
+def handle_exception(e: Exception):
+    import traceback
+    app.logger.info("Unknown" + str(type(e)) + "error: "+traceback.format_exc())
     return {}, 500
 
 
@@ -85,10 +87,11 @@ api.add_resource(Instance, '/instances/', '/instances/<string:instance_id>/')
 api.add_resource(Router, '/routers/', '/routers/<string:router_id>/')
 
 api.add_resource(Project, '/projects/')
-
+api.add_resource(Instance2Task, '/instancesv2/tasks/<string:task_id>/')
 api.add_resource(Image, '/images/', '/images/<string:image_id>/')
 
+api.add_resource(Instance2, '/instancesv2/')
 api.add_resource(Login, '/')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, port=4000)

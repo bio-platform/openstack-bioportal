@@ -95,4 +95,4 @@ api.add_resource(Instance2, '/instancesv2/')
 api.add_resource(Login, '/')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=4000)
+    app.run()

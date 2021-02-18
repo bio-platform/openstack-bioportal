@@ -9,7 +9,7 @@ from resources.network import Network
 from resources.metadata import Metadata
 from resources.keypair import Keypair
 from resources.instance import Instance
-from resources.instance2 import Instance2, Instance2Task
+from resources.instance2 import Instance2, Task
 from resources.router import Router
 from resources.project import Project
 from resources.login import Login
@@ -87,7 +87,8 @@ api.add_resource(Instance, '/instances/', '/instances/<string:instance_id>/')
 api.add_resource(Router, '/routers/', '/routers/<string:router_id>/')
 
 api.add_resource(Project, '/projects/')
-api.add_resource(Instance2Task, '/instancesv2/tasks/<string:task_id>/')
+api.add_resource(Task, '/tasks/', '/tasks/<string:task_id>/')
+
 api.add_resource(Image, '/images/', '/images/<string:image_id>/')
 
 api.add_resource(Instance2, '/instancesv2/')

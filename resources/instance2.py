@@ -58,7 +58,7 @@ class Task(Resource):
             return {"state": state, "reason": {}, "log": ""}, 200
 
         if state == "SUCCESS":
-            result = requests.get("http://localhost:8000/api/v1/tasks/%s/result" % task_id,
+            result = requests.get("http://terrestrial_api_1:8000/api/v1/tasks/%s/result" % task_id,
                                   headers={'Authorization': 'Token dev'}).content.decode()
             if result.find("Apply complete!") != -1:
                 return {"state": "success", "reason": {}, "log": result}, 201

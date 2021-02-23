@@ -54,21 +54,20 @@ class Task(Resource):
                                  headers={'Authorization': 'Token dev'})
         state = response.content.decode()
 
-        if state == "PENDING":
+        if state == "PENDING" or state == "STARTED":
             return {"state": state, "reason": {}, "log": ""}, 200
-
         if state == "SUCCESS":
             result = requests.get("http://terrestrial_api_1:8000/api/v1/tasks/%s/result" % task_id,
                                   headers={'Authorization': 'Token dev'}).content.decode()
             if result.find("Apply complete!") != -1:
-                return {"state": "success", "reason": {}, "log": result}, 201
+                return {"state": state, "reason": {}, "log": result}, 201
 
             if result.find("Error creating OpenStack") != -1:
                 pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}')
                 print("reason", result)
                 reason, _ = decoder().raw_decode(pattern.findall(result)[0])
                 keys = [i for i in reason.keys()]
-                return {"state": "error", "reason": reason[keys[0]], "log": result}, 201
+                return {"state": "ERROR", "reason": reason[keys[0]], "log": result}, 201
 
         return {"state": state, "reason": {}, "log": ""}, 200
 

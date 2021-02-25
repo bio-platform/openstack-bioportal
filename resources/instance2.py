@@ -9,39 +9,42 @@ from flask import request
 from flask_restful import Resource
 from flask import session as flask_session
 
-from schema import StartServerSchema
+from schema import StartTerraformSchema
 from Connection import connect
 import requests
 
 
 class Instance2(Resource):
-
+    @staticmethod
+    def check_configuration(config):
+        return config
 
     @staticmethod
     def post():
         connection = connect(flask_session['token'], flask_session['project_id'])
-        data = StartServerSchema().load(request.json)
+        data = StartTerraformSchema().load(request.json)
 
-        image = connection.compute.find_image(data["image"])
+        configuration = Instance2.check_configuration(data["configuration"])
         flavor = connection.compute.find_flavor(data["flavor"])
         network = connection.network.find_network(data["network_id"])
         key_pair = connection.compute.find_keypair(data["key_name"])
 
-        if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
+        if (configuration is None) or (flavor is None) or (network is None) or (key_pair is None):
             return {"message": "resource not found"}, 400
 
         user_variables = {
-            "instance_name": "data",
+            "instance_name": data["instance_name"],
             "key_pair": key_pair.name,
             "network_id": network.id,
             "user_name": data["metadata"]["name"],
             "user_email": data["metadata"]["email"],
-            "floating_ip": "78.128.250.94",
+            "floating_ip": data["floating_ip"],
             "token": connection.authorize()
         }
-        response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/bioconductor/apply?async",
-                             headers={'Authorization': 'Token dev'},
-                             data=user_variables)
+        response = requests.post("http://localhost:5000/api/v1/configurations/%s/apply?async"
+                                 % data["configuration"],
+                                 headers={'Authorization': 'Token dev'},
+                                 data=user_variables)
         return {"id": response.content.decode()}, response.status_code
 
 
@@ -50,14 +53,14 @@ class Task(Resource):
     @staticmethod
     def get(task_id):
         connection = connect(flask_session['token'], flask_session['project_id'])
-        response = requests.get("http://terrestrial_api_1:8000/api/v1/tasks/"+task_id,
-                                 headers={'Authorization': 'Token dev'})
+        response = requests.get("http://localhost:5000/api/v1/tasks/" + task_id,
+                                headers={'Authorization': 'Token dev'})
         state = response.content.decode()
 
         if state == "PENDING" or state == "STARTED":
             return {"state": state, "reason": {}, "log": ""}, 200
         if state == "SUCCESS":
-            result = requests.get("http://terrestrial_api_1:8000/api/v1/tasks/%s/result" % task_id,
+            result = requests.get("http://localhost:5000/api/v1/tasks/%s/result" % task_id,
                                   headers={'Authorization': 'Token dev'}).content.decode()
             if result.find("Apply complete!") != -1:
                 return {"state": state, "reason": {}, "log": result}, 201
@@ -70,4 +73,3 @@ class Task(Resource):
                 return {"state": "ERROR", "reason": reason[keys[0]], "log": result}, 201
 
         return {"state": state, "reason": {}, "log": ""}, 200
-

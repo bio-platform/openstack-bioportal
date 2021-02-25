@@ -20,10 +20,11 @@ class TestPost(unittest.TestCase):
         response = self.app.post("/instancesv2/",
                                  headers={'Cookie': self.login.headers['Set-Cookie']},
                                  json={"flavor": "standard.2core-16ram",
-                                       "image": "cirros-0.4.0-x86_64",
+                                       "configuration": "bioconductor",
                                        "key_name": "zenbook mint",
-                                       "servername": "new_server_1",
+                                       "instance_name": "new_server_1",
                                        "network_id": "03b21c24-910f-4ec5-a8f3-419db219b383",
+                                       "floating_ip": "78.128.250.94",
                                        "metadata": {"name": "xcermak5",
                                                     "email": "email@"}})
         print(response.json.get("id"))
@@ -38,8 +39,8 @@ class TestGet(unittest.TestCase):
         self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
-        task_id = "c33d93df-cc79-4cee-81d9-2d6964348003"
-        response = self.app.get("/instancesv2/tasks/"+task_id,
+        task_id = "98d31028-8622-4d50-80cb-654c9690ae60"
+        response = self.app.get("/tasks/%s/" %task_id,
                                  headers={'Cookie': self.login.headers['Set-Cookie']},
                                  )
         print(response.json, response.status_code)

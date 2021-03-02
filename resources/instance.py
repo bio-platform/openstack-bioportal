@@ -65,7 +65,7 @@ class Instance(Resource):
             text = encodeutils.safe_encode(req.text.encode("utf-8"))
             init_script = base64.b64encode(text).decode("utf-8")
         else: 
-            init_script = None
+            init_script = ""
         
         server = connection.compute.create_server(
             name=json["servername"],

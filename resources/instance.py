@@ -54,12 +54,21 @@ class Instance(Resource):
         network = connection.network.find_network(json["network_id"])
         key_pair = connection.compute.find_keypair(json["key_name"])
 
-        req = requests.get( "https://raw.githubusercontent.com/bio-platform/bio-class/master/install/cloud-init-bioconductor-image.sh")
-        text = encodeutils.safe_encode(req.text.encode("utf-8"))
-        init_script = base64.b64encode(text).decode("utf-8")
-
         if (image is None) or (flavor is None) or (network is None) or (key_pair is None):
             return {"message": "resource not found"}, 400
+        path = ""
+        if image.name == "debian-10-x86_64_bioconductor":
+            req = requests.get("https://raw.githubusercontent.com/bio-platform/bio-class-deb10/main/install/cloud-init-bioconductor-image.sh")
+            text = encodeutils.safe_encode(req.text.encode("utf-8"))
+            init_script = base64.b64encode(text).decode("utf-8")
+        else if image.name == "debian-9-x86_64_bioconductor":
+            path = 
+            req = requests.get("https://raw.githubusercontent.com/bio-platform/bio-class/master/install/cloud-init-bioconductor-image.sh")
+            text = encodeutils.safe_encode(req.text.encode("utf-8"))
+            init_script = base64.b64encode(text).decode("utf-8")
+        else: 
+            init_script = None
+        
         server = connection.compute.create_server(
             name=json["servername"],
             image_id=image.id,

@@ -61,7 +61,7 @@ class Instance(Resource):
             req = requests.get("https://raw.githubusercontent.com/bio-platform/bio-class-deb10/main/install/cloud-init-bioconductor-image.sh")
             text = encodeutils.safe_encode(req.text.encode("utf-8"))
             init_script = base64.b64encode(text).decode("utf-8")
-        else if image.name == "debian-9-x86_64_bioconductor":
+        elif image.name == "debian-9-x86_64_bioconductor":
             path = 
             req = requests.get("https://raw.githubusercontent.com/bio-platform/bio-class/master/install/cloud-init-bioconductor-image.sh")
             text = encodeutils.safe_encode(req.text.encode("utf-8"))

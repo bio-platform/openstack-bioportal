@@ -19,27 +19,24 @@ class Instance2(Resource):
     @staticmethod
     def check_variables(config_name, input_variables, connection):
 
-        conf, code = Configuration.get(config_name)
+        conf, code= Configuration.get(config_name)
         if code == 404:
             return 1
-
         variables = []
-        for var in conf["variables"]:
+        for _, var in conf["variables"].items():
             variables += var
-
         for variable_name in variables:
             if input_variables.get(variable_name) is None:
                 return 1
-
         for key, value in input_variables.items():
             if key == "flavor":
-                if connection.compute.find_flavor(key) is None:
+                if connection.compute.find_flavor(value) is None:
                     return 1
             if key == "local_network_id":
-                if connection.network.find_network(key) is None:
+                if connection.network.find_network(value) is None:
                      return  1
             if key == "ssh":
-                if connection.compute.find_keypair(key) is None:
+                if connection.compute.find_keypair(value) is None:
                     return 1
         return 0
 
@@ -78,10 +75,9 @@ class Instance2(Resource):
         """
         connection = connect(flask_session['token'], flask_session['project_id'])
         data = StartTerraformSchema().load(request.json)
-
+        data["input_variables"]["token"] = connection.authorize()
         if Instance2.check_variables(data["name"], data["input_variables"], connection):
             return {"message": "resource not found"}, 400
-
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/apply?async"
                                  % data["name"],
                                  headers={'Authorization': 'Token dev'},

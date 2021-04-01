@@ -3,7 +3,7 @@ from openstack_resources import connection_types
 
 """Set of all marshmallow schemes used in this project"""
 class StartTerraformSchema(Schema):
-    configuration = fields.String(required=True)
+    name = fields.String(required=True)
     input_variables = fields.Dict(required=True)
 
 

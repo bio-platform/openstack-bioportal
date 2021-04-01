@@ -79,11 +79,11 @@ class Instance2(Resource):
         connection = connect(flask_session['token'], flask_session['project_id'])
         data = StartTerraformSchema().load(request.json)
 
-        if Instance2.check_variables(data["configuration"], data["input_variables"], connection):
+        if Instance2.check_variables(data["name"], data["input_variables"], connection):
             return {"message": "resource not found"}, 400
 
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/apply?async"
-                                 % data["configuration"],
+                                 % data["name"],
                                  headers={'Authorization': 'Token dev'},
                                  data=data["input_variables"])
         return {"id": response.content.decode()}, response.status_code

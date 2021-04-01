@@ -5,7 +5,6 @@ from Token import token
 from app import app
 from common.test.values import instance_id, project_id
 
-import requests
 
 class TestPost(unittest.TestCase):
 
@@ -19,15 +18,19 @@ class TestPost(unittest.TestCase):
     def test_success(self):
         response = self.app.post("/instancesv2/",
                                  headers={'Cookie': self.login.headers['Set-Cookie']},
-                                 json={"flavor": "standard.2core-16ram",
-                                       "configuration": "bioconductor",
-                                       "key_name": "zenbook mint",
-                                       "instance_name": "new_server_1",
-                                       "network_id": "03b21c24-910f-4ec5-a8f3-419db219b383",
-                                       "floating_ip": "78.128.250.94",
-                                       "metadata": {"name": "xcermak5",
-                                                    "email": "email@"}})
+                                 json={"name": "bioconductor",
+                                       "input_variables": {
+                                           "flavor": "standard.2core-16ram",
+                                           "ssh": "zenbook mint",
+                                           "instance_name": "new_server_1",
+                                           "local_network_id": "03b21c24-910f-4ec5-a8f3-419db219b383",
+                                           "floating_ip": "78.128.250.94",
+                                           "user_name": "xcermak5",
+                                           "user_email": "email@"
+                                        }})
+
         print(response.json.get("id"))
+        print(response)
         assert response.status_code == 201
         assert response.json.get("id") is not None
 
@@ -39,7 +42,7 @@ class TestGet(unittest.TestCase):
         self.login = self.app.put("/", json={"project_id": project_id})
 
     def test_success(self):
-        task_id = "98d31028-8622-4d50-80cb-654c9690ae60"
+        task_id = "a72755ca-b60a-49f3-be76-a0f4436d5e60"
         response = self.app.get("/tasks/%s/" %task_id,
                                  headers={'Cookie': self.login.headers['Set-Cookie']},
                                  )

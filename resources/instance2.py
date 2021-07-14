@@ -34,7 +34,7 @@ class Instance2(Resource):
                     return 1
             if key == "local_network_id":
                 if connection.network.find_network(value) is None:
-                     return  1
+                     return 1
             if key == "ssh":
                 if connection.compute.find_keypair(value) is None:
                     return 1
@@ -76,8 +76,8 @@ class Instance2(Resource):
         connection = connect(flask_session['token'], flask_session['project_id'])
         data = StartTerraformSchema().load(request.json)
         data["input_variables"]["token"] = connection.authorize()
-        if Instance2.check_variables(data["name"], data["input_variables"], connection):
-            return {"message": "resource not found"}, 400
+        #if Instance2.check_variables(data["name"], data["input_variables"], connection):
+        #    return {"message": "resource not found"}, 400
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/apply?async"
                                  % data["name"],
                                  headers={'Authorization': 'Token dev'},

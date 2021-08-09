@@ -14,6 +14,7 @@ from resources.router import Router
 from resources.project import Project
 from resources.login import Login
 from resources.image import Image
+from resources.instruction import Instruction
 from resources.configuration import Configuration
 import os
 import logging
@@ -95,6 +96,9 @@ api.add_resource(Router, '/routers/', '/routers/<string:router_id>/')
 
 api.add_resource(Project, '/projects/')
 api.add_resource(Task, '/tasks/', '/tasks/<string:task_id>/')
+
+api.add_resource(Instruction, '/instructions/<string:instance_id>/')
+
 
 api.add_resource(Image, '/images/', '/images/<string:image_id>/')
 api.add_resource(Configuration, "/configurations/")

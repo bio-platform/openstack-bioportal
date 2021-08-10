@@ -2,7 +2,7 @@ import requests
 from flask_restful import Resource
 from Connection import connect
 from flask import session
-
+from .configuration import Configuration
 
 class Instruction(Resource):
 
@@ -50,11 +50,16 @@ class Instruction(Resource):
 
 
         """
+        INSTRUCTIONS = "instructions"
         connection = connect(session['token'], session['project_id'])
-        if instance_id is not None:
-            server = connection.compute.find_server(instance_id)
-            print(connection.compute.find_image(server.image.id).name)
-            print(server.name)
-            if server is None:
-                return {}, 404
-        return {}, 200
+        if instance_id is None:
+            return {}, 404
+
+        server = connection.compute.find_server(instance_id)
+        if server is None:
+            return {}, 404
+        meta = server.metadata
+        if meta.get(INSTRUCTIONS) is None:
+            return {}, 404
+        conf = Configuration.get(meta.get(INSTRUCTIONS))
+        return {"instructions": conf[0][INSTRUCTIONS]}, 200

@@ -56,10 +56,17 @@ class Instruction(Resource):
             return {}, 404
 
         server = connection.compute.find_server(instance_id)
+        fip = None
+        for networks in server.addresses.values():
+            for ip in networks:
+                if ip["OS-EXT-IPS:type"] == "floating":
+                    fip = ip["addr"]
+        if fip is None:
+            return {"instructions": None, "floating_ip": None}, 200
         if server is None:
             return {}, 404
         meta = server.metadata
         if meta.get(INSTRUCTIONS) is None:
             return {}, 404
         conf = Configuration.get(meta.get(INSTRUCTIONS))
-        return {"instructions": conf[0][INSTRUCTIONS]}, 200
+        return {"instructions": conf[0][INSTRUCTIONS], "floating_ip": fip}, 200

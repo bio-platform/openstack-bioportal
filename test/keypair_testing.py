@@ -44,7 +44,7 @@ class TestPost(unittest.TestCase):
         response = self.app.post("/keypairs/",
                                  json={
                                      "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8/gLmsGBgpxqGUy1a4G+sXNRhSCbQgJXpOc1M6Zy/3EH0VsE+mGsFsb2dD4j/FRaSzw9oaKkCsSJn9caTVaPODSq9vV6qhMZyZxiCxB+qmcpsIOqg0XpoeXP/zzymYVATPtBMHFVkfcXaohEetzxUtxAtacYJdlIo9EyPRSfxpA+l3tpCEfWlqFWOIEdxjafagN4IUj//7SeCXo++QgnCngpiF0E6BLoVaOzLHJC+HLvzZmH8d3LiJm7RWHiKqf14VHtaNkbDxi7A+ckobW4jRPzVEUzn3kORfFN96dbovyziJmIOW8i+WzOGGYX/lPVL6FZ890oTExhuTWURefVZ andrej",
-                                     "keyname": "unused_name"},
+                                     "name": "unused_name"},
                                  headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 201 and response.json is not None
 
@@ -52,14 +52,14 @@ class TestPost(unittest.TestCase):
         response = self.app.post("/keypairs/",
                                  json={
                                      "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8/gLmsGBgpxqGUy1a4G+sXNRhSCbQgJXpOc1M6Zy/3EH0VsE+mGsFsb2dD4j/FRaSzw9oaKkCsSJn9caTVaPODSq9vV6qhMZyZxiCxB+qmcpsIOqg0XpoeXP/zzymYVATPtBMHFVkfcXaohEetzxUtxAtacYJdlIo9EyPRSfxpA+l3tpCEfWlqFWOIEdxjafagN4IUj//7SeCXo++QgnCngpiF0E6BLoVaOzLHJC+HLvzZmH8d3LiJm7RWHiKqf14VHtaNkbDxi7A+ckobW4jRPzVEUzn3kORfFN96dbovyziJmIOW8i+WzOGGYX/lPVL6FZ890oTExhuTWURefVZ andrej",
-                                     "keyname": "cba"},
+                                     "name": "unused_name"},
                                  headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 200 and response.json is not None
 
     def test_failure_invalid_key(self):
         response = self.app.post("/keypairs/",
                                  json={"public_key": "abc",
-                                       "keyname": "cba"},
+                                       "name": "cba"},
                                  headers={'Cookie': self.login.headers['Set-Cookie']})
         assert response.status_code == 400 and response.json is not None
 

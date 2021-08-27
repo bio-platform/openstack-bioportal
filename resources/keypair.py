@@ -46,7 +46,7 @@ class Keypair(Resource):
         """
         connection = connect(session["token"], session["project_id"])
         load = CreateKeypairSchema().load(request.json)
-        key_pair = connection.compute.find_keypair(load["key_name"])
+        key_pair = connection.compute.find_keypair(load["name"])
         if not key_pair:
             return connection.compute.create_keypair(**load), 201
 

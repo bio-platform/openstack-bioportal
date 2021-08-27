@@ -29,7 +29,7 @@ class DeleteMetadataSchema(Schema):
 
 class CreateKeypairSchema(Schema):
     public_key = fields.String(required=False)
-    keyname = fields.String(missing="default_key")
+    name = fields.String(missing="default_key")
 
 
 class NetworkSchema(Schema):

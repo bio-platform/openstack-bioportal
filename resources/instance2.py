@@ -19,7 +19,7 @@ class Instance2(Resource):
     @staticmethod
     def check_variables(config_name, input_variables, connection):
 
-        conf, code= Configuration.get(config_name)
+        conf, code = Configuration.get(config_name)
         if code == 404:
             return 1
         variables = []
@@ -34,13 +34,11 @@ class Instance2(Resource):
                     return 1
             if key == "local_network_id":
                 if connection.network.find_network(value) is None:
-                     return 1
+                    return 1
             if key == "ssh":
                 if connection.compute.find_keypair(value) is None:
                     return 1
         return 0
-
-
 
     @staticmethod
     def post():
@@ -77,10 +75,10 @@ class Instance2(Resource):
         data = StartTerraformSchema().load(request.json)
         data["input_variables"]["token"] = connection.authorize()
         workspace = data["input_variables"]["user_email"]
-        #if Instance2.check_variables(data["name"], data["input_variables"], connection):
+        # if Instance2.check_variables(data["name"], data["input_variables"], connection):
         #    return {"message": "resource not found"}, 400
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/apply?async"
-                                 %data["name"] %workspace,
+                                 % (data["name"], workspace),
                                  headers={'Authorization': 'Token dev'},
                                  data=data["input_variables"])
         return {"id": response.content.decode()}, response.status_code

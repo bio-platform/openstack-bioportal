@@ -16,6 +16,7 @@ class TestPost(unittest.TestCase):
         print(self.login.headers)
 
     def test_success(self):
+        print("aa")
         response = self.app.post("/instancesv2/",
                                  headers={'Cookie': self.login.headers['Set-Cookie']},
                                  json={"name": "bioconductor",
@@ -26,7 +27,7 @@ class TestPost(unittest.TestCase):
                                            "local_network_id": "03b21c24-910f-4ec5-a8f3-419db219b383",
                                            "floating_ip": "78.128.250.94",
                                            "user_name": "xcermak5",
-                                           "user_email": "email@"
+                                           "user_email": "485555@muni.cz"
                                         }})
 
         print(response.json.get("id"))

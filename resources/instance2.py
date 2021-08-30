@@ -14,6 +14,9 @@ from schema import StartTerraformSchema
 from Connection import connect
 import requests
 
+from flask import current_app as app
+
+
 
 class Instance2(Resource):
     @staticmethod
@@ -72,7 +75,9 @@ class Instance2(Resource):
 
         """
         connection = connect(flask_session['token'], flask_session['project_id'])
+        app.logger.info("Instancev2 successfully reached")
         data = StartTerraformSchema().load(request.json)
+        app.logger.info("Loaded data: %s", %data)
         data["input_variables"]["token"] = connection.authorize()
         workspace = data["input_variables"]["user_email"]
         # if Instance2.check_variables(data["name"], data["input_variables"], connection):
@@ -81,6 +86,7 @@ class Instance2(Resource):
                                  % (data["name"], workspace),
                                  headers={'Authorization': 'Token dev'},
                                  data=data["input_variables"])
+        app.logger.info("Apply result: %s", %response.content.decode())
         return {"id": response.content.decode()}, response.status_code
 
 

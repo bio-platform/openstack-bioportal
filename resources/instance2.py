@@ -10,7 +10,7 @@ from flask_restful import Resource
 from flask import session as flask_session
 
 from .configuration import Configuration
-from schema import StartTerraformSchema
+from schema import StartTerraformSchema, DeleteTerraformSchema
 from Connection import connect
 import requests
 
@@ -89,6 +89,17 @@ class Instance2(Resource):
         app.logger.info("Apply result: %s" %response.content.decode())
         return {"id": response.content.decode()}, response.status_code
 
+    @staticmethod
+    def delete():
+        connection = connect(flask_session['token'], flask_session['project_id'])
+        data = DeleteTerraformSchema().load(request.json)
+        workspace = data["user_email"]
+        workspace = workspace.split("@")[0]
+        response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/destroy"
+                                 % (data["name"], workspace),
+                                 headers={'Authorization': 'Token dev'},
+                                 data={"token": connection.authorize()})
+        return {"response": response.content.decode()}, response.status_code
 
 class Task(Resource):
 

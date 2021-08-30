@@ -6,6 +6,9 @@ class StartTerraformSchema(Schema):
     name = fields.String(required=True)
     input_variables = fields.Dict(required=True)
 
+class DeleteTerraformSchema(Schema):
+    name = fields.String(required=True)
+    user_email = fields.String(required=True)
 
 class StartServerSchema(Schema):
     flavor = fields.String(required=True)
@@ -35,6 +38,11 @@ class CreateKeypairSchema(Schema):
 class NetworkSchema(Schema):
     external_network = fields.String(required=True)
 
+
+class TerraformAttachIP(Schema):
+    user_email = fields.String(required=True)
+    floating_ip = fields.String(required=True)
+    instance_id = fields.String(required=True)
 
 class FloatingIpSchema(Schema):
     network_id = fields.String(required=True)

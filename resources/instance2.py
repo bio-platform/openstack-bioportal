@@ -17,7 +17,6 @@ import requests
 from flask import current_app as app
 
 
-
 class Instance2(Resource):
     @staticmethod
     def check_variables(config_name, input_variables, connection):
@@ -80,6 +79,7 @@ class Instance2(Resource):
         app.logger.info("Loaded data: %s" %data)
         data["input_variables"]["token"] = connection.authorize()
         workspace = data["input_variables"]["user_email"]
+        workspace = workspace.split("@")[0]
         # if Instance2.check_variables(data["name"], data["input_variables"], connection):
         #    return {"message": "resource not found"}, 400
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/apply?async"

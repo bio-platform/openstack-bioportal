@@ -94,7 +94,7 @@ class Instance2(Resource):
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/destroy"
                                  % (data["name"], data["workspace_id"]),
                                  headers={'Authorization': 'Token dev'},
-                                 data={"token": connection.authorize()})
+                                 data={"token": connection.authorize(), "workspace_id": data["workspace_id"]})
         return {"response": response.content.decode()}, response.status_code
 
 class Task(Resource):

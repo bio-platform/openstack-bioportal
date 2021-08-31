@@ -13,7 +13,7 @@ from .configuration import Configuration
 from schema import StartTerraformSchema, DeleteTerraformSchema
 from Connection import connect
 import requests
-
+from uuid import uuid1
 from flask import current_app as app
 
 
@@ -76,27 +76,23 @@ class Instance2(Resource):
         connection = connect(flask_session['token'], flask_session['project_id'])
         app.logger.info("Instancev2 successfully reached")
         data = StartTerraformSchema().load(request.json)
-        app.logger.info("Loaded data: %s" %data)
+        app.logger.info("Loaded data: %s" % data)
         data["input_variables"]["token"] = connection.authorize()
-        workspace = data["input_variables"]["user_email"]
-        workspace = workspace.split("@")[0]
-        # if Instance2.check_variables(data["name"], data["input_variables"], connection):
-        #    return {"message": "resource not found"}, 400
+        data["input_variables"]["workspace_id"] = data["input_variables"]["user_email"].split("@")[0] + str(uuid1())
+
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/apply?async"
-                                 % (data["name"], workspace),
+                                 % (data["name"], data["input_variables"]["workspace_id"]),
                                  headers={'Authorization': 'Token dev'},
                                  data=data["input_variables"])
-        app.logger.info("Apply result: %s" %response.content.decode())
+        app.logger.info("Apply result: %s" % response.content.decode())
         return {"id": response.content.decode()}, response.status_code
 
     @staticmethod
     def delete():
         connection = connect(flask_session['token'], flask_session['project_id'])
         data = DeleteTerraformSchema().load(request.json)
-        workspace = data["user_email"]
-        workspace = workspace.split("@")[0]
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/destroy"
-                                 % (data["name"], workspace),
+                                 % (data["name"], data["workspace_id"]),
                                  headers={'Authorization': 'Token dev'},
                                  data={"token": connection.authorize()})
         return {"response": response.content.decode()}, response.status_code

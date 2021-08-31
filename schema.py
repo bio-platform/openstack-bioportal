@@ -8,7 +8,7 @@ class StartTerraformSchema(Schema):
 
 class DeleteTerraformSchema(Schema):
     name = fields.String(required=True)
-    user_email = fields.String(required=True)
+    workspace_id = fields.String(required=True)
 
 class StartServerSchema(Schema):
     flavor = fields.String(required=True)

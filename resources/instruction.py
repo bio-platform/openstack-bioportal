@@ -50,23 +50,23 @@ class Instruction(Resource):
 
 
         """
-        INSTRUCTIONS = "instructions"
+        NAME = "name"
         connection = connect(session['token'], session['project_id'])
         if instance_id is None:
             return {}, 404
-
         server = connection.compute.find_server(instance_id)
         fip = None
         for networks in server.addresses.values():
             for ip in networks:
                 if ip["OS-EXT-IPS:type"] == "floating":
                     fip = ip["addr"]
+        data = {"instructions": None, "floating_ip": None, "network_id": None}
         if fip is None:
-            return {"instructions": None, "floating_ip": None}, 200
+            return data, 200
         if server is None:
             return {}, 404
         meta = server.metadata
-        if meta.get(INSTRUCTIONS) is None:
+        if meta.get(NAME) is None:
             return {}, 404
-        conf = Configuration.get(meta.get(INSTRUCTIONS))
-        return {"instructions": conf[0][INSTRUCTIONS], "floating_ip": fip}, 200
+        conf = Configuration.get(meta.get(NAME))
+        return {"instructions": conf[0][NAME], "floating_ip": fip, }, 200

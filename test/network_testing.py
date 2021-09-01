@@ -76,6 +76,24 @@ class TestFloatingIpPost(unittest.TestCase):
         assert response.status_code == 400 and "message" in response.json.keys()
 
 
+class TestAttachFloatingIp(unittest.TestCase):
+    def setUp(self):
+        app.testing = True
+        self.app = app.test_client()
+        self.login = self.app.post("/", json={"token": token})
+        self.login = self.app.put("/", json={"project_id": project_id})
+
+    def test_success(self):
+        response = self.app.put("/floating_ips/",
+                                 json={"instance_id": "2e5609d4-4d4b-4cab-bff9-b4299cbd7486",
+                                       "floating_ip": "78.128.250.94"},
+                                 headers={'Cookie': self.login.headers['Set-Cookie']})
+
+        print(response.json, response.status_code)
+        assert response.status_code == 201
+
+
+
 class TestRoutersList(unittest.TestCase):
     def setUp(self):
         app.testing = True

@@ -2,10 +2,23 @@ from flask import request, session
 from flask_restful import Resource
 
 from Connection import connect
-from schema import FloatingIpSchema
+from schema import FloatingIpSchema, AttachFloatingIpSchema
 
 
 class FloatingIp(Resource):
+
+    @staticmethod
+    def put():
+
+        connection = connect(session["token"], session["project_id"])
+        load = AttachFloatingIpSchema().load(request.json)
+        server = connection.compute.find_server(load["instance_id"])
+        if server is None:
+            return {}, 404
+        connection.compute.add_floating_ip_to_server(
+            server, load["floating_ip"]
+        )
+        return {}, 201
 
     @staticmethod
     def post():

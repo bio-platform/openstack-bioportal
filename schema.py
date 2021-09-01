@@ -44,6 +44,10 @@ class TerraformAttachIP(Schema):
     floating_ip = fields.String(required=True)
     instance_id = fields.String(required=True)
 
+class AttachFloatingIpSchema(Schema):
+    instance_id = fields.String(required=True)
+    floating_ip = fields.String(required=True)
+
 class FloatingIpSchema(Schema):
     network_id = fields.String(required=True)
     instance_id = fields.String(required=True)

@@ -101,7 +101,7 @@ api.add_resource(Instruction, '/instructions/<string:instance_id>/')
 
 
 api.add_resource(Image, '/images/', '/images/<string:image_id>/')
-api.add_resource(Configuration, "/configurations/")
+api.add_resource(Configuration, "/configurations/", "/configurations/<string:name>")
 api.add_resource(Instance2, '/instancesv2/')
 api.add_resource(Login, '/')
 

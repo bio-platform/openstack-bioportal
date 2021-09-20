@@ -69,4 +69,4 @@ class Instruction(Resource):
         if meta.get(NAME) is None:
             return {}, 404
         conf = Configuration.get(meta.get(NAME))
-        return {"instructions": conf[0][NAME], "floating_ip": fip, }, 200
+        return {"instructions": conf[0]["instructions"], "floating_ip": fip, }, 200

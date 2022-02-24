@@ -66,7 +66,7 @@ class Instruction(Resource):
         if server is None:
             return {}, 404
         meta = server.metadata
-        if meta.get(NAME) is None:
-            return {}, 404
-        conf = Configuration.get(meta.get(NAME))
-        return {"instructions": conf[0]["instructions"], "floating_ip": fip, }, 200
+        instructions = "Sorry, this machine was probably not created on this portal, hence cannnot provide instructions"\
+            if meta.get(NAME) is None else  Configuration.get(meta.get(NAME))[0].get("instructions")
+        
+        return {"instructions": instructions, "floating_ip": fip}, 200

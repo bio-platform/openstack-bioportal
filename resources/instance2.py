@@ -91,6 +91,12 @@ class Instance2(Resource):
     def delete():
         connection = connect(flask_session['token'], flask_session['project_id'])
         data = DeleteTerraformSchema().load(request.json)
+        
+        requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/detach_fip"
+                                 % (data["name"], data["workspace_id"]),
+                                 headers={'Authorization': 'Token dev'},
+                                 data={"token": connection.authorize(), "workspace_id": data["workspace_id"]})
+        
         response = requests.post("http://terrestrial_api_1:8000/api/v1/configurations/%s/%s/destroy?async"
                                  % (data["name"], data["workspace_id"]),
                                  headers={'Authorization': 'Token dev'},
